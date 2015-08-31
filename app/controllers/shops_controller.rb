@@ -8,7 +8,7 @@ before_action :set_products, only: [:show]
     end
 
     def shop_params
-      params.require(:shop).permit(:name)
+      params.require(:shop).permit(:name, :image, :description)
     end
 end
 
