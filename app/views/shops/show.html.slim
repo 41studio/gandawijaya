@@ -1,16 +1,26 @@
-p#notice = notice
-h1
-  = @shop.name
-hr
-.row
-- @products.each do |product|
-  .col-md-4
-    p = link_to (image_tag product.galleries.first.image.url, size: "120x100"), product
-    p = link_to product.name, product
-    p = product.price
-    p = truncate product.description, length: 120
-    p = link_to 'Edit', edit_product_path(id: product,shop_id: @shop)
+.show
+  p#notice = notice
+  .show-detail-image
+    = image_tag @shop.image.url, size: "240x200"
+  h1
+    = @shop.name
+  = @shop.description
+  hr
+  br
+  br
+  br
+  br
+  br
+  h4 Product
+  .row
+  - @products.each do |product|
+    .col-md-4
+      p = link_to (image_tag product.galleries.first.image.url, size: "120x100"), product
+      p = link_to product.name, product
+      p = product.price
+      p = truncate product.description, length: 120
+      p = link_to 'Edit', edit_product_path(id: product,shop_id: @shop)
 
-br
-p
-  = link_to "Add product", new_product_path(shop_id: @shop)
+  br
+  p
+    = link_to "Add product", new_product_path(shop_id: @shop)
