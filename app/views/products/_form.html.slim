@@ -7,5 +7,11 @@
     = f.input :description
     = f.hidden_field :shop_id, value: @shop.id
 
+    h3 Tasks
+    #tasks
+      = f.simple_fields_for :galleries do |gallery|
+        = render 'gallery_fields', f: gallery
+      .links
+        = link_to_add_association 'add image', f, :galleries
   .form-actions
     = f.button :submit

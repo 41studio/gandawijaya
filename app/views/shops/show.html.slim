@@ -5,6 +5,7 @@ p
   = @shop.name
 
 - @products.each do |product|
+  p = image_tag product.galleries.first.image.url
   p = product.name
   p = product.price
   p = product.description
