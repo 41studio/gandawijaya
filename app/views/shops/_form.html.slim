@@ -1,12 +1,8 @@
-= form_for @shop do |f|
-  - if @shop.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@shop.errors.count, "error")} prohibited this shop from being saved:"
-      ul
-        - @shop.errors.full_messages.each do |message|
-          li = message
+= simple_form_for(@shop) do |f|
+  = f.error_notification
 
-  .field
-    = f.label :name
-    = f.text_field :name
-  .actions = f.submit
+  .form-inputs
+    = f.input :name
+
+  .form-actions
+    = f.button :submit

@@ -4,6 +4,14 @@ p
   strong Name:
   = @shop.name
 
+- @products.each do |product|
+  p = product.name
+  p = product.price
+  p = product.description
+
+p
+  = link_to "Add product", new_product_path(shop_id: @shop)
+
 = link_to 'Edit', edit_shop_path(@shop)
 '|
 = link_to 'Back', shops_path
