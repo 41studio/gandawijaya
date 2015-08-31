@@ -2,10 +2,10 @@
   = f.error_notification
 
   .form-inputs
-    = f.input :name
-    = f.input :price
-    = f.input :description
-    = f.hidden_field :shop_id, value: @shop.id
+    = f.input :name, input_html: { class: "form-control" }
+    = f.input :price, input_html: { class: "form-control" }
+    = f.input :description, input_html: { class: "form-control" }
+    = f.hidden_field :shop_id, value: @shop.id, input_html: { class: "form-control" }
 
     h3 Tasks
     #tasks
@@ -14,4 +14,4 @@
       .links
         = link_to_add_association 'add image', f, :galleries
   .form-actions
-    = f.button :submit
+    = f.button :submit,  class: "btn btn-primary"

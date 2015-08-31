@@ -1,10 +1,14 @@
 class ProductsController < InheritedResources::Base
-before_action :set_shop, only: [:new]
+before_action :set_shop_from_params, only: [:new, :edit]
+before_action :set_shop, only: [:show]
 
   private
+    def set_shop_from_params
+      @shop = Shop.find(params[:shop_id])
+    end
 
     def set_shop
-      @shop = Shop.find(params[:shop_id])
+      @shop = resource.shop
     end
 
     def product_params
