@@ -1,15 +1,27 @@
-p#notice = notice
+.show
+  p#notice = notice
+  .info
+    .thumbnail
+      = image_tag @galleries.first.image.url
+    p
+      strong Name:
+      = @product.name
+    p
+      strong Price:
+      = @product.price
+    p
+      strong Description:
+      = @product.description
 
-p
-  strong Name:
-  = @product.name
-p
-  strong Price:
-  = @product.price
-p
-  strong Description:
-  = @product.description
+  hr
+  br
+  br
+  br
+  .row
+  - @galleries.each do |gallery|
+    .col-md-2.thumbnail
+      = image_tag gallery.image.url, size: "100x100"
 
-= link_to 'Edit', edit_product_path(@product)
-'|
-= link_to 'Back', @shop
+  = link_to 'Edit', edit_product_path(@product)
+  '|
+  = link_to 'Back', @shop

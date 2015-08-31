@@ -1,6 +1,7 @@
 class ProductsController < InheritedResources::Base
 before_action :set_shop_from_params, only: [:new, :edit]
 before_action :set_shop, only: [:show]
+before_action :set_galleries, only: [:show]
 
   private
     def set_shop_from_params
@@ -9,6 +10,10 @@ before_action :set_shop, only: [:show]
 
     def set_shop
       @shop = resource.shop
+    end
+
+    def set_galleries
+      @galleries = resource.galleries
     end
 
     def product_params
