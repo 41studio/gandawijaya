@@ -22,8 +22,8 @@
 Rails.application.routes.draw do
 
   root 'pages#dashboard'
+  devise_for :users, controllers: { sessions: "users/registrations" }
   resources :products
   resources :shops
-
 
  end

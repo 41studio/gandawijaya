@@ -16,6 +16,7 @@ gem 'slim'
 gem 'slim-rails'
 gem 'inherited_resources'
 gem 'less-rails-bootstrap'
+gem 'devise'
 gem 'simple_form'
 gem "cocoon"
 gem 'annotate', '~> 2.6.6'
@@ -26,6 +27,7 @@ gem 'friendly_id'
 group :production do
   gem 'rails_12factor'
 end
+
 
 group :development, :test do
   gem 'byebug'
