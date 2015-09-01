@@ -22,6 +22,8 @@ gem 'annotate', '~> 2.6.6'
 gem 'rack-mini-profiler'
 gem 'ratyrate'
 gem 'friendly_id'
+gem 'activeadmin'
+gem 'devise', '~> 3.5.2'
 
 group :production do
   gem 'rails_12factor'

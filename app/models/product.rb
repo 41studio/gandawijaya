@@ -16,6 +16,7 @@ class Product < ActiveRecord::Base
   friendly_id :name, use: [:slugged, :finders]
   has_many  :galleries, dependent: :destroy
   belongs_to :shop
+  belongs_to :user
 
   accepts_nested_attributes_for :galleries, allow_destroy: true
 end

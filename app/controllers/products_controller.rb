@@ -2,6 +2,9 @@ class ProductsController < InheritedResources::Base
 before_action :set_shop_from_params, only: [:new]
 before_action :set_shop, only: [:show, :edit]
 before_action :set_galleries, only: [:show]
+before_action :authenticate_user!
+
+  
 
   private
     def set_shop_from_params
