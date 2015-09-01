@@ -18,6 +18,10 @@ gem 'inherited_resources'
 gem 'less-rails-bootstrap'
 gem 'simple_form'
 gem "cocoon"
+gem 'annotate', '~> 2.6.6'
+gem 'rack-mini-profiler'
+gem 'ratyrate'
+gem 'friendly_id'
 
 group :development, :test do
   gem 'byebug'
