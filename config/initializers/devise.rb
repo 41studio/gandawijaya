@@ -8,6 +8,7 @@ Devise.setup do |config|
   # by default. You can change it below and use your own secret key.
   # config.secret_key = '2a456c50dc7582a548b3a5ad51aa3920697e5235c0e69cdeac9be709f6bde2f83ebcf59344583a1f5d9654c7314ab3613ceefbd0c6d641cdd47b9b7a42f53d28'
 
+
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
@@ -100,6 +101,7 @@ Devise.setup do |config|
 
   # Setup a pepper to generate the encrypted password.
   # config.pepper = 'd40cb15a36a1c715e18bb418bc75fe1356ab05ec1c85769d9d5d208a909ccb6c25fc2c6082ec8f595a244ecfc061d84b49d8a76e245e276ef1b19d0015a09935'
+
 
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without

@@ -16,6 +16,7 @@ gem 'slim'
 gem 'slim-rails'
 gem 'inherited_resources'
 gem 'less-rails-bootstrap'
+<<<<<<< HEAD
 gem 'simple_form'
 gem "cocoon"
 gem 'annotate', '~> 2.6.6'
