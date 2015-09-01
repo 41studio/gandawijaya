@@ -17,6 +17,6 @@ nav.navbar.navbar-default.navbar-static-top
       li.fb
         = button_to "f", user_omniauth_authorize_path(:facebook),class:"btn btn-sm btn-primary"
       li
-        = button_to "t", root_path(:twitter),class:"btn btn-sm tw"
+        = button_to "t", user_omniauth_authorize_path(:twitter),class:"btn btn-sm tw"
       li
-        = button_to "g", root_path(:google_oauth2),class:"btn btn-sm gg"
+        = button_to "g", user_omniauth_authorize_path(:google_oauth2),class:"btn btn-sm gg"
