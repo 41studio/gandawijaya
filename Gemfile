@@ -23,6 +23,10 @@ gem 'rack-mini-profiler'
 gem 'ratyrate'
 gem 'friendly_id'
 
+group :production do
+  gem 'rails_12factor'
+end
+
 group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
