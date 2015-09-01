@@ -16,8 +16,9 @@ gem 'slim'
 gem 'slim-rails'
 gem 'inherited_resources'
 gem 'less-rails-bootstrap'
-gem 'simple_form'
-gem "cocoon"
+gem 'simple_form', '~> 3.1.1'
+gem 'cocoon'
+gem 'devise'
 
 group :development, :test do
   gem 'byebug'
