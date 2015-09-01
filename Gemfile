@@ -23,6 +23,9 @@ gem 'annotate', '~> 2.6.6'
 gem 'rack-mini-profiler'
 gem 'ratyrate'
 gem 'friendly_id'
+gem 'omniauth-facebook'
+gem 'omniauth-twitter'
+gem "omniauth-google-oauth2"
 
 group :production do
   gem 'rails_12factor'
