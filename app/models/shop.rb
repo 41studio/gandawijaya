@@ -13,6 +13,7 @@
 class Shop < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
+  ratyrate_rateable "review"
   mount_uploader :image, GalleryUploader
 
   has_many :products, dependent: :destroy

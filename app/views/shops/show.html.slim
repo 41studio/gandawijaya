@@ -11,6 +11,11 @@
   br
   br
   br
+  'Reviews :
+  = rating_for @shop, 'review', disable_after_rate: true,
+                                enable_half: true,
+                                half_show: true
+  / = rating_for @shop, "review", disabled: true
   h4 Product
   .row
   - @products.each do |product|

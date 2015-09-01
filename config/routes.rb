@@ -21,6 +21,7 @@
 
 Rails.application.routes.draw do
 
+  post '/rate' => 'rater#create', :as => 'rate'
   root 'pages#dashboard'
   devise_for :users, controllers: { sessions: "users/registrations" }
   resources :products
