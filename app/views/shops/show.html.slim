@@ -4,8 +4,11 @@
     = image_tag @shop.image.url, size: "240x200"
   h1
     = @shop.name
+  'Rating
+  = @shop.reviews.average(:rate_point)
+  br
   = @shop.description
-  = link_to 'Pesan', "#" , class: "btn btn-success", data: {toggle: "modal", target: "#newNotification" }
+  = link_to 'Rate', "#" , class: "btn btn-success", data: {toggle: "modal", target: "#rate" }
   hr
   br
   br
@@ -26,7 +29,7 @@
   p
     = link_to "Add product", new_product_path(shop_id: @shop)
 
-.modal.fade id="newNotification" role="dialog"
+.modal.fade id="rate" role="dialog"
   .modal-dialog
     .modal-content
       .modal-header
