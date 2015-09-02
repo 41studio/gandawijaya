@@ -8,6 +8,8 @@ before_action :set_products, only: [:show]
 
   def show
     @review = Review.new
+    @reviews = resource.reviews
+    @this_is_current_user_shop = current_user.shops.where(user_id: @shop.id) if current_user
     show!
   end
 

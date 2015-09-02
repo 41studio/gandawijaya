@@ -15,6 +15,7 @@ class Product < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
   has_many  :galleries, dependent: :destroy
+  has_many  :reviews, as: :reviewable
   belongs_to :shop
   belongs_to :user
   accepts_nested_attributes_for :galleries, allow_destroy: true

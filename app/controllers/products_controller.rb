@@ -8,6 +8,10 @@ before_action :set_galleries, only: [:show]
     create!
   end
 
+  def show
+    @review = Review.new
+  end
+
   private
     def set_shop_from_params
       @shop = Shop.find(params[:shop_id])

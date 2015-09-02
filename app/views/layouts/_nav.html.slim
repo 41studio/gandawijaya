@@ -9,6 +9,8 @@ nav.navbar.navbar-default.navbar-static-top
         = current_user.username
       li
         = button_to "Log out", destroy_user_session_url, :method => :delete, class:"btn btn-sm btn-primary"
+      li
+        = link_to "open a shop", new_shop_path
     - else
       li.signin
         = button_to "Sign in", new_user_session_path, class:"btn btn-sm btn-primary"

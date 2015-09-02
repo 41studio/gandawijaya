@@ -12,6 +12,10 @@
     p
       strong Description:
       = @product.description
+    'Rating
+    = @product.reviews.average(:rate_point)
+  - unless user_signed_in? && unreviewed_by?(current_user)
+    = link_to 'Rate & Review', "#" , class: "btn btn-success", data: {toggle: "modal", target: "#rate" }
 
   hr
   br
@@ -25,3 +29,6 @@
   = link_to 'Edit', edit_product_path(@product)
   '|
   = link_to 'Back', @shop
+
+= render partial: "shared/modal_reviews", locals: {reviewable_id: @product.id, reviewable_type: "Product"}
+

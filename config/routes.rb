@@ -23,7 +23,8 @@ Rails.application.routes.draw do
 
   post '/reviews/create', to: 'review#create', as: "reviews"
   root 'pages#dashboard'
-  devise_for :users, controllers: { sessions: "users/registrations",
+  devise_for :users, controllers: { sessions: "users/sessions",
+                                    registrations: "users/registrations",
                                     omniauth_callbacks: "users/omniauth_callbacks" }
   resources :products
   resources :shops
