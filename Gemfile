@@ -16,15 +16,19 @@ gem 'slim'
 gem 'slim-rails'
 gem 'inherited_resources'
 gem 'less-rails-bootstrap'
-<<<<<<< HEAD
 gem 'simple_form'
-gem "cocoon"
+gem 'cocoon'
 gem 'annotate', '~> 2.6.6'
 gem 'rack-mini-profiler'
 gem 'ratyrate'
 gem 'friendly_id'
 gem 'activeadmin'
 gem 'devise', '~> 3.5.2'
+gem 'mini_magick'
+gem 'acts_as_commentable'
+gem 'acts_as_votable', '~> 0.10.0'
+gem 'better_errors'
+gem 'binding_of_caller'
 
 group :production do
   gem 'rails_12factor'

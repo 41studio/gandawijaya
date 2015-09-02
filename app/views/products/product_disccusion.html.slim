@@ -1,0 +1,30 @@
+.show
+  p#notice = notice
+  .info
+    p
+      h1 = @product.name
+    .img_position
+      = image_tag @galleries.first.image.thumb.url, class: "img-thumbnail"
+
+    .row  
+      p
+        .price_position
+          pre
+            strong Price:
+            = @product.price
+    p 
+      blockquote
+       = @product.description
+
+      h2.comment_count= pluralize(@comments.count, "Comment")
+    - @comments.each do |comment|
+        .comment
+          p.comment= comment.comment
+          br/ 
+
+    = render 'comment'   
+  
+
+  = link_to 'Edit', edit_product_path(@product)
+  '|
+  = link_to 'Back', @shop

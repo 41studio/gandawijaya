@@ -18,5 +18,7 @@ class Product < ActiveRecord::Base
   belongs_to :shop
   belongs_to :user
 
+  acts_as_commentable
+  acts_as_votable
   accepts_nested_attributes_for :galleries, allow_destroy: true
 end

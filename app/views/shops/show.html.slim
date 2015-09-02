@@ -4,7 +4,21 @@
     = image_tag @shop.image.url, size: "240x200"
   h1
     = @shop.name
-  = @shop.description
+  blockquote  
+    = @shop.description
+
+  .caption style="text-align:right;"
+    = link_to like_shop_path(@shop), class: "like", method: :get do
+      button.btn.btn-info aria-label=("Left Align") type="button"
+      span.glyphicon.glyphicon-thumbs-up.glyphicon-align-center aria-hidden="true"
+      span.badge = @shop.get_upvotes.size
+
+
+    = link_to dislike_shop_path(@shop), class: "like", method: :get do
+      button.btn.btn-info aria-label=("Left Align") type="button"
+      span.glyphicon.glyphicon-thumbs-down.glyphicon-align-center aria-hidden="true"
+      span.badge = @shop.get_downvotes.size 
+        
   hr
   br
   br

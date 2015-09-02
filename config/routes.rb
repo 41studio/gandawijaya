@@ -25,8 +25,21 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   devise_for :users
   root 'pages#dashboard'
-  resources :products
-  resources :shops
+  resources :products do 
+  	member do
+  	 get "like", to: "products#upvote"
+     get "dislike", to: "products#downvote"
+    end
+  end   
+  resources :shops do 
+  	member do 
+  	 get "like", to: "shops#upvote"
+     get "dislike", to: "shops#downvote"
+    end
+  end   	
+
+  get '/prodiscc/:id', to: 'products#product_disccusion', as: :product_disccusion
+  post '/comment_create', to: 'products#create_comment', as: :comment_create
 
 
  end

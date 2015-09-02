@@ -16,5 +16,7 @@ class Shop < ActiveRecord::Base
   mount_uploader :image, GalleryUploader
   belongs_to :user
 
+  acts_as_votable
+
   has_many :products, dependent: :destroy
 end
