@@ -4,7 +4,6 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   mount_uploader :image, AvatarUploader
   devise :database_authenticatable, :registerable,
-<<<<<<< HEAD
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:facebook, :twitter, :google_oauth2]
   has_many :reviews, dependent: :destroy
@@ -34,10 +33,4 @@ class User < ActiveRecord::Base
       end
     end
   end
-=======
-         :recoverable, :rememberable, :trackable, :validatable
-
-  has_many :products
-  has_many :shops       
->>>>>>> ea7e43efc95cbdd9dcb5931289b42d8e42278e97
 end

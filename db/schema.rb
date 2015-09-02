@@ -11,24 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20150902043507) do
-=======
-
-ActiveRecord::Schema.define(version: 20150901093123) do
-
->>>>>>> ea7e43efc95cbdd9dcb5931289b42d8e42278e97
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-<<<<<<< HEAD
-  create_table "average_caches", force: :cascade do |t|
-    t.integer  "rater_id"
-    t.integer  "rateable_id"
-    t.string   "rateable_type"
-    t.float    "avg",           null: false
-=======
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
     t.text     "body"
@@ -36,13 +23,10 @@ ActiveRecord::Schema.define(version: 20150901093123) do
     t.string   "resource_type", null: false
     t.integer  "author_id"
     t.string   "author_type"
->>>>>>> ea7e43efc95cbdd9dcb5931289b42d8e42278e97
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-<<<<<<< HEAD
-=======
   add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
@@ -67,7 +51,15 @@ ActiveRecord::Schema.define(version: 20150901093123) do
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
 
->>>>>>> ea7e43efc95cbdd9dcb5931289b42d8e42278e97
+  create_table "average_caches", force: :cascade do |t|
+    t.integer  "rater_id"
+    t.integer  "rateable_id"
+    t.string   "rateable_type"
+    t.float    "avg",           null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
     t.integer  "sluggable_id",              null: false
@@ -106,11 +98,7 @@ ActiveRecord::Schema.define(version: 20150901093123) do
     t.datetime "updated_at",                          null: false
     t.integer  "shop_id"
     t.string   "slug"
-<<<<<<< HEAD
     t.integer  "user_id"
-=======
-    t.string   "user_id"
->>>>>>> ea7e43efc95cbdd9dcb5931289b42d8e42278e97
   end
 
   add_index "products", ["shop_id"], name: "index_products_on_shop_id", using: :btree
@@ -161,51 +149,12 @@ ActiveRecord::Schema.define(version: 20150901093123) do
     t.string   "image"
     t.text     "description"
     t.string   "slug"
-<<<<<<< HEAD
     t.integer  "user_id"
   end
 
   add_index "shops", ["slug"], name: "index_shops_on_slug", unique: true, using: :btree
   add_index "shops", ["user_id"], name: "index_shops_on_user_id", using: :btree
 
-=======
-    t.string   "user_id"
-  end
-
-  add_index "shops", ["slug"], name: "index_shops_on_slug", unique: true, using: :btree
-
-  create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.inet     "current_sign_in_ip"
-    t.inet     "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.string   "username"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "neighborhood"
-    t.text     "address"
-    t.string   "image"
-    t.integer  "gender"
-    t.string   "birthday"
-    t.boolean  "subscribe"
-    t.string   "handphone"
-    t.boolean  "term_of_user"
-    t.string   "status"
-    t.string   "last_ip"
-    t.string   "user_agent"
-  end
-
-<<<<<<< HEAD
-=======
->>>>>>> ea7e43efc95cbdd9dcb5931289b42d8e42278e97
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -237,7 +186,6 @@ ActiveRecord::Schema.define(version: 20150901093123) do
     t.string   "uid"
   end
 
->>>>>>> 427ef0d32eaec73086d5793c9de48fd3627a843c
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
