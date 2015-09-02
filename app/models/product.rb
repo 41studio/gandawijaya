@@ -18,5 +18,9 @@ class Product < ActiveRecord::Base
   has_many  :reviews, as: :reviewable
   belongs_to :shop
   belongs_to :user
+<<<<<<< HEAD
+=======
+
+>>>>>>> ea7e43efc95cbdd9dcb5931289b42d8e42278e97
   accepts_nested_attributes_for :galleries, allow_destroy: true
 end

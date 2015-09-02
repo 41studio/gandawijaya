@@ -20,8 +20,15 @@
 #
 
 Rails.application.routes.draw do
+<<<<<<< HEAD
 
   post '/reviews/create', to: 'review#create', as: "reviews"
+=======
+	
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+  devise_for :users
+>>>>>>> ea7e43efc95cbdd9dcb5931289b42d8e42278e97
   root 'pages#dashboard'
   devise_for :users, controllers: { sessions: "users/sessions",
                                     registrations: "users/registrations",
@@ -29,4 +36,8 @@ Rails.application.routes.draw do
   resources :products
   resources :shops
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> ea7e43efc95cbdd9dcb5931289b42d8e42278e97
  end

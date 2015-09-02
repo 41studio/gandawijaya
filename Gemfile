@@ -26,11 +26,11 @@ gem 'friendly_id'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem "omniauth-google-oauth2"
+gem 'activeadmin'
 
 group :production do
   gem 'rails_12factor'
 end
-
 
 group :development, :test do
   gem 'byebug'
