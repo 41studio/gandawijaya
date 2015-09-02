@@ -5,17 +5,13 @@
   h1
     = @shop.name
   = @shop.description
+  = link_to 'Pesan', "#" , class: "btn btn-success", data: {toggle: "modal", target: "#newNotification" }
   hr
   br
   br
   br
   br
   br
-  'Reviews :
-  = rating_for @shop, 'review', disable_after_rate: true,
-                                enable_half: true,
-                                half_show: true
-  / = rating_for @shop, "review", disabled: true
   h4 Product
   .row
   - @products.each do |product|
@@ -29,3 +25,20 @@
   br
   p
     = link_to "Add product", new_product_path(shop_id: @shop)
+
+.modal.fade id="newNotification" role="dialog"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button type="button" class="close" data-dismiss="modal" aria-label="Close"
+          span aria-hidden="true"&times;
+        h4 class="modal-title" Modal title
+      = simple_form_for @review do |f|
+        .modal-body
+          = f.input :content
+          = f.input :rate_point
+          = f.hidden_field :reviewable_id, value: @shop.id
+          = f.hidden_field :reviewable_type,  value: "Shop"
+        .modal-footer
+          button type="button" class="btn btn-default" data-dismiss="modal"Close
+          = f.button :submit, class: "btn btn-primary"

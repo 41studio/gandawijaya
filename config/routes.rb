@@ -21,7 +21,7 @@
 
 Rails.application.routes.draw do
 
-  post '/rate' => 'rater#create', :as => 'rate'
+  post '/reviews/create', to: 'review#create', as: "reviews"
   root 'pages#dashboard'
   devise_for :users, controllers: { sessions: "users/registrations",
                                     omniauth_callbacks: "users/omniauth_callbacks" }

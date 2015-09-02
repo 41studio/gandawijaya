@@ -6,6 +6,11 @@ before_action :set_products, only: [:show]
     create!
   end
 
+  def show
+    @review = Review.new
+    show!
+  end
+
   private
 
     def set_products

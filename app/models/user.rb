@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:facebook, :twitter, :google_oauth2]
-  ratyrate_rater
+  has_many :reviews, as: :reviewable
   has_many :shops
   has_many :products
 
