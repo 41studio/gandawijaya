@@ -1,6 +1,11 @@
 class ShopsController < InheritedResources::Base
 before_action :set_products, only: [:show]
 
+  def create
+    @shop = current_user.shops.create(shop_params)
+    create!
+  end
+
   private
 
     def set_products

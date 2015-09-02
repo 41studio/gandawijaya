@@ -3,6 +3,11 @@ before_action :set_shop_from_params, only: [:new]
 before_action :set_shop, only: [:show, :edit]
 before_action :set_galleries, only: [:show]
 
+  def create
+    @product = current_user.products.create(product_params)
+    create!
+  end
+
   private
     def set_shop_from_params
       @shop = Shop.find(params[:shop_id])

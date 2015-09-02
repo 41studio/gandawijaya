@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150901071817) do
+ActiveRecord::Schema.define(version: 20150902025200) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,10 +63,12 @@ ActiveRecord::Schema.define(version: 20150901071817) do
     t.datetime "updated_at",                          null: false
     t.integer  "shop_id"
     t.string   "slug"
+    t.integer  "user_id"
   end
 
   add_index "products", ["shop_id"], name: "index_products_on_shop_id", using: :btree
   add_index "products", ["slug"], name: "index_products_on_slug", unique: true, using: :btree
+  add_index "products", ["user_id"], name: "index_products_on_user_id", using: :btree
 
   create_table "rates", force: :cascade do |t|
     t.integer  "rater_id"
@@ -100,9 +102,11 @@ ActiveRecord::Schema.define(version: 20150901071817) do
     t.string   "image"
     t.text     "description"
     t.string   "slug"
+    t.integer  "user_id"
   end
 
   add_index "shops", ["slug"], name: "index_shops_on_slug", unique: true, using: :btree
+  add_index "shops", ["user_id"], name: "index_shops_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -140,4 +144,6 @@ ActiveRecord::Schema.define(version: 20150901071817) do
 
   add_foreign_key "galleries", "products"
   add_foreign_key "products", "shops"
+  add_foreign_key "products", "users"
+  add_foreign_key "shops", "users"
 end
