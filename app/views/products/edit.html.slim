@@ -1,9 +1,9 @@
 h1 Editing product
 .row
   .col-md-7
-    == render 'form'
+     == render partial: 'form', locals: { action: "show" }
 
-= link_to 'Show', @product
+= link_to 'Back to product', generate_product_path(@product, "show")
 '|
-= link_to 'Back', @shop
+= link_to 'Back to shop', generate_path_for(@shop, "show")
 

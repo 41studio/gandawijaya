@@ -14,7 +14,7 @@
   .row
   - @products.each do |product|
     .col-md-3
-      p = link_to (image_tag product.galleries.first.image.url, size: "120x100"), product
-      p = link_to product.name, product
+      p = link_to (image_tag product.galleries.first.image.url, size: "120x100"), generate_product_path(product, "show")
+      p = link_to product.name, generate_product_path(product, "show")
       p = product.price
       p = truncate product.description, length: 100

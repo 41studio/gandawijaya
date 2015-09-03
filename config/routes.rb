@@ -21,19 +21,25 @@
 
 Rails.application.routes.draw do
 
+  post '/premium/request/:id', to: "premium_request#create", as: :create_request_premium_shop
   post '/reviews/create', to: 'review#create', as: "reviews"
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   root 'pages#dashboard'
+  resources :shops do
+    resources :products
+  end
   devise_for :users, controllers: { sessions: "users/sessions",
                                     registrations: "users/registrations",
                                     omniauth_callbacks: "users/omniauth_callbacks" }
-  resources :products
-  resources :shops, path: '/s/shops'
+
   get '/:premium_path/edit',to: "shops#edit", as: :edit_shop_premium
   get '/:premium_path',to: "shops#show", as: :shop_premium
-  # patch '/:premium_path',to: "shops#update", as: :shop_premium
   put '/:premium_path',to: "shops#update", as: :update_shop_premium
+  scope '/:premium_path' do
+    resources :products, as: :product_premium
+  end
+  # patch '/:premium_path',to: "shops#update", as: :shop_premium
   # delete '/:premium_path',to: "shops#destroy", as: :shop_premium
 
 

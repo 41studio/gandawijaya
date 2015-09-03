@@ -16,6 +16,7 @@ class Shop < ActiveRecord::Base
   mount_uploader :image, GalleryUploader
   belongs_to :user
 
+  has_many :premium_shop_requests
   has_one :premium_account
   has_many :reviews, as: :reviewable
   has_many :products, dependent: :destroy

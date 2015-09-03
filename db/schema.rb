@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150902095315) do
+ActiveRecord::Schema.define(version: 20150903045916) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,6 +100,17 @@ ActiveRecord::Schema.define(version: 20150902095315) do
 
   add_index "premium_accounts", ["shop_id"], name: "index_premium_accounts_on_shop_id", using: :btree
   add_index "premium_accounts", ["user_id"], name: "index_premium_accounts_on_user_id", using: :btree
+
+  create_table "premium_shop_requests", force: :cascade do |t|
+    t.boolean  "approved"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "user_id"
+    t.integer  "shop_id"
+  end
+
+  add_index "premium_shop_requests", ["shop_id"], name: "index_premium_shop_requests_on_shop_id", using: :btree
+  add_index "premium_shop_requests", ["user_id"], name: "index_premium_shop_requests_on_user_id", using: :btree
 
   create_table "products", force: :cascade do |t|
     t.string   "name"
@@ -203,6 +214,8 @@ ActiveRecord::Schema.define(version: 20150902095315) do
   add_foreign_key "galleries", "products"
   add_foreign_key "premium_accounts", "shops"
   add_foreign_key "premium_accounts", "users"
+  add_foreign_key "premium_shop_requests", "shops"
+  add_foreign_key "premium_shop_requests", "users"
   add_foreign_key "products", "shops"
   add_foreign_key "products", "users"
   add_foreign_key "reviews", "users"

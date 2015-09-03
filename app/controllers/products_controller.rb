@@ -4,7 +4,9 @@ before_action :set_shop, only: [:show, :edit]
 before_action :set_galleries, only: [:show]
 before_action :authenticate_user!
 
-  
+  def new
+    @product = @shop.products.new
+  end
 
   def create
     @product = current_user.products.create(product_params)
@@ -13,11 +15,15 @@ before_action :authenticate_user!
 
   def show
     @review = Review.new
+    @reviews = resource.reviews
   end
 
   private
     def set_shop_from_params
-      @shop = Shop.find(params[:shop_id])
+      @shop = Shop.find(params[:shop_id]) if params[:shop_id].present?
+      if params[:premium_path].present?
+        @shop = Shop.find 5
+      end
     end
 
     def set_shop

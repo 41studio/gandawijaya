@@ -26,9 +26,9 @@
       .col-md-2.thumbnail
         = image_tag gallery.image.url, size: "100x100"
 
-  = link_to 'Edit', edit_product_path(@product)
+  = link_to 'Edit', generate_product_path(@product, "edit")
   '|
-  = link_to 'Back', @shop
+  = link_to 'Back', generate_path_for(@shop, "show")
 
   h4 Review
   - @reviews.each do |review|
@@ -38,5 +38,6 @@
     = review.content
     br
     = review.rate_point
+
 = render partial: "shared/modal_reviews", locals: {reviewable_id: @product.id, reviewable_type: "Product"}
 
