@@ -29,7 +29,7 @@ Rails.application.routes.draw do
                                     registrations: "users/registrations",
                                     omniauth_callbacks: "users/omniauth_callbacks" }
   resources :products
-  resources :shops
-
-
+  resources :shops, path: '/s/shops'
+  get '/:premium_path',to: "shops#show", as: :premium_shop_path
  end
+
