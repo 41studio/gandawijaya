@@ -2,7 +2,7 @@ h1 Editing shop
 
 == render 'form'
 
-= link_to 'Show', @shop
+= link_to 'Show', generate_path_for(@shop, "show")
 '|
-= link_to 'Back', shops_path
+= link_to 'Back', generate_path_for(@shop, "show")
 

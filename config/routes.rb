@@ -30,6 +30,12 @@ Rails.application.routes.draw do
                                     omniauth_callbacks: "users/omniauth_callbacks" }
   resources :products
   resources :shops, path: '/s/shops'
-  get '/:premium_path',to: "shops#show", as: :premium_shop_path
+  get '/:premium_path/edit',to: "shops#edit", as: :edit_shop_premium
+  get '/:premium_path',to: "shops#show", as: :shop_premium
+  # patch '/:premium_path',to: "shops#update", as: :shop_premium
+  put '/:premium_path',to: "shops#update", as: :update_shop_premium
+  # delete '/:premium_path',to: "shops#destroy", as: :shop_premium
+
+
  end
 
