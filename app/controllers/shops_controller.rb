@@ -2,6 +2,8 @@ class ShopsController < InheritedResources::Base
 before_action :set_products, only: [:show]
 before_action :find_shop, only: [:upvote, :downvote]
 before_action :authenticate_user!, except: [:show, :index]
+
+  
   
   def create
   	@products = current_user.shops.create(shop_params)

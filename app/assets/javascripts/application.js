@@ -1,7 +1,16 @@
 
 //= require jquery
+//= require jquery-ui
 //= require jquery_ujs
-//= require turbolinks
 //= require twitter/bootstrap
+//= require bootstrap-datepicker
 //= require cocoon
-//= require_tree .
+//= require turbolinks
+
+
+$(document).ready(function() {
+	$(document).on("pageload",function(){
+		$('#user_brithday').datepicker();
+
+	})	
+})

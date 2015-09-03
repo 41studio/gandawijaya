@@ -29,6 +29,9 @@ gem 'acts_as_commentable'
 gem 'acts_as_votable', '~> 0.10.0'
 gem 'better_errors'
 gem 'binding_of_caller'
+gem 'jquery-ui-rails'
+# gem 'mailcatcher', '~> 0.6.1'
+
 
 group :production do
   gem 'rails_12factor'

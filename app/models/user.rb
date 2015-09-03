@@ -7,5 +7,6 @@ class User < ActiveRecord::Base
 
   has_many :products
   has_many :shops 
-  has_many :comments      
+  has_many :comments 
+  mount_uploader :image, GalleryUploader     
 end
