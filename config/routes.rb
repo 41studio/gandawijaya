@@ -21,11 +21,11 @@
 
 Rails.application.routes.draw do
 
+  root 'pages#dashboard'
   post '/premium/request/:id', to: "premium_request#create", as: :create_request_premium_shop
   post '/reviews/create', to: 'review#create', as: "reviews"
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  root 'pages#dashboard'
   resources :shops do
     resources :products
   end

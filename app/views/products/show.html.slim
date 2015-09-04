@@ -16,7 +16,6 @@
     = @product.reviews.average(:rate_point)
   - if user_signed_in? && unreviewed_by?(current_user, @product.id, "Product")
     = link_to 'Rate & Review', "#" , class: "btn btn-success", data: {toggle: "modal", target: "#rate" }
-
   hr
   br
   br

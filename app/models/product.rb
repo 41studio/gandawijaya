@@ -14,6 +14,8 @@
 class Product < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
+  is_impressionable
+
   has_many  :galleries, dependent: :destroy
   has_many  :reviews, as: :reviewable
   belongs_to :shop

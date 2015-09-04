@@ -21,6 +21,7 @@ before_action :set_products, only: [:show]
   def show
     @review = Review.new
     @reviews = resource.reviews
+    @products = Product.all
     @this_is_current_user_shop = current_user.shops.where(id: @shop.id) if current_user
     @products = Product.where(shop_id: resource.id)
     show!

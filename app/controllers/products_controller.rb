@@ -9,13 +9,15 @@ before_action :authenticate_user!
   end
 
   def create
-    @product = current_user.products.create(product_params)
+    @product = current_user.products.new(product_params)
     create!
   end
 
   def show
     @review = Review.new
     @reviews = resource.reviews
+    impressionist(resource, "view product")
+    @impression_count = resource.impressionist_count(:filter=>:all)
   end
 
   private

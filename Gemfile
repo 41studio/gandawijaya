@@ -27,6 +27,9 @@ gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem "omniauth-google-oauth2"
 gem 'activeadmin'
+gem 'chartkick'
+gem 'impressionist'
+gem 'groupdate'
 
 group :production do
   gem 'rails_12factor'
