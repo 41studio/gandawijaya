@@ -4,7 +4,7 @@ before_action :check_and_set_premium_url, only: [:edit, :show]
 before_action :set_products, only: [:show]
 
   def create
-  	@products = current_user.shops.create(shop_params)
+  	@shop = current_user.shops.new(shop_params)
   	create!
   end
 
@@ -21,7 +21,7 @@ before_action :set_products, only: [:show]
   def show
     @review = Review.new
     @reviews = resource.reviews
-    @this_is_current_user_shop = current_user.shops.where(shop_id: @shop.id) if current_user
+    @this_is_current_user_shop = current_user.shops.where(id: @shop.id) if current_user
     @products = Product.where(shop_id: resource.id)
     show!
   end

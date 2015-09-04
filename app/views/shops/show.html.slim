@@ -11,9 +11,9 @@
   br
   br
   - if user_signed_in?
-    -if unreviewed_by?(current_user)
+    -if unreviewed_by?(current_user, @shop.id, "Shop")
       = link_to 'Rate & Review', "#" , class: "btn btn-success", data: {toggle: "modal", target: "#rate" }
-    - if @this_is_current_user_shop
+    - if @this_is_current_user_shop.any?
       = link_to 'Edit', generate_path_for(@shop, "edit"), class: "btn btn-danger"
       - if @shop.premium_shop_requests.any?
         - if @shop.premium_shop_requests.where(approved: false).any?
@@ -40,7 +40,7 @@
   br
   - if @this_is_current_user_shop
     p
-      = link_to "Add product", generate_product_path(@shop.products.first, "new")
+      = link_to "Add product", generate_product_2_path(@shop, "new")
   br
   br
   h4 Review
