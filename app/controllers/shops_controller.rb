@@ -6,8 +6,14 @@ before_action :authenticate_user!, except: [:show, :index]
   
   
   def create
-  	@products = current_user.shops.create(shop_params)
-  	create!
+    @user = current_user
+  	@products = @user.shops.new(shop_params)
+  	
+      if @products.save
+
+        ShopMailer.shop_created(@user).deliver
+      end  
+    redirect_to @products  
   end
 
   def upvote

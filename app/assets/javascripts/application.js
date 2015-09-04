@@ -9,8 +9,9 @@
 
 
 $(document).ready(function() {
-	$(document).on("pageload",function(){
-		$('#user_brithday').datepicker();
+	$(document).on('pageload',function() {
+	   $('[data-toggle="tooltip"]').tooltip(); 
 
-	})	
-})
+	});     
+	
+});

@@ -1,20 +1,22 @@
 .show
   p#notice = notice
   .show-detail-image
-    = image_tag @shop.image.url, size: "240x200"
+    = image_tag @shop.image.url, size: "240x200", class: "img-thumbnail"
   h1
     = @shop.name
-  blockquote  
-    = @shop.description
+  p 
+    .text-justify 
+      blockquote   
+        = @shop.description
 
   .caption style="text-align:right;"
-    = link_to like_shop_path(@shop), class: "like", method: :get do
+    = link_to like_shop_path(@shop), data: {toggle: "tooltip", placement: "top"}, title: "Like", class: "like", method: :get do
       button.btn.btn-info aria-label=("Left Align") type="button"
       span.glyphicon.glyphicon-thumbs-up.glyphicon-align-center aria-hidden="true"
       span.badge = @shop.get_upvotes.size
 
 
-    = link_to dislike_shop_path(@shop), class: "like", method: :get do
+    = link_to dislike_shop_path(@shop), data: {toggle: "tooltip", placement: "bottom"}, title: "Dislike", class: "like", method: :get do
       button.btn.btn-info aria-label=("Left Align") type="button"
       span.glyphicon.glyphicon-thumbs-down.glyphicon-align-center aria-hidden="true"
       span.badge = @shop.get_downvotes.size 
@@ -33,8 +35,8 @@
       p = link_to product.name, product
       p = product.price
       p = truncate product.description, length: 120
-      p = link_to 'Edit', edit_product_path(id: product,shop_id: @shop)
+      p = link_to 'Edit', edit_product_path(id: product,shop_id: @shop), class: "btn btn-success"
 
   br
   p
-    = link_to "Add product", new_product_path(shop_id: @shop)
+    = link_to "Add product", new_product_path(shop_id: @shop), class: "btn btn-default"

@@ -3,7 +3,7 @@ before_action :set_shop_from_params, only: [:new]
 before_action :find_product, only: [:upvote, :downvote]
 before_action :set_shop, only: [:show, :edit]
 before_action :set_galleries, only: [:show]
-before_action :authenticate_user!
+before_action :authenticate_user!, except: [:show, :product_disccusion]
 
   def product_disccusion
     @product = Product.find(params[:id])
@@ -11,18 +11,31 @@ before_action :authenticate_user!
     @comments = @product.comments
   end  
 
+  def create
+    @product = current_user.products.build(product_params)
+    
+     if @product.save
+      redirect_to @product
+    else
+      render 'new'
+    end    
+  end   
+
   def create_comment
    @product = Product.find(params[:comment][:product_id])
+   @user = @product.user
    @comment = current_user.comments.new
    @comment.comment = params[:comment][:comment]
    @comment.commentable = @product 
-   @comment.save
+     if @comment.save
+        CommentMailer.comment_created(@user, current_user, @comment ).deliver
+      end  
 
    @comments = @product.comments
 
 
 
-   redirect_to :back
+   redirect_to product_disccusion_path(@product)
   end
 
   def upvote

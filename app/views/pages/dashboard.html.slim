@@ -2,7 +2,7 @@
   .row
   - @shops.each do |shop|
     .col-md-3
-      p = link_to (image_tag shop.image.url, size: "120x100"), shop
+      p = link_to (image_tag shop.image.url, size: "120x100", class: "img-thumbnail"), shop
       p = link_to shop.name, shop
       p = truncate shop.description, length: 100
   br
@@ -25,7 +25,7 @@
   .row
   - @products.each do |product|
     .col-md-3
-      p = link_to (image_tag product.galleries.first.image.url, size: "120x100"), product
+      p = link_to (image_tag product.galleries.first.image.url, size: "120x100", class: "img-thumbnail"), product
       p = link_to product.name, product
       p = product.price
       p = truncate product.description, length: 100
