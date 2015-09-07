@@ -23,7 +23,7 @@ class Shop < ActiveRecord::Base
   belongs_to :user
 
   def name_and_id
-    "#{name}  #{id} #{Time.now.strftime("%Y%m%d")}"
+    "#{name}  #{id}#{Time.now.strftime("%Y%m%d")}"
   end
 
   def should_generate_new_friendly_id?

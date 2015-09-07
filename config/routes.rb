@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   resources :shops do
     resources :products
+    get 'controlpanel', on: :member
   end
   devise_for :users, controllers: { sessions: "users/sessions",
                                     registrations: "users/registrations",
@@ -35,6 +36,7 @@ Rails.application.routes.draw do
 
   get '/:premium_path/edit',to: "shops#edit", as: :edit_shop_premium
   get '/:premium_path',to: "shops#show", as: :shop_premium
+  get '/:premium_path/controlpanel', to: "shops#controlpanel", as: :controlpanel_shop_premium
   put '/:premium_path',to: "shops#update", as: :update_shop_premium
   scope '/:premium_path' do
     resources :products, as: :product_premium

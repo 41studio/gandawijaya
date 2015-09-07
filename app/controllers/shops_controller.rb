@@ -27,6 +27,10 @@ before_action :set_products, only: [:show]
     show!
   end
 
+  def controlpanel
+    @products = Product.all
+  end
+
   private
     def check_and_set_premium_url
       if params[:premium_path]

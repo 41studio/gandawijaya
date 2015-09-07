@@ -9,12 +9,16 @@ module ApplicationHelper
        shop_premium_path(object.premium_account.url)
      elsif action.eql? "edit"
        edit_shop_premium_path(object.premium_account.url)
+     elsif action.eql? "controlpanel"
+       controlpanel_shop_premium_path(object.premium_account.url)
      end
     else
       if action.eql? "show"
         shop_path(object)
       elsif action.eql? "edit"
         edit_shop_path(object)
+      elsif action.eql? "controlpanel"
+        controlpanel_shop_path(object)
       end
     end
   end

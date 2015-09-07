@@ -3,36 +3,20 @@
   .row
     .col-md-4
       = image_tag @shop.image.url, size: "240x200"
+    .col-md-8
       h1
         = @shop.name
-    .col-md-8
-      h3 Visits By Day
-      ul id="graphTabs" class="nav nav-tabs" role="tablist"
-        li role="presentation" class="active"
-          a href="#allproducts" role="tab" data-toggle="tab" aria-controls="allproducts"
-            ' All Product
-        - @products.each do |product|
-          li role="presentation"
-            a href="##{product.id}" role="tab" data-toggle="tab" aria-controls="#{product.id}"
-              = product.name
-
-      div id="graphTabsContent" class="tab-content"
-        div role="tabpanel" class="tab-pane fade in active" id="allproducts" aria-labelledBy="allproducts-tab"
-          = bar_chart @products.map{|post| [post.name, post.impressionist_count] }
-        - @products.each do |product|
-          div role="tabpanel" class="tab-pane fade in" id="#{product.id}" aria-labelledBy="#{product.id}-tab"
-            = column_chart product_impression_graph(product.id, "Product")
-
-  'Rating
-  = @shop.reviews.average(:rate_point)
-  br
-  = @shop.description
+      'Rating
+      = @shop.reviews.average(:rate_point)
+      br
+      = @shop.description
   br
   br
   - if user_signed_in?
     -if unreviewed_by?(current_user, @shop.id, "Shop")
       = link_to 'Rate & Review', "#" , class: "btn btn-success", data: {toggle: "modal", target: "#rate" }
     - if @this_is_current_user_shop.any?
+      = link_to "control panel", generate_path_for(@shop, "controlpanel"), class: "btn btn-success"
       = link_to 'Edit', generate_path_for(@shop, "edit"), class: "btn btn-danger"
       - if @shop.premium_shop_requests.any?
         - if @shop.premium_shop_requests.where(approved: false).any?
