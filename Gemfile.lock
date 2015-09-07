@@ -88,6 +88,9 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     erubis (2.7.0)
+    exception_notification (4.1.1)
+      actionmailer (>= 3.0.4)
+      activesupport (>= 3.0.4)
     excon (0.45.4)
     execjs (2.6.0)
     faraday (0.9.1)
@@ -395,6 +398,7 @@ DEPENDENCIES
   cocoon
   coffee-rails (~> 4.1.0)
   devise
+  exception_notification
   fog (~> 1.34.0)
   friendly_id
   groupdate
