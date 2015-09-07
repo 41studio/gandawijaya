@@ -12,9 +12,13 @@ before_action :authenticate_user!, except: [:show, :product_disccusion]
   end  
 
   def create
+    @user = current_user
     @product = current_user.products.build(product_params)
     
      if @product.save
+
+        ProductMailer.product_created(@user).deliver
+
       redirect_to @product
     else
       render 'new'

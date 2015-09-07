@@ -4,7 +4,7 @@ ActiveAdmin.register Shop do
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
-   permit_params :name, :image, :description, :accept_shop
+   permit_params :name, :image, :description, :status
   #
   # or
   #
@@ -19,7 +19,7 @@ ActiveAdmin.register Shop do
       f.input :name
       f.input :image
       f.input :description
-      f.input :accept_shop
+      f.input :status
       f.actions
    end
  end

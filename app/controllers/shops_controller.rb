@@ -10,7 +10,6 @@ before_action :authenticate_user!, except: [:show, :index]
   	@products = @user.shops.new(shop_params)
   	
       if @products.save
-
         ShopMailer.shop_created(@user).deliver
       end  
     redirect_to @products  

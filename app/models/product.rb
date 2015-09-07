@@ -12,6 +12,7 @@
 #
 
 class Product < ActiveRecord::Base
+  enum status: [:under_review, :on_progress, :approved]
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
   has_many  :galleries, dependent: :destroy

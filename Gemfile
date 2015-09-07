@@ -31,6 +31,9 @@ gem 'better_errors'
 gem 'binding_of_caller'
 gem 'jquery-ui-rails'
 # gem 'mailcatcher', '~> 0.6.1'
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
+gem 'searchkick'
 
 
 group :production do

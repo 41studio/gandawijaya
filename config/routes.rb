@@ -40,6 +40,7 @@ Rails.application.routes.draw do
 
   get '/prodiscc/:id', to: 'products#product_disccusion', as: :product_disccusion
   post '/comment_create', to: 'products#create_comment', as: :comment_create
+  get 'search', to: 'pages#dashboard'
 
 
  end
