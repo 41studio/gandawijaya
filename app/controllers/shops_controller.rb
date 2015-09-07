@@ -29,6 +29,12 @@ before_action :set_products, only: [:show]
 
   def controlpanel
     @products = Product.all
+    @shop =
+      if params[:premium_path]
+        Shop.find PremiumAccount.where(url: params[:premium_path]).first.shop_id
+      else
+        Shop.find params[:id]
+      end
   end
 
   private
