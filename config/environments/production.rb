@@ -3,15 +3,23 @@ Rails.application.configure do
 
   # Code is not reloaded between requests.
   config.cache_classes = true
-  config.action_mailer.delivery_method = :sendmail
+  config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
-config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.raise_delivery_errors = true
   Rails.application.config.middleware.use ExceptionNotification::Rack,
   :email => {
     :email_prefix => "[Gandawijaya Error Report] ",
     :sender_address => %{"Gandawijaya Exception Notifier" <notifier@example.com>},
     :exception_recipients => %w{adit@41studio.com, radiet@41studio.com, kris@41studio.com}
   }
+  config.action_mailer.smtp_settings = {
+   address:                'localhost',
+   port:                   1025,
+   domain:                 '41studio.com',
+   user_name:              'test-do-not-reply@41studio.com',
+   password:               'Fd5(q"T,Q-Ov4[C',
+   authentication:         'plain',
+   enable_starttls_auto:   true  }
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
   # and those relying on copy on write to perform better.
