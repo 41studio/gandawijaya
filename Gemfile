@@ -30,6 +30,7 @@ gem 'activeadmin'
 gem 'chartkick'
 gem 'impressionist'
 gem 'groupdate'
+gem 'fog', '~> 1.34.0'
 
 group :production do
   gem 'rails_12factor'

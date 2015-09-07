@@ -6,10 +6,18 @@
     .col-md-8
       h1
         = @shop.name
-      'Rating
-      = @shop.reviews.average(:rate_point)
+      b
+       'Rating
+      - if @shop.reviews.any?
+        = @shop.reviews.average(:rate_point)
+      - else
+        'Unrated
       br
       = @shop.description
+      br
+      b
+       ' Total Product:
+      = @shop.products.count
   br
   br
   - if user_signed_in?

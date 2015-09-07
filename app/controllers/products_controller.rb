@@ -13,6 +13,18 @@ before_action :authenticate_user!, except: [:show, :index]
     create!
   end
 
+  def update
+    if resource.shop.premium_account.present?
+      update! do |success, failure|
+        success.html { redirect_to product_premium_path(premium_path: resource.shop.premium_account.url, id: resource) }
+      end
+    else
+      update! do |success, failure|
+        success.html { redirect_to shop_product_path(shop_id: resource.shop, id: resource) }
+      end
+    end
+  end
+
   def show
     @review = Review.new
     @reviews = resource.reviews

@@ -11,7 +11,7 @@ before_action :set_products, only: [:show]
   def update
     if resource.premium_account.present?
       update! do |success, failure|
-        success.html { redirect_to update_shop_premium_url(resource.premium_account.url) }
+        success.html { redirect_to shop_premium_url(resource.premium_account.url) }
       end
     else
       update!
