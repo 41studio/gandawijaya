@@ -1,27 +1,96 @@
-.show
-  p#notice = notice
-  .info
-    .thumbnail
-      = image_tag @galleries.first.image.url
-    p
-      strong Name:
-      = @product.name
-    p
-      strong Price:
-      = @product.price
-    p
-      strong Description:
-      = @product.description
+- if user_signed_in?
+    .show
+      p#notice = notice
+      .info
+        p
+          h1 = @product.name
+        .img_position
+          = image_tag @galleries.first.image.thumb.url, class: "img-thumbnail"
 
-  hr
-  br
-  br
-  br
-  .row
-  - @galleries.each do |gallery|
-    .col-md-2.thumbnail
-      = image_tag gallery.image.url, size: "100x100"
+        .row  
+          p
+            .price_position
+               pre
+                strong Price:
+                = @product.price
 
-  = link_to 'Edit', edit_product_path(@product)
-  '|
-  = link_to 'Back', @shop
+          ul class="nav nav-tabs" role="tablist"
+            li role="presentation" class="active" 
+              a href="#product" aria-controls="product" role="tab" data-toggle="tab" product gallery
+            li role="presentation" 
+              a href="#prodisccus" aria-controls="prodisccus" role="tab" data-toggle="tab" product disccusion
+
+        .tab-content
+          div role="tabpanel" class="tab-pane fade in active" id="product"
+            - @galleries.each do |gallery|
+              = image_tag gallery.image.url, size: "100x100"
+
+          div role="tabpanel" class="tab-pane fade in active" id="prodisccus"
+           = link_to "Product Disccusion", product_disccusion_path(@product), class: "btn btn-default"
+        p 
+          .text-justify
+            blockquote
+               = @product.description
+
+        .caption style="text-align:right;"
+            = link_to like_product_path(@product), class: "like", method: :get do
+              button.btn.btn-info aria-label=("Left Align") type="button"
+              span.glyphicon.glyphicon-thumbs-up.glyphicon-align-center aria-hidden="true"
+              span.badge = @product.get_upvotes.size
+
+
+            = link_to dislike_product_path(@product), class: "like", method: :get do 
+              button.btn.btn-info aria-label=("Left Align") type="button"
+              span.glyphicon.glyphicon-thumbs-down.glyphicon-align-center aria-hidden="true"
+              span.badge = @product.get_downvotes.size 
+      
+              
+
+      = link_to 'Edit', edit_product_path(@product)
+      |
+      = link_to 'Back', @shop
+- else
+  .show
+      p#notice = notice
+      .info
+        p
+          h1 = @product.name
+        .img_position
+          = image_tag @galleries.first.image.thumb.url, class: "img-thumbnail"
+
+        .row  
+          p
+            .price_position
+               pre
+                strong Price:
+                = @product.price
+
+          ul class="nav nav-tabs" role="tablist"
+            li role="presentation" class="active" 
+              a href="#product" aria-controls="product" role="tab" data-toggle="tab" product gallery
+            li role="presentation" 
+              a href="#prodisccus" aria-controls="prodisccus" role="tab" data-toggle="tab" product disccusion
+
+        .tab-content
+          div role="tabpanel" class="tab-pane fade in active" id="product"
+            - @galleries.each do |gallery|
+              = image_tag gallery.image.url, size: "100x100"
+
+          div role="tabpanel" class="tab-pane fade in active" id="prodisccus"
+           = link_to "Product Disccusion", product_disccusion_path(@product), class: "btn btn-default"
+        p 
+          .text-justify
+            blockquote
+               = @product.description
+
+        .caption style="text-align:right;"
+            = link_to like_product_path(@product), class: "like", method: :get do
+              button.btn.btn-info aria-label=("Left Align") type="button"
+              span.glyphicon.glyphicon-thumbs-up.glyphicon-align-center aria-hidden="true"
+              span.badge = @product.get_upvotes.size
+
+
+            = link_to dislike_product_path(@product), class: "like", method: :get do
+              button.btn.btn-info aria-label=("Left Align") type="button"
+              span.glyphicon.glyphicon-thumbs-down.glyphicon-align-center aria-hidden="true"
+              span.badge = @product.get_downvotes.size 

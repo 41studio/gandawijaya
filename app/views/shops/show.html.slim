@@ -1,26 +1,73 @@
 .show
   p#notice = notice
   .show-detail-image
-    = image_tag @shop.image.url, size: "240x200"
-  h1
-    = @shop.name
-  = @shop.description
-  hr
-  br
-  br
-  br
-  br
-  br
-  h4 Product
-  .row
-  - @products.each do |product|
-    .col-md-4
-      p = link_to (image_tag product.galleries.first.image.url, size: "120x100"), product
-      p = link_to product.name, product
-      p = product.price
-      p = truncate product.description, length: 120
-      p = link_to 'Edit', edit_product_path(id: product,shop_id: @shop)
+    - if @shop.status == "approved"
+      = image_tag @shop.image.url, size: "240x200", class: "img-thumbnail"
+      h1
+        = @shop.name
+      p 
+        .text-justify 
+          blockquote   
+            = @shop.description
 
-  br
-  p
-    = link_to "Add product", new_product_path(shop_id: @shop)
+      .caption style="text-align:right;"
+        = link_to like_shop_path(@shop), data: {toggle: "tooltip", placement: "top"}, title: "Like", class: "like", method: :get do
+          button.btn.btn-info aria-label=("Left Align") type="button"
+          span.glyphicon.glyphicon-thumbs-up.glyphicon-align-center aria-hidden="true"
+          span.badge = @shop.get_upvotes.size
+
+
+        = link_to dislike_shop_path(@shop), data: {toggle: "tooltip", placement: "bottom"}, title: "Dislike", class: "like", method: :get do
+          button.btn.btn-info aria-label=("Left Align") type="button"
+          span.glyphicon.glyphicon-thumbs-down.glyphicon-align-center aria-hidden="true"
+          span.badge = @shop.get_downvotes.size 
+
+        
+      br
+      br
+      br
+      br
+      br
+      h4 Product
+      .row
+      - @products.each do |product|
+        .col-md-4
+          p = link_to (image_tag product.galleries.first.image.url, size: "120x100"), product
+          p = link_to product.name, product
+          p = product.price
+          p = truncate product.description, length: 120
+          
+      br
+      p
+        = link_to "Add product", new_product_path(shop_id: @shop), class: "btn btn-default"
+
+    - elsif @shop.status == "on_progress"
+        = image_tag "noimg.png", size: "240x200", class: "img-thumbnail"   
+        h1
+          = @shop.name
+        p 
+        .text-justify 
+          blockquote   
+            = @shop.description
+
+        div class="bs-example"
+          div id="myAlert" class="alert alert-success"
+           a href="#" class="close" &times;
+           strong
+            | Note!
+            | This shop is on progress to show
+    - else        
+        = image_tag "noimg.png", size: "240x200", class: "img-thumbnail"   
+        h1
+          = @shop.name
+        p 
+        .text-justify 
+          blockquote   
+            = @shop.description
+              
+        div class="bs-example"
+          div id="myAlert" class="alert alert-info"
+           a href="#" class="close" &times;
+           strong
+            | Note!
+            | Waiting authorized from the admin

@@ -12,10 +12,14 @@
 #
 
 class Product < ActiveRecord::Base
+  enum status: [:under_review, :on_progress, :approved]
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
   has_many  :galleries, dependent: :destroy
   belongs_to :shop
+  belongs_to :user
 
+  acts_as_commentable
+  acts_as_votable
   accepts_nested_attributes_for :galleries, allow_destroy: true
 end
