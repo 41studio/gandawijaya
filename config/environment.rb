@@ -5,5 +5,5 @@ require File.expand_path('../application', __FILE__)
 Rails.application.initialize!
 
 Rails.application.configure do
-  config.action_mailer.default_url_options = { :host => 'gandawijaya.herokuapp.com' }
+  config.action_mailer.default_url_options = { :host => 'gandawijaya.herokuapp.com', :protocol => 'https' }
 end
