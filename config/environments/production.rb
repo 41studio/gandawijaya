@@ -13,7 +13,7 @@ Rails.application.configure do
     :sender_address => %{"Gandawijaya Exception Notifier" <test-do-not-reply@41studio.com>},
     :exception_recipients => %w{adit@41studio.com radiet@41studio.com kris@41studio.com}
   }
-
+  config.action_mailer.default_url_options = { :host => 'localhost' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
    address:                'smtp.gmail.com',
