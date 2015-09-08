@@ -20,7 +20,11 @@
 #
 
 Rails.application.routes.draw do
-	
+
+  root 'pages#dashboard'
+  get '/profile', to: "users/registrations#edit", as: :profile_pages
+  post '/premium/request/:id', to: "premium_request#create", as: :create_request_premium_shop
+  post '/reviews/create', to: 'review#create', as: "reviews"
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   devise_for :users, controllers: { registrations: "users/registrations" }
@@ -42,5 +46,5 @@ Rails.application.routes.draw do
   post '/comment_create', to: 'products#create_comment', as: :comment_create
   get 'search', to: 'pages#dashboard'
 
-
  end
+

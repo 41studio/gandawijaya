@@ -1,13 +1,12 @@
-= simple_form_for(@product) do |f|
+= simple_form_for(@product, url: generate_product_path(@product, action)) do |f|
   = f.error_notification
-
   .form-inputs
     = f.input :name, input_html: { class: "form-control" }
     = f.input :price, input_html: { class: "form-control" }
     = f.input :description, input_html: { class: "form-control" }
     = f.hidden_field :shop_id, value: @shop.id, input_html: { class: "form-control" }
 
-    h3 Tasks
+    h3 Images
     #tasks
       = f.simple_fields_for :galleries do |gallery|
         = render 'gallery_fields', f: gallery

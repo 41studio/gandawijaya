@@ -37,8 +37,6 @@ before_action :authenticate_user!, except: [:show, :product_disccusion]
 
    @comments = @product.comments
 
-
-
    redirect_to product_disccusion_path(@product)
   end
 
@@ -59,7 +57,10 @@ before_action :authenticate_user!, except: [:show, :product_disccusion]
     end
       
     def set_shop_from_params
-      @shop = Shop.find(params[:shop_id])
+      @shop = Shop.find(params[:shop_id]) if params[:shop_id].present?
+      if params[:premium_path].present?
+        @shop = Shop.find 5
+      end
     end
 
     def set_shop

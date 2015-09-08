@@ -1,0 +1,39 @@
+.navbar {
+  background: rgba(255,255,255,0.255);
+  ul {
+    margin-top: 8px;
+  }
+  .caris {
+      width: 400px !important ;
+  }
+  .username-profil {
+    color: #f1f1f1;
+    margin-top: -10px;
+    margin-right: 14px;
+    text-transform: capitalize;
+  }
+  .username-profil a {
+    color: #f1f1f1 !important;
+    margin-right: -20px;
+  }
+  .signupthis a{
+    padding: 4px 6px;
+    font-size: 12px;
+    margin-right: 5px;
+  }
+  .notif {
+    margin-right: 20px;
+  }
+  .tw {
+    background: #2AA9E0;
+    color: white;
+  }
+  .gg {
+   background: #DC493C;
+   color: white;
+  }
+}
+
+.space {
+  padding-bottom: 240px;
+}

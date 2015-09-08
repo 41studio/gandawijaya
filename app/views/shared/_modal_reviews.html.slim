@@ -1,0 +1,16 @@
+.modal.fade id="rate" role="dialog"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button type="button" class="close" data-dismiss="modal" aria-label="Close"
+          span aria-hidden="true"&times;
+        h4 class="modal-title" Modal title
+      = simple_form_for @review do |f|
+        .modal-body
+          = f.input :content
+          = f.input :rate_point
+          = f.hidden_field :reviewable_id, value: reviewable_id
+          = f.hidden_field :reviewable_type,  value: reviewable_type
+        .modal-footer
+          button type="button" class="btn btn-default" data-dismiss="modal"Close
+          = f.button :submit, class: "btn btn-primary"
