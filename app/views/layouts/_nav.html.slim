@@ -7,6 +7,7 @@ nav.navbar.navbar-default.navbar-static-top
       - if user_signed_in?
          = link_to (image_tag current_user.image.url, size: "50x50", class: "img-circle image"), edit_user_registration_path
          = link_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-danger"
+         = link_to "Create your shop", new_shop_path, class: "btn btn-primary"  
       - else
          = link_to "Sign In", new_user_session_path, class: "btn btn-primary", data: {toggle: "tooltip", placement: "left"}, title: "clik if want to sign in"
          = link_to "Sign Up", new_user_registration_path, class: "btn btn-primary", data: {toggle: "tooltip", placement: "bottom"}, title: "clik if want to sign up"

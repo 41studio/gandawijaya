@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-
+  enum gender: [:Male, :Female]
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

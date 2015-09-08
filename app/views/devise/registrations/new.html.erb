@@ -16,7 +16,7 @@
 		    <%= f.input :handphone, required: true, input_html: { class: "form-control"} %>
 		    Image
 			<%= f.file_field :image, required: true, input_html: { class: 'form-control' } %>
-			<%= f.input :gender, required: true, input_html: { class: "form-control"} %>
+			<%= f.input :gender, :as => :select, :collection => ["Male", "Female"], required: true, input_html: { class: "form-control"} %>
 			<%= f.input :birthday, required: true, input_html: { class: "form-control"} %>
 			<%= f.input :subscribe, required: true %>
 			<%= f.input :term_of_user, required: true %>

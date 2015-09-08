@@ -1,7 +1,8 @@
 form class="navbar-form navbar-left" role="search" method= "get" action= "/"
   div class="form-group"
     input type="text" class="form-control" placeholder="Search" name="search" id= "search"
-  button type="submit" class="btn btn-primary" Go
+  button type="submit" class="btn btn-primary" 
+    span class= "glyphicon glyphicon-search"
 
   h4 All shops
   .row
@@ -14,7 +15,7 @@ form class="navbar-form navbar-left" role="search" method= "get" action= "/"
             p = detail_shop[:highlight][:name].html_safe
           p = truncate shop.description, length: 100
         - else
-          p = link_to (image_tag "nopriv.jpg", size: "120x100", class: "img-rounded"), shop
+          p = link_to (image_tag "noimg.png", size: "120x100", class: "img-rounded"), shop
           .text-muted
             h3 = detail_shop && detail_shop[:highlight][:name] ? detail_shop[:highlight][:name].html_safe : shop.name
             - if detail_shop && detail_shop[:highlight][:name]
@@ -48,7 +49,7 @@ form class="navbar-form navbar-left" role="search" method= "get" action= "/"
         p = product.price
         p = truncate product.description, length: 100
       -else  
-        p = link_to (image_tag "nopriv.jpg", size: "120x100", class: "img-rounded"), product
+        p = link_to (image_tag "noimg.png", size: "120x100", class: "img-rounded"), product
         p = link_to product.name, product
         p = product.price
         p = truncate product.description, length: 100

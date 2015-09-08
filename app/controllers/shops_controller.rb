@@ -37,7 +37,7 @@ before_action :authenticate_user!, except: [:show, :index]
     end
 
     def shop_params
-      params.require(:shop).permit(:name, :image, :description)
+      params.require(:shop).permit(:name, :image, :description, :address)
     end
 end
 

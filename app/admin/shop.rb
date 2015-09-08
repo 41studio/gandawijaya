@@ -14,12 +14,14 @@ ActiveAdmin.register Shop do
   #   permitted
   # end
   
+  # menu parent: "Shops"
+
   form do |f|
     f.inputs 'Shops' do
       f.input :name
       f.input :image
       f.input :description
-      f.input :status
+      f.input :status, :as => :select, :collection => ["under_review", "on_progress", "approved"]
       f.actions
    end
  end

@@ -36,21 +36,38 @@
           p = link_to product.name, product
           p = product.price
           p = truncate product.description, length: 120
-          p = link_to 'Edit', edit_product_path(id: product,shop_id: @shop), class: "btn btn-success"
-
+          
       br
       p
         = link_to "Add product", new_product_path(shop_id: @shop), class: "btn btn-default"
 
-    - else
-        = image_tag "nopriv.jpg", size: "240x200", class: "img-thumbnail"   
+    - elsif @shop.status == "on_progress"
+        = image_tag "noimg.png", size: "240x200", class: "img-thumbnail"   
         h1
           = @shop.name
+        p 
+        .text-justify 
+          blockquote   
+            = @shop.description
+
+        div class="bs-example"
+          div id="myAlert" class="alert alert-success"
+           a href="#" class="close" &times;
+           strong
+            | Note!
+            | This shop is on progress to show
+    - else        
+        = image_tag "noimg.png", size: "240x200", class: "img-thumbnail"   
+        h1
+          = @shop.name
+        p 
+        .text-justify 
+          blockquote   
+            = @shop.description
+              
         div class="bs-example"
           div id="myAlert" class="alert alert-info"
            a href="#" class="close" &times;
            strong
             | Note!
-            | Waiting authorized from admin to show this shop 
-  
-  
+            | Waiting authorized from the admin
