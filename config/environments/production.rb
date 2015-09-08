@@ -6,6 +6,7 @@ Rails.application.configure do
   config.cache_classes = true
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_url_options = { :host => 'gandawijaya.herokuapp.com', :protocol => 'https' }
   config.middleware.use ExceptionNotification::Rack,
   :email => {
     :email_prefix => "[Gandawijaya Error Report] ",
