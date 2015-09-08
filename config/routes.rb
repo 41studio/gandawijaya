@@ -22,6 +22,7 @@
 Rails.application.routes.draw do
 
   root 'pages#dashboard'
+  get '/profile', to: "users/registrations#edit", as: :profile_pages
   post '/premium/request/:id', to: "premium_request#create", as: :create_request_premium_shop
   post '/reviews/create', to: 'review#create', as: "reviews"
   devise_for :admin_users, ActiveAdmin::Devise.config

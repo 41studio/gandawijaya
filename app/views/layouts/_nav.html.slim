@@ -5,12 +5,14 @@ nav.navbar.navbar-default.navbar-static-top
         = link_to "Gandawijaya", root_path
     ul.nav.navbar-nav.navbar-right.profil
     - if user_signed_in?
-      li.username-profil
+      li
         = current_user.username
       li
-        = button_to "Log out", destroy_user_session_url, :method => :delete, class:"btn btn-sm btn-primary"
+        = button_to "Log out", destroy_user_session_path, :method => :delete, class:"btn btn-sm btn-primary"
       li
         = link_to "open a shop", new_shop_path
+      li
+        = link_to current_user.email, profile_pages_path
     - else
       li.signin
         = button_to "Sign in", new_user_session_path, class:"btn btn-sm btn-primary"
@@ -18,7 +20,5 @@ nav.navbar.navbar-default.navbar-static-top
         = link_to "Sign up", new_user_registration_path, class:"btn btn-sm btn-default"
       li.fb
         = button_to "f", user_omniauth_authorize_path(:facebook),class:"btn btn-sm btn-primary"
-      li
-        = button_to "t", user_omniauth_authorize_path(:twitter),class:"btn btn-sm tw"
       li
         = button_to "g", user_omniauth_authorize_path(:google_oauth2),class:"btn btn-sm gg"

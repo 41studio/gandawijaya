@@ -123,7 +123,7 @@ Devise.setup do |config|
   # initial account confirmation) to be applied. Requires additional unconfirmed_email
   # db field (see migrations). Until confirmed, new email is stored in
   # unconfirmed_email column, and copied to email column on successful confirmation.
-  config.reconfirmable = true
+  config.reconfirmable = false
 
   # Defines which key will be used when confirming an account
   # config.confirmation_keys = [:email]
@@ -239,7 +239,7 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   config.omniauth :facebook, '500979716737968', '12856e254382d7ffbf33ab3a70a47017', :secure_image_url => true, scope: 'email,public_profile', info_fields: 'email,first_name,last_name,name'
-  config.omniauth :twitter, 'O6CJPkPjdj9bFH0YsX9RaGBsq', 'LNXKjTGBnCqQPQa3wXSELcqnHVikKnFGxaDOsqrqrUcBwUZbiJ'
+  # config.omniauth :twitter, 'O6CJPkPjdj9bFH0YsX9RaGBsq', 'LNXKjTGBnCqQPQa3wXSELcqnHVikKnFGxaDOsqrqrUcBwUZbiJ'
   config.omniauth :google_oauth2, "606618832253-urh25qcer1hr3rov194lai3qs8fnep1k.apps.googleusercontent.com", "dzGPrh_-PN4nTyqofv6_CclA"
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
