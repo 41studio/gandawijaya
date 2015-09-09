@@ -19,13 +19,11 @@ class Shop < ActiveRecord::Base
   mount_uploader :image, GalleryUploader
   belongs_to :user
   searchkick word_start: [:name]
-
   acts_as_votable
   has_many :premium_shop_requests
   has_one :premium_account
   has_many :reviews, as: :reviewable
   has_many :products, dependent: :destroy
-  belongs_to :user
   after_save :send_mail_new_shop
 
   def send_mail_new_shop

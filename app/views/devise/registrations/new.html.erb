@@ -16,12 +16,12 @@
 		    <%= f.input :handphone, required: true, input_html: { class: "form-control"} %>
 		    Image
 			<%= f.file_field :image, required: true, input_html: { class: 'form-control' } %>
-			<%= f.input :gender, required: true, input_html: { class: "form-control"} %>
+			<%= f.input :gender, :as => :select, :collection => ["Male", "Female"], required: true, input_html: { class: "form-control"} %>
 			<%= f.input :birthday, required: true, input_html: { class: "form-control"} %>
 			<%= f.input :subscribe, required: true %>
 			<%= f.input :term_of_user, required: true %>
 			<%= f.input :status, required: true, input_html: { class: "form-control"} %>
-			<%= f.input :last_ip, required: true, input_html: { class: "form-control"} %>	
+			<%= f.input :last_ip, required: true, input_html: { class: "form-control"} %>
 			<%= f.input :user_agent, required: true, input_html: { class: "form-control"} %>
 		    <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length), input_html: { class: "form-control" }%>
 		    <%= f.input :password_confirmation, required: true, input_html: { class: "form-control" } %>
