@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-
+  enum gender: [:Male, :Female]
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   mount_uploader :image, AvatarUploader

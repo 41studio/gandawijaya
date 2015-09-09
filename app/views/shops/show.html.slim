@@ -1,91 +1,112 @@
 .show
   p#notice = notice
-  - if @shop.status == "approved"
-    .row
-      .col-md-4
-        = image_tag @shop.image.url, size: "240x200", class: "img-thumbnail"
-      .col-md-8
+  .show-detail-image
+    - if @shop.status == "approved"
+      .row
+        .col-md-4
+          = image_tag @shop.image.url, size: "240x200", class: "img-thumbnail"
+        .col-md-8
+          h1
+            = @shop.name
+          b
+           'Rating
+          - if @shop.reviews.any?
+            = @shop.reviews.average(:rate_point)
+          - else
+            'Unrated
+          p
+            .text-justify
+              blockquote
+                = @shop.description
+          br
+          .caption style="text-align:right;"
+            = link_to like_shop_path(@shop), data: {toggle: "tooltip", placement: "top"}, title: "Like", class: "like", method: :get do
+              button.btn.btn-info aria-label=("Left Align") type="button"
+              span.glyphicon.glyphicon-thumbs-up.glyphicon-align-center aria-hidden="true"
+              span.badge = @shop.get_upvotes.size
+
+
+            = link_to dislike_shop_path(@shop), data: {toggle: "tooltip", placement: "bottom"}, title: "Dislike", class: "like", method: :get do
+              button.btn.btn-info aria-label=("Left Align") type="button"
+              span.glyphicon.glyphicon-thumbs-down.glyphicon-align-center aria-hidden="true"
+              span.badge = @shop.get_downvotes.size
+          b
+           ' Total Product:
+          = @shop.products.count
+      br
+      br
+      - if user_signed_in?
+        -if unreviewed_by?(current_user, @shop.id, "Shop")
+          = link_to 'Rate & Review', "#" , class: "btn btn-success", data: {toggle: "modal", target: "#rate" }
+        - if @this_is_current_user_shop.any?
+          = link_to "control panel", generate_path_for(@shop, "controlpanel"), class: "btn btn-success"
+          = link_to 'Edit', generate_path_for(@shop, "edit"), class: "btn btn-danger"
+          - if @shop.premium_shop_requests.any?
+            - if @shop.premium_shop_requests.where(approved: false).any?
+              = button_to 'your premium offer is still in process', "#", class: "btn btn-primary", disabled: true
+          - else
+            = button_to 'offer for premium account', create_request_premium_shop_path(@shop), class: "btn btn-primary"
+
+      hr
+      br
+      br
+      br
+      br
+      br
+      h4 Product
+      .row
+        - @products.each do |product|
+          .col-md-4
+            p = link_to (image_tag product.galleries.first.image.url, size: "120x100"), generate_product_path(product, "show")
+            p = link_to product.name, generate_product_path(product, "show")
+            p = product.price
+            p = truncate product.description, length: 120
+            p = link_to 'Edit', generate_product_path(product, "edit")
+
+      br
+      - if @this_is_current_user_shop
+        p
+          = link_to "Add product", generate_product_2_path(@shop, "new")
+      br
+      br
+      h4 Review
+      - @reviews.each do |review|
+
+        = review.user.username
+        br
+        = review.content
+        br
+        = review.rate_point
+
+      = render partial: "shared/modal_reviews", locals: {reviewable_id: @shop.id, reviewable_type: "Shop"}
+
+    - elsif @shop.status == "on_progress"
+        = image_tag "noimg.png", size: "240x200", class: "img-thumbnail"
         h1
           = @shop.name
-        b
-         'Rating
-        - if @shop.reviews.any?
-          = @shop.reviews.average(:rate_point)
-        - else
-          'Unrated
         p
-          .text-justify
-            blockquote
-              = @shop.description
-        br
-        .caption style="text-align:right;"
-          = link_to like_shop_path(@shop), data: {toggle: "tooltip", placement: "top"}, title: "Like", class: "like", method: :get do
-            button.btn.btn-info aria-label=("Left Align") type="button"
-            span.glyphicon.glyphicon-thumbs-up.glyphicon-align-center aria-hidden="true"
-            span.badge = @shop.get_upvotes.size
+        .text-justify
+          blockquote
+            = @shop.description
 
+        div class="bs-example"
+          div id="myAlert" class="alert alert-success"
+           a href="#" class="close" &times;
+           strong
+            | Note!
+            | This shop is on progress to show
+    - else
+        = image_tag "noimg.png", size: "240x200", class: "img-thumbnail"
+        h1
+          = @shop.name
+        p
+        .text-justify
+          blockquote
+            = @shop.description
 
-          = link_to dislike_shop_path(@shop), data: {toggle: "tooltip", placement: "bottom"}, title: "Dislike", class: "like", method: :get do
-            button.btn.btn-info aria-label=("Left Align") type="button"
-            span.glyphicon.glyphicon-thumbs-down.glyphicon-align-center aria-hidden="true"
-            span.badge = @shop.get_downvotes.size
-        b
-         ' Total Product:
-        = @shop.products.count
-    br
-    br
-    - if user_signed_in?
-      -if unreviewed_by?(current_user, @shop.id, "Shop")
-        = link_to 'Rate & Review', "#" , class: "btn btn-success", data: {toggle: "modal", target: "#rate" }
-      - if @this_is_current_user_shop.any?
-        = link_to "control panel", generate_path_for(@shop, "controlpanel"), class: "btn btn-success"
-        = link_to 'Edit', generate_path_for(@shop, "edit"), class: "btn btn-danger"
-        - if @shop.premium_shop_requests.any?
-          - if @shop.premium_shop_requests.where(approved: false).any?
-            = button_to 'your premium offer is still in process', "#", class: "btn btn-primary", disabled: true
-        - else
-          = button_to 'offer for premium account', create_request_premium_shop_path(@shop), class: "btn btn-primary"
-
-    hr
-    br
-    br
-    br
-    br
-    br
-    h4 Product
-    .row
-      - @products.each do |product|
-        .col-md-4
-          p = link_to (image_tag product.galleries.first.image.url, size: "120x100"), generate_product_path(product, "show")
-          p = link_to product.name, generate_product_path(product, "show")
-          p = product.price
-          p = truncate product.description, length: 120
-          p = link_to 'Edit', generate_product_path(product, "edit")
-
-    br
-    - if @this_is_current_user_shop
-      p
-        = link_to "Add product", generate_product_2_path(@shop, "new")
-    br
-    br
-    h4 Review
-    - @reviews.each do |review|
-
-      = review.user.username
-      br
-      = review.content
-      br
-      = review.rate_point
-
-    = render partial: "shared/modal_reviews", locals: {reviewable_id: @shop.id, reviewable_type: "Shop"}
-
-  - else
-      = image_tag "nopriv.jpg", size: "240x200", class: "img-thumbnail"
-      h1
-        = @shop.name
-      div class="bs-example"
-        div id="myAlert" class="alert alert-info"
-         a href="#" class="close" &times;
-         strong
-          | Note!
-          | Waiting authorized from admin to show this shop
+        div class="bs-example"
+          div id="myAlert" class="alert alert-info"
+           a href="#" class="close" &times;
+           strong
+            | Note!
+            | Waiting authorized from the admin

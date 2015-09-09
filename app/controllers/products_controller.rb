@@ -3,34 +3,41 @@ before_action :set_shop_from_params, only: [:new]
 before_action :find_product, only: [:upvote, :downvote]
 before_action :set_shop, only: [:show, :edit]
 before_action :set_galleries, only: [:show]
-before_action :authenticate_user!, except: [:show, :index]
+before_action :authenticate_user!, except: [:show, :product_disccusion]
 
-  def new
-    @product = @shop.products.new
+  def product_disccusion
+    @product = Product.find(params[:id])
+    @galleries = resource.galleries
+    @comments = @product.comments
   end
 
   def create
-    @product = current_user.products.new(product_params)
-    create!
-  end
+    @user = current_user
+    @product = current_user.products.build(product_params)
 
-  def update
-    if resource.shop.premium_account.present?
-      update! do |success, failure|
-        success.html { redirect_to product_premium_path(premium_path: resource.shop.premium_account.url, id: resource) }
-      end
+     if @product.save
+
+        ProductMailer.product_created(@user).deliver
+
+      redirect_to @product
     else
-      update! do |success, failure|
-        success.html { redirect_to shop_product_path(shop_id: resource.shop, id: resource) }
-      end
+      render 'new'
     end
   end
 
-  def show
-    @review = Review.new
-    @reviews = resource.reviews
-    impressionist(resource, "view product")
-    @impression_count = resource.impressionist_count(:filter=>:all)
+  def create_comment
+   @product = Product.find(params[:comment][:product_id])
+   @user = @product.user
+   @comment = current_user.comments.new
+   @comment.comment = params[:comment][:comment]
+   @comment.commentable = @product
+     if @comment.save
+        CommentMailer.comment_created(@user, current_user, @comment ).deliver
+      end
+
+   @comments = @product.comments
+
+   redirect_to product_disccusion_path(@product)
   end
 
   def product_disccusion
