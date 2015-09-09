@@ -23,8 +23,12 @@ Rails.application.routes.draw do
 
   root 'pages#dashboard'
   get '/profile', to: "users/registrations#edit", as: :profile_pages
-  post '/premium/request/:id', to: "premium_request#create", as: :create_request_premium_shop
+
   post '/reviews/create', to: 'review#create', as: "reviews"
+  get "product/like", to: "products#upvote"
+  get "product/dislike", to: "products#downvote"
+  get "shop/like", to: "shops#upvote"
+  get "shop/dislike", to: "shops#downvote"
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   resources :shops do
@@ -35,6 +39,7 @@ Rails.application.routes.draw do
                                     registrations: "users/registrations",
                                     omniauth_callbacks: "users/omniauth_callbacks" }
 
+  post '/premium/request/:id', to: "premium_request#create", as: :create_request_premium_shop
   get '/:premium_path/edit',to: "shops#edit", as: :edit_shop_premium
   get '/:premium_path',to: "shops#show", as: :shop_premium
   get '/:premium_path/controlpanel', to: "shops#controlpanel", as: :controlpanel_shop_premium
@@ -42,8 +47,10 @@ Rails.application.routes.draw do
   scope '/:premium_path' do
     resources :products, as: :product_premium
   end
-  # patch '/:premium_path',to: "shops#update", as: :shop_premium
-  # delete '/:premium_path',to: "shops#destroy", as: :shop_premium
+
+  get '/prodiscc/:id', to: 'products#product_disccusion', as: :product_disccusion
+  post '/comment_create', to: 'products#create_comment', as: :comment_create
+  get 'search', to: 'pages#dashboard'
 
 
  end

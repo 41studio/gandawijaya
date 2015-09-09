@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_many :shops, dependent: :destroy
   has_many :products
   has_many :premium_accounts, dependent: :destroy
+  has_many :comments
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

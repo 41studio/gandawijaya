@@ -1,0 +1,80 @@
+- if user_signed_in?
+  .show
+    p#notice = notice
+    .info
+      p
+        h1 = @product.name
+      .img_position
+        = image_tag @galleries.first.image.thumb.url, class: "img-thumbnail"
+
+      .row  
+        p
+          .price_position
+            pre
+              strong Price:
+              = @product.price
+      p 
+        .text-justify
+          blockquote
+            = @product.description
+
+        h2.comment_count= pluralize(@comments.count, "Comment")
+      - @comments.each do |comment|
+          .comment
+            p.comment= comment.comment
+            br/ 
+
+      = render 'comment'   
+    
+
+    = link_to 'Edit', edit_product_path(@product)
+    |
+    = link_to 'Back', @shop
+- else
+  .show
+    p#notice = notice
+    .info
+      p
+        h1 = @product.name
+      .img_position
+        = image_tag @galleries.first.image.thumb.url, class: "img-thumbnail"
+
+      .row  
+        p
+          .price_position
+            pre
+              strong Price:
+              = @product.price
+      p 
+        .text-justify
+          blockquote
+            = @product.description
+
+      div class="bs-example" 
+         button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" data-title="Contact Us" Contact Us
+        
+         div id="myModal" class="modal fade" 
+             div class="modal-dialog" 
+                 div class="modal-content" 
+                     div class="modal-header"
+                         button type="button" class="close" data-dismiss="modal" aria-hidden="true" ×
+                         h4 class="modal-title" Modal Window
+                  
+                     div class="modal-body"
+                         form role="form"
+                             div class="form-group" 
+                                 label for="recipient-name" class="control-label" Handphone:
+                                 input type="text" class="form-control" id="recipient-name" 
+
+                             div class="form-group" 
+                                 label for="recipient-name" class="control-label" Email:
+                                 input type="text" class="form-control" id="recipient-name" 
+                            
+                             div class="form-group" 
+                                 label for="message-text" class="control-label" Message:
+                                 textarea class="form-control" id="message-text"
+                            
+                     div class="modal-footer"
+                         button type="button" class="btn btn-default" data-dismiss="modal" Cancel
+                         button type="button" class="btn btn-primary" Send
+                    

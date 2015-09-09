@@ -2,11 +2,23 @@ class ShopsController < InheritedResources::Base
 before_action :authenticate_user!, except: [:show, :index]
 before_action :check_and_set_premium_url, only: [:edit, :show]
 before_action :set_products, only: [:show]
+before_action :find_shop, only: [:upvote, :downvote]
 
   def create
-  	@shop = current_user.shops.new(shop_params)
-  	create!
+    @shop = current_user.shops.new(shop_params)
+    create!
   end
+
+  def upvote
+    @shop.upvote_by current_user
+    redirect_to :back
+  end
+
+  def downvote
+    @shop.downvote_by current_user
+    redirect_to :back
+  end
+
 
   def update
     if resource.premium_account.present?
@@ -48,6 +60,10 @@ before_action :set_products, only: [:show]
           redirect_to shops_path, notice: "maaf url tidak ada" and return
         end
       end
+    end
+
+    def find_shop
+      @shop = Shop.find(params[:id])
     end
 
     def set_products

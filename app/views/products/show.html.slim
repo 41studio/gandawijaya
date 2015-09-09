@@ -1,17 +1,47 @@
 .show
   p#notice = notice
   .info
-    .thumbnail
-      = image_tag @galleries.first.image.url
     p
-      strong Name:
-      = @product.name
+      h1 = @product.name
+    .img_position
+      = image_tag @galleries.first.image.thumb.url, class: "img-thumbnail"
+    .row
+      p
+        .price_position
+           pre
+            strong Price:
+            = @product.price
+
+      ul class="nav nav-tabs" role="tablist"
+        li role="presentation" class="active"
+          a href="#product" aria-controls="product" role="tab" data-toggle="tab" product gallery
+        li role="presentation"
+          a href="#prodisccus" aria-controls="prodisccus" role="tab" data-toggle="tab" product disccusion
+
+      .tab-content
+        div role="tabpanel" class="tab-pane fade in active" id="product"
+          - @galleries.each do |gallery|
+            = image_tag gallery.image.url, size: "100x100"
+
+        div role="tabpanel" class="tab-pane fade in active" id="prodisccus"
+         = link_to "Product Disccusion", product_disccusion_path(@product), class: "btn btn-default"
     p
-      strong Price:
-      = @product.price
-    p
-      strong Description:
-      = @product.description
+      .text-justify
+        blockquote
+           = @product.description
+
+    .caption style="text-align:right;"
+        = link_to product_like_path(@product), class: "like", method: :get do
+          button.btn.btn-info aria-label=("Left Align") type="button"
+          span.glyphicon.glyphicon-thumbs-up.glyphicon-align-center aria-hidden="true"
+          span.badge = @product.get_upvotes.size
+
+
+      = link_to product_dislike_path(@product), class: "like", method: :get do
+          button.btn.btn-info aria-label=("Left Align") type="button"
+          span.glyphicon.glyphicon-thumbs-down.glyphicon-align-center aria-hidden="true"
+          span.badge = @product.get_downvotes.size
+
     'Rating
     = @product.reviews.average(:rate_point)
   - if user_signed_in? && unreviewed_by?(current_user, @product.id, "Product")
@@ -39,4 +69,3 @@
     = review.rate_point
 
 = render partial: "shared/modal_reviews", locals: {reviewable_id: @product.id, reviewable_type: "Product"}
-
