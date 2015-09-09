@@ -35,4 +35,12 @@ ActiveAdmin.register Shop do
     end
     active_admin_comments
   end
+
+  action_item :status do
+  link_to "Rejected", "/"
+  end  
+  
+  action_item :status do
+  link_to "Approved", "/"
+  end  
 end
