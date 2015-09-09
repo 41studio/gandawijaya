@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150908083555) do
+ActiveRecord::Schema.define(version: 20150909044824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -160,26 +160,12 @@ ActiveRecord::Schema.define(version: 20150908083555) do
     t.datetime "updated_at",                                      null: false
     t.integer  "shop_id"
     t.string   "slug"
-    t.integer  "user_id"
+    t.string   "user_id"
     t.integer  "status",                              default: 0
   end
 
   add_index "products", ["shop_id"], name: "index_products_on_shop_id", using: :btree
   add_index "products", ["slug"], name: "index_products_on_slug", unique: true, using: :btree
-  add_index "products", ["user_id"], name: "index_products_on_user_id", using: :btree
-
-  create_table "rates", force: :cascade do |t|
-    t.integer  "rater_id"
-    t.integer  "rateable_id"
-    t.string   "rateable_type"
-    t.float    "stars",         null: false
-    t.string   "dimension"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "rates", ["rateable_id", "rateable_type"], name: "index_rates_on_rateable_id_and_rateable_type", using: :btree
-  add_index "rates", ["rater_id"], name: "index_rates_on_rater_id", using: :btree
 
   create_table "rating_caches", force: :cascade do |t|
     t.integer  "cacheable_id"
@@ -207,17 +193,19 @@ ActiveRecord::Schema.define(version: 20150908083555) do
 
   create_table "shops", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.string   "image"
     t.text     "description"
     t.string   "slug"
-    t.integer  "user_id"
+    t.string   "user_id"
+    t.integer  "status",        default: 0
     t.string   "address"
+    t.string   "telephone"
+    t.string   "mobile_phones"
   end
 
   add_index "shops", ["slug"], name: "index_shops_on_slug", unique: true, using: :btree
-  add_index "shops", ["user_id"], name: "index_shops_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -239,7 +227,7 @@ ActiveRecord::Schema.define(version: 20150908083555) do
     t.text     "address"
     t.string   "image"
     t.integer  "gender"
-    t.date     "birthday"
+    t.string   "birthday"
     t.boolean  "subscribe"
     t.string   "handphone"
     t.boolean  "term_of_user"
@@ -278,7 +266,5 @@ ActiveRecord::Schema.define(version: 20150908083555) do
   add_foreign_key "premium_shop_requests", "shops"
   add_foreign_key "premium_shop_requests", "users"
   add_foreign_key "products", "shops"
-  add_foreign_key "products", "users"
   add_foreign_key "reviews", "users"
-  add_foreign_key "shops", "users"
 end

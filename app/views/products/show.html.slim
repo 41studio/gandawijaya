@@ -37,10 +37,10 @@
           span.badge = @product.get_upvotes.size
 
 
-      = link_to product_dislike_path(@product), class: "like", method: :get do
-          button.btn.btn-info aria-label=("Left Align") type="button"
-          span.glyphicon.glyphicon-thumbs-down.glyphicon-align-center aria-hidden="true"
-          span.badge = @product.get_downvotes.size
+        = link_to product_dislike_path(@product), class: "like", method: :get do
+            button.btn.btn-info aria-label=("Left Align") type="button"
+            span.glyphicon.glyphicon-thumbs-down.glyphicon-align-center aria-hidden="true"
+            span.badge = @product.get_downvotes.size
 
     'Rating
     = @product.reviews.average(:rate_point)

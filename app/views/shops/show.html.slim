@@ -20,13 +20,13 @@
                 = @shop.description
           br
           .caption style="text-align:right;"
-            = link_to like_shop_path(@shop), data: {toggle: "tooltip", placement: "top"}, title: "Like", class: "like", method: :get do
+            = link_to shop_like_path(@shop), data: {toggle: "tooltip", placement: "top"}, title: "Like", class: "like", method: :get do
               button.btn.btn-info aria-label=("Left Align") type="button"
               span.glyphicon.glyphicon-thumbs-up.glyphicon-align-center aria-hidden="true"
               span.badge = @shop.get_upvotes.size
 
 
-            = link_to dislike_shop_path(@shop), data: {toggle: "tooltip", placement: "bottom"}, title: "Dislike", class: "like", method: :get do
+            = link_to shop_dislike_path(@shop), data: {toggle: "tooltip", placement: "bottom"}, title: "Dislike", class: "like", method: :get do
               button.btn.btn-info aria-label=("Left Align") type="button"
               span.glyphicon.glyphicon-thumbs-down.glyphicon-align-center aria-hidden="true"
               span.badge = @shop.get_downvotes.size
