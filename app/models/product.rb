@@ -9,6 +9,9 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  shop_id     :integer
+#  slug        :string
+#  user_id     :integer
+#  status      :integer          default(0)
 #
 
 class Product < ActiveRecord::Base
