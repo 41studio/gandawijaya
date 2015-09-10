@@ -22,7 +22,7 @@
         = f.input :email, required: true, input_html: { class: "form-control" }
         = f.input :address, required: true, input_html: { class: "form-control"}
         = f.input :handphone, required: true, input_html: { class: "form-control"}
-        = f.input :birthday, as: :date, start_year: Date.today.year, end_year: 1950, required: true, input_html: { class: "form-control"}
+        = f.input :birthday, as: :date, start_year: Date.today.year-10, end_year: 1950, required: true, input_html: { class: "form-control"}
         = f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false, input_html: { class: "form-control"}
         = f.input :password_confirmation, required: false, input_html: { class: "form-control"}
       .form-actions
