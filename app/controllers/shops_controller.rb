@@ -1,7 +1,8 @@
 class ShopsController < InheritedResources::Base
+before_action :authenticate_user!, except: [:show, :index]
+before_action :check_and_set_premium_url, only: [:edit, :show]
 before_action :set_products, only: [:show]
 before_action :find_shop, only: [:upvote, :downvote]
-before_action :authenticate_user!, except: [:show, :index]
 
   def create
     @shop = current_user.shops.new(shop_params)

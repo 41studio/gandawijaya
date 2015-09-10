@@ -1,28 +1,30 @@
 class ProductsController < InheritedResources::Base
+before_action :authenticate_user!, except: [:show, :product_disccusion]
 before_action :set_shop_from_params, only: [:new]
-before_action :find_product, only: [:upvote, :downvote]
 before_action :set_shop, only: [:show, :edit]
 before_action :set_galleries, only: [:show]
-before_action :authenticate_user!, except: [:show, :product_disccusion]
+before_action :find_product, only: [:upvote, :downvote]
+
+  def show
+    @review = Review.new
+    @reviews = resource.reviews
+    impressionist(resource, "view product")
+    @impression_count = resource.impressionist_count(:filter=>:all)
+  end
+
+  def new
+    @product = @shop.products.new
+  end
+
+  def create
+    @product = current_user.products.new(product_params)
+    create!
+  end
 
   def product_disccusion
     @product = Product.find(params[:id])
     @galleries = resource.galleries
     @comments = @product.comments
-  end
-
-  def create
-    @user = current_user
-    @product = current_user.products.build(product_params)
-
-     if @product.save
-
-        ProductMailer.product_created(@user).deliver
-
-      redirect_to @product
-    else
-      render 'new'
-    end
   end
 
   def create_comment
@@ -35,26 +37,7 @@ before_action :authenticate_user!, except: [:show, :product_disccusion]
         CommentMailer.comment_created(@user, current_user, @comment ).deliver
       end
 
-   @comments = @product.comments
-
    redirect_to product_disccusion_path(@product)
-  end
-
-  def product_disccusion
-    @product = Product.find(params[:id])
-    @galleries = resource.galleries
-    @comments = @product.comments
-  end
-
-  def create_comment
-   @product = Product.find(params[:comment][:product_id])
-   @comment = current_user.comments.new
-   @comment.comment = params[:comment][:comment]
-   @comment.commentable = @product
-   if @comment.save
-      CommentMailer.comment_created(@user, current_user, @comment ).deliver
-    end
-   redirect_to :back
   end
 
   def upvote
@@ -75,7 +58,13 @@ before_action :authenticate_user!, except: [:show, :product_disccusion]
     def set_shop_from_params
       @shop = Shop.find(params[:shop_id]) if params[:shop_id].present?
       if params[:premium_path].present?
-        @shop = Shop.find 5
+        premium_account = PremiumAccount.select(:shop_id).where(url: params[:premium_path]).first
+         if premium_account.present?
+          @shop = Shop.find premium_account.shop_id
+        else
+          @products = collection
+          redirect_to shops_path, notice: "maaf url tidak ada" and return
+        end
       end
     end
 

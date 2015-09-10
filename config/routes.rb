@@ -22,8 +22,8 @@
 Rails.application.routes.draw do
 
   root 'pages#dashboard'
-  get '/profile', to: "users/registrations#edit", as: :profile_pages
-
+  put '/avatarchange', to: 'pages#change_avatar', as: :change_avatar
+  get 'users/profile', to: "pages#profile", as: :profile_pages
   post '/reviews/create', to: 'review#create', as: "reviews"
   get "product/like", to: "products#upvote"
   get "product/dislike", to: "products#downvote"
