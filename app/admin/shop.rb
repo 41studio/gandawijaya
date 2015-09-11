@@ -24,6 +24,9 @@ ActiveAdmin.register Shop do
       f.input :status, :as => :select, :collection => ["under_review", "on_progress", "approved"]
       f.actions
    end
+   panel "Premum Account settings" do
+    render partial: "premium_account_form", locals: {shop: shop}
+  end
  end
 
   show do

@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  before_action :authenticate_user!, only: [:profile]
   def dashboard
     @shops = Shop.order(created_at: :desc)
     @products = Product.order(created_at: :desc)
