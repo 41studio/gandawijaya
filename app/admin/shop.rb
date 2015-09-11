@@ -33,6 +33,9 @@ ActiveAdmin.register Shop do
         image_tag shop.image.url
       end
     end
+    panel "Premum Account settings" do
+      render partial: "premium_account_form", locals: {shop: shop}
+    end
     active_admin_comments
   end
 end

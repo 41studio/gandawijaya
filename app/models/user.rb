@@ -38,18 +38,20 @@
 
 class User < ActiveRecord::Base
   enum gender: [:Male, :Female]
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
   mount_uploader :image, AvatarUploader
+
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:facebook, :google_oauth2]
+
   has_many :premium_shop_requests, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :shops, dependent: :destroy
   has_many :products
   has_many :premium_accounts, dependent: :destroy
   has_many :comments
+
+  validates :username, presence: true
 
   def self.from_omniauth(auth, user_agent)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
@@ -63,4 +65,5 @@ class User < ActiveRecord::Base
       user.user_agent = user_agent
     end
   end
+
 end

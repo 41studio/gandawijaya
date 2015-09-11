@@ -41,12 +41,6 @@
         - if @this_is_current_user_shop.any?
           = link_to "control panel", generate_path_for(@shop, "controlpanel"), class: "btn btn-success"
           = link_to 'Edit', generate_path_for(@shop, "edit"), class: "btn btn-danger"
-          - if @shop.premium_shop_requests.any?
-            - if @shop.premium_shop_requests.where(approved: false).any?
-              = button_to 'your premium offer is still in process', "#", class: "btn btn-primary", disabled: true
-          - else
-            = button_to 'offer for premium account', create_request_premium_shop_path(@shop), class: "btn btn-primary"
-
       hr
       br
       br
@@ -71,12 +65,18 @@
       br
       h4 Review
       - @reviews.each do |review|
-
-        = review.user.username
-        br
-        = review.content
-        br
-        = review.rate_point
+        .row
+        .col-md-2
+          - if current_user.image?
+            = image_tag current_user.image, size: "100x120", class: "thumbnail"
+          - else
+            = image_tag "noimg.png"
+        .col-md-6
+          = review.user.username
+          br
+          = review.content
+          br
+          = review.rate_point
 
       = render partial: "shared/modal_reviews", locals: {reviewable_id: @shop.id, reviewable_type: "Shop"}
 

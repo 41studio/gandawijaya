@@ -39,7 +39,7 @@ Rails.application.routes.draw do
                                     registrations: "users/registrations",
                                     omniauth_callbacks: "users/omniauth_callbacks" }
 
-  post '/premium/request/:id', to: "premium_request#create", as: :create_request_premium_shop
+  patch '/premium/request/:id', to: "premium_account#create", as: :create_premium_account
   get '/:premium_path/edit',to: "shops#edit", as: :edit_shop_premium
   get '/:premium_path',to: "shops#show", as: :shop_premium
   get '/:premium_path/controlpanel', to: "shops#controlpanel", as: :controlpanel_shop_premium
@@ -51,6 +51,6 @@ Rails.application.routes.draw do
   get '/prodiscc/:id', to: 'products#product_disccusion', as: :product_disccusion
   post '/comment_create', to: 'products#create_comment', as: :comment_create
   get 'search', to: 'pages#dashboard'
-
+  patch 'user/status/update', to: "pages#change_status", as: :change_status_user
  end
 

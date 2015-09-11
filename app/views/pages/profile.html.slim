@@ -30,5 +30,20 @@
       tr
         td Handphone
         td#p-handpone = current_user.handphone
+
+h3 Status
+.status
+  h4
+  .current-status
+    '"
+    = current_user.status
+    '"
+  .form-status
+    = simple_form_for(current_user, url: change_status_user_path) do |f|
+      = f.input :status, input_html: { class: "form-control" }
+      = f.button :submit, class: "hide"
+= link_to "change", "#", id: "btn-status-edit"
+br
+br
 = link_to "back to index", root_path
 = render "shared/modal_upload_image"

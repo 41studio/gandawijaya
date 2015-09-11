@@ -4,12 +4,12 @@
 //= require twitter/bootstrap
 //= require bootstrap-datepicker
 //= require pages
+//= require shops
 //= require cocoon
 //= require turbolinks
 
 
 $(document).ready(function() {
-
 $('[data-toggle="tooltip"]').tooltip();
 $("#myCarousel").carousel();
 $("#myModal").on('show.bs.modal', function(event){
@@ -20,11 +20,11 @@ $("#myModal").on('show.bs.modal', function(event){
     });
 
 $(".close").click(function(){
-		$("#myAlert").alert('close');
-	});
+    $("#myAlert").alert('close');
+  });
 
-
-
-
+// $(document).on("page:load", function(){
+//   $(':radio').change(  function(){    $('.choice').text( this.value + ' stars' );  } )
+// });
 
 });
