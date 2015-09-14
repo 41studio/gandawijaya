@@ -1,5 +1,5 @@
 class ShopsController < InheritedResources::Base
-before_action :authenticate_user!, except: [:show, :index]
+before_action :authenticate_user!, except: [:show, :index, :approve, :reject]
 before_action :check_and_set_premium_url, only: [:edit, :show]
 before_action :set_products, only: [:show]
 before_action :find_shop, only: [:upvote, :downvote]
@@ -8,6 +8,19 @@ before_action :find_shop, only: [:upvote, :downvote]
     @shop = current_user.shops.new(shop_params)
     create!
   end
+
+  def approve
+    # ambil shop yang dituju dan tambahkan kode untuk merubah status shop menjadi approved
+    @shop = Shop.find(params[:id])
+    @shop.approved!
+    redirect_to :back
+  end 
+
+  def reject
+    @shop = Shop.find(params[:id])
+    @shop.rejected!
+    redirect_to :back
+  end 
 
   def upvote
     @shop.upvote_by current_user
@@ -70,7 +83,7 @@ before_action :find_shop, only: [:upvote, :downvote]
     end
 
     def shop_params
-      params.require(:shop).permit(:name, :image, :description, :address, :telephone, :mobile_phones, :business_name, :business_email)
+      params.require(:shop).permit(:name, :image, :description, :address, :telephone, :mobile_phones, :business_name, :business_email, :categories)
     end
 end
 

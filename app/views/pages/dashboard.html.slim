@@ -15,13 +15,24 @@ form class="navbar-form navbar-left" role="search" method= "get" action= "/"
           - if detail_shop && detail_shop[:highlight][:name]
             p = detail_shop[:highlight][:name].html_safe
           p = truncate shop.description, length: 100
-        - else
-          p = link_to (image_tag "noimg.png", size: "120x100", class: "img-rounded"), link
+        - elsif shop.status == "on_progress"
+          p = link_to (image_tag "op.png", size: "120x100", class: "img-rounded"), link
           .text-muted
             h3 = detail_shop && detail_shop[:highlight][:name] ? detail_shop[:highlight][:name].html_safe : shop.name
             - if detail_shop && detail_shop[:highlight][:name]
               p = detail_shop[:highlight][:name].html_safe
             p = truncate shop.description, length: 100
+
+        - else 
+          p = link_to (image_tag "ue.jpg", size: "120x100", class: "img-rounded"), link
+          .text-muted
+            h3 = detail_shop && detail_shop[:highlight][:name] ? detail_shop[:highlight][:name].html_safe : shop.name
+            - if detail_shop && detail_shop[:highlight][:name]
+              p = detail_shop[:highlight][:name].html_safe
+            p = truncate shop.description, length: 100
+
+
+  br    
 
 
   br
@@ -50,7 +61,7 @@ form class="navbar-form navbar-left" role="search" method= "get" action= "/"
         p = product.price
         p = truncate product.description, length: 100
       -else
-        p = link_to (image_tag "noimg.png", size: "120x100", class: "img-rounded"), generate_product_path(product, "show")
+        p = link_to (image_tag "ud.jpg", size: "120x100", class: "img-rounded"), generate_product_path(product, "show")
         p = link_to product.name, generate_product_path(product, "show")
         p = product.price
         p = truncate product.description, length: 100

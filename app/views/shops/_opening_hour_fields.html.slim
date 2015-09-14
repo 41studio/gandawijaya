@@ -1,0 +1,5 @@
+.nested-fields
+  = f.input :day_work, :as => :select, :collection => ["sunday", "monday", "friday"], input_html: { class: "form-control" }
+  = f.input :start_work, input_html: { class: "form-control"}
+  = f.input :end_work, input_html: { class: "form-control" }
+  = link_to_remove_association "remove", f, class: "btn btn-info"

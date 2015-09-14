@@ -13,7 +13,7 @@
 require 'elasticsearch/model'
 
 class Shop < ActiveRecord::Base
-  enum status: [:under_review, :on_progress, :approved]
+  enum status: [:under_review, :rejected, :approved]
   extend FriendlyId
   friendly_id :name_and_id, use: [:slugged, :finders]
   mount_uploader :image, GalleryUploader
@@ -21,10 +21,12 @@ class Shop < ActiveRecord::Base
   searchkick word_start: [:name]
   acts_as_votable
   has_many :premium_shop_requests
+  has_many :opening_hours, dependent: :destroy
   has_one :premium_account
   has_many :reviews, as: :reviewable
   has_many :products, dependent: :destroy
   after_save :send_mail_new_shop
+  accepts_nested_attributes_for :opening_hours, allow_destroy: true
 
   def send_mail_new_shop
     ShopMailer.shop_created(self.user).deliver_now

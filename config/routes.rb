@@ -29,6 +29,11 @@ Rails.application.routes.draw do
   get "product/dislike", to: "products#downvote"
   get "shop/like", to: "shops#upvote"
   get "shop/dislike", to: "shops#downvote"
+
+  # buat routes yang mengarah pada fungsi approve dan reject
+  post 'shop/approve', to: "shops#approve", as: "approve"
+  delete 'shop/reject', to: "shops#reject", as: "reject" 
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   resources :shops do

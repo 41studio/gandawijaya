@@ -8,6 +8,39 @@
         .col-md-8
           h1
             = @shop.name
+          h4
+           b Address :
+           br/
+          h4 
+           = @shop.address
+          h4
+           b Telephone :
+           br/
+          h4
+            = @shop.telephone 
+          h4
+           b Mobile Phones :  
+           br/ 
+          h4
+            = @shop.mobile_phones
+          h4
+           b Domain Shop :
+           br/
+          h4
+            = link_to @shop.business_name, @shop.business_name
+          h4
+           b Shop Email :
+           br/
+          h4
+            = @shop.business_email
+          h4
+           b Categories :
+           br/
+          h4
+            = @shop.categories
+          br/      
+
+
           b
            'Rating
           - if @shop.reviews.any?
@@ -81,7 +114,7 @@
       = render partial: "shared/modal_reviews", locals: {reviewable_id: @shop.id, reviewable_type: "Shop"}
 
     - elsif @shop.status == "on_progress"
-        = image_tag "noimg.png", size: "240x200", class: "img-thumbnail"
+        = image_tag "ip.png", size: "240x200", class: "img-thumbnail"
         h1
           = @shop.name
         p
@@ -96,7 +129,7 @@
             | Note!
             | This shop is on progress to show
     - else
-        = image_tag "noimg.png", size: "240x200", class: "img-thumbnail"
+        = image_tag "ur.jpg", size: "240x200", class: "img-thumbnail"
         h1
           = @shop.name
         p

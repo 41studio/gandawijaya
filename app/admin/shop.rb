@@ -21,26 +21,50 @@ ActiveAdmin.register Shop do
       f.input :name
       f.input :image
       f.input :description
-      f.input :status, :as => :select, :collection => ["under_review", "on_progress", "approved"]
+      f.input :status, :as => :select, :collection => ["under_review", "rejected", "approved"]
+      f.input :address
+      f.input :telephone
+      f.input :mobile_phones
+      f.input :business_name
+      f.input :business_email
+      f.input :categories
       f.actions
    end
  end
 
-  show do
+  show do 
     attributes_table do
       row :name
       row :image do
         image_tag shop.image.url
       end
+      row :status, :as => :select, :collection => ["under_review", "rejected", "approved"]
+      row :address
+      row :telephone
+      row :mobile_phones
+      row :business_name
+      row :business_email
+      row :categories
     end
     active_admin_comments
-  end
 
-  action_item :status do
-  link_to "Rejected", "/"
+    
   end  
   
-  action_item :status do
-  link_to "Approved", "/"
-  end  
+    action_item only: :show do |resource|
+      if shop.status.eql? "under_review"
+        link_to 'Reject', reject_path(id: shop.id), method: :delete 
+      else
+        link_to 'Approve', approve_path(id: shop.id), method: :post 
+        
+      end  
+    end
+    
+   action_item only: :show do |resource|
+    if shop.status.eql? "under_review"
+      link_to 'Approve', approve_path(id: shop.id), method: :post
+    else
+      link_to 'Reject', reject_path(id: shop.id), method: :delete  
+    end  
+   end
 end
