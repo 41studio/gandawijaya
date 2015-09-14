@@ -17,5 +17,7 @@ ready = ->
 
 
 
+  $("#radio_1").prop("checked", true)
+
 $(document).ready ready
 $(document).on "page:load", ready
