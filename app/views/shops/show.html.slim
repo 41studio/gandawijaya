@@ -43,36 +43,43 @@
       hr
       h4 Review
       .row
-        - @reviews.limit(4).each do |review|
+        - if @reviews.present?
+          - @reviews.limit(4).each do |review|
+            .col-md-6
+              .col-md-3
+                - if review.user.try(:image)
+                  = image_tag review.user.image, size: "100x120", class: "thumbnail"
+                - else
+                  = image_tag "noimg.png", size: "100x120", class: "thumbnail"
+              .col-md-9
+                = review.user.username
+                br
+                = review.content
+                br
+                  = star_view(review.id, review.rate_point)
+        - else
           .col-md-6
-            .col-md-3
-              - if review.user.try(:image)
-                = image_tag review.user.image, size: "100x120", class: "thumbnail"
-              - else
-                = image_tag "noimg.png", size: "100x120", class: "thumbnail"
-            .col-md-9
-              = review.user.username
-              br
-              = review.content
-              br
-                = star_view(review.id, review.rate_point)
+            h5 There's no review yet
       = link_to 'See All Reviews', "#" , class: "btn btn-success", data: {toggle: "modal", target: "#show_review" } if @reviews.count > 4
 
       hr
       h4 Product
       .row
-        - @products.each do |product|
-          .col-md-4
-            p = link_to (image_tag product.galleries.first.image.url, size: "120x100"), generate_product_path(product, "show")
-            p = link_to product.name, generate_product_path(product, "show")
-            p = product.price
-            p = truncate product.description, length: 120
-            p = link_to 'Edit', generate_product_path(product, "edit")
+        - if @products.present?
+          - @products.each do |product|
+            .col-md-4
+              p = link_to (image_tag product.galleries.first.image.url, size: "120x100"), generate_product_path(product, "show")
+              p = link_to product.name, generate_product_path(product, "show")
+              p = product.price
+              p = truncate product.description, length: 120
+              p = link_to 'Edit', generate_product_path(product, "edit")
 
-      br
-      - if @this_is_current_user_shop
-        p
-          = link_to "Add product", generate_product_2_path(@shop, "new")
+          br
+        - else
+          .col-md-12
+            h5 There's no product yet
+        - if @this_is_current_user_shop
+          p = link_to "Add product", generate_product_2_path(@shop, "new")
       br
       br
 

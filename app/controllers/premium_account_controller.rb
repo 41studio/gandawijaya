@@ -9,8 +9,11 @@ class PremiumAccountController < ApplicationController
 
   def update
     shop = Shop.find params[:premium_account][:shop_id]
-    shop.premium_account.update_attributes(premium_account_params)
-    redirect_to :back, notice: "succesfully updated"
+    if shop.premium_account.update_attributes(premium_account_params)
+      redirect_to :back, notice: "succesfully updated"
+    else
+      qwer
+    end
   end
 
   def premium_account_params

@@ -1,7 +1,7 @@
 #= require active_admin/base
 ready = ->
 
-  if @checked
+  if checked = true
     $('#premium_account_url').prop('disabled', false);
   else
     $('#premium_account_url').prop('disabled', true);
