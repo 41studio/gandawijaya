@@ -31,6 +31,7 @@ class Shop < ActiveRecord::Base
   has_one  :premium_account,          dependent: :destroy
   belongs_to :user
 
+  accepts_nested_attributes_for :premium_account, allow_destroy: true
   after_create :send_mail_new_shop
 
   def send_mail_new_shop

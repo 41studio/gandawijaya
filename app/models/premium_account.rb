@@ -8,8 +8,8 @@
 #  updated_at :datetime         not null
 #  user_id    :integer
 #  shop_id    :integer
+#  status     :boolean          default(FALSE)
 #
-
 
 class PremiumAccount < ActiveRecord::Base
 
