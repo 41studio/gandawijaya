@@ -24,7 +24,7 @@ before_action :find_shop, only: [:upvote, :downvote]
     @reviews = resource.reviews
     @products = Product.all
     @this_is_current_user_shop = current_user.shops.where(id: @shop.id) if current_user
-    @products = Product.where(shop_id: resource.id)
+    @products = resource.products
     show!
   end
 
@@ -42,7 +42,7 @@ before_action :find_shop, only: [:upvote, :downvote]
     @products = Product.all
     @shop =
       if params[:premium_path]
-        Shop.find PremiumAccount.where(url: params[:premium_path]).first.shop_id
+        Shop.find PremiumAccount.with_url(params[:premium_path]).shop_id
       else
         Shop.find params[:id]
       end
@@ -51,11 +51,10 @@ before_action :find_shop, only: [:upvote, :downvote]
   private
     def check_and_set_premium_url
       if params[:premium_path]
-        premium_account = PremiumAccount.select(:shop_id).where(url: params[:premium_path]).first
+        premium_account = PremiumAccount.with_url(params[:premium_path])
         if premium_account.present?
           @shop = Shop.find premium_account.shop_id
         else
-          @products = collection
           redirect_to shops_path, notice: "maaf url tidak ada" and return
         end
       end

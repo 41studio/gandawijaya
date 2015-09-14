@@ -8,7 +8,21 @@
       = simple_form_for @review do |f|
         .modal-body
           = f.input :content
-          = f.input :rate_point
+          .starRate
+            span.star-rating
+              input name="rating" type="radio" value="1"
+                i
+              input name="rating" type="radio" value="2"
+                i
+              input name="rating" type="radio" value="3"
+                i
+              input name="rating" type="radio" value="4"
+                i
+              input name="rating" type="radio" value="5"
+                i
+            strong.choice Choose a rating
+
+          = f.hidden_field :rate_point
           = f.hidden_field :reviewable_id, value: reviewable_id
           = f.hidden_field :reviewable_type,  value: reviewable_type
         .modal-footer

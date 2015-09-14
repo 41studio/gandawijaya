@@ -12,6 +12,8 @@
 
 
 class PremiumAccount < ActiveRecord::Base
+
+  scope :with_url, -> { select(:shop_id).where(url: params[:premium_path]).first }
   belongs_to :shop
   belongs_to :user
 end

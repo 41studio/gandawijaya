@@ -2,7 +2,7 @@ class ProductsController < InheritedResources::Base
 before_action :authenticate_user!, except: [:show, :product_disccusion]
 before_action :set_shop_from_params, only: [:new]
 before_action :set_shop, only: [:show, :edit]
-before_action :set_galleries, only: [:show]
+before_action :set_galleries, only: [:show, :product_disccusion]
 before_action :find_product, only: [:upvote, :downvote]
 
   def show
@@ -10,6 +10,7 @@ before_action :find_product, only: [:upvote, :downvote]
     @reviews = resource.reviews
     impressionist(resource, "view product")
     @impression_count = resource.impressionist_count(:filter=>:all)
+    show!
   end
 
   def new
@@ -23,7 +24,6 @@ before_action :find_product, only: [:upvote, :downvote]
 
   def product_disccusion
     @product = Product.find(params[:id])
-    @galleries = resource.galleries
     @comments = @product.comments
   end
 
@@ -56,8 +56,9 @@ before_action :find_product, only: [:upvote, :downvote]
     end
 
     def set_shop_from_params
-      @shop = Shop.find(params[:shop_id]) if params[:shop_id].present?
-      if params[:premium_path].present?
+      if params[:shop_id].present?
+        @shop = Shop.find(params[:shop_id])
+      elsif params[:premium_path].present?
         premium_account = PremiumAccount.select(:shop_id).where(url: params[:premium_path]).first
          if premium_account.present?
           @shop = Shop.find premium_account.shop_id

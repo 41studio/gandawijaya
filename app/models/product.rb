@@ -15,17 +15,19 @@
 #
 
 class Product < ActiveRecord::Base
-  enum status: [:under_review, :on_progress, :approved]
   extend FriendlyId
-  friendly_id :name, use: [:slugged, :finders]
   is_impressionable
+  acts_as_votable
+  acts_as_commentable
+
+  friendly_id :name, use: [:slugged, :finders]
+  enum status: [:under_review, :on_progress, :approved]
 
   has_many  :galleries, dependent: :destroy
   has_many  :reviews, as: :reviewable
   belongs_to :shop
   belongs_to :user
-  acts_as_commentable
-  acts_as_votable
+
   accepts_nested_attributes_for :galleries, allow_destroy: true
   after_create :sendmail_create_product
 

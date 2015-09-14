@@ -4,7 +4,7 @@
  *= require_self
  */
 
-/*.star-rating {
+ .star-rating {
   font-size: 0;
   white-space: nowrap;
   display: inline-block;
@@ -54,13 +54,5 @@
 .star-rating i ~ i ~ i ~ i ~ i {
   width: 100%;
 }
-.choice {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  text-align: center;
-  padding: 20px;
-  display: block;
-}
-*/
+
+

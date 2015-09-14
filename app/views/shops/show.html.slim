@@ -1,5 +1,4 @@
 .show
-  p#notice = notice
   .show-detail-image
     - if @shop.status == "approved"
       .row
@@ -42,11 +41,23 @@
           = link_to "control panel", generate_path_for(@shop, "controlpanel"), class: "btn btn-success"
           = link_to 'Edit', generate_path_for(@shop, "edit"), class: "btn btn-danger"
       hr
-      br
-      br
-      br
-      br
-      br
+      h4 Review
+      - @reviews.each do |review|
+        .row
+        .col-md-2
+          - if current_user.image?
+            = image_tag current_user.image, size: "100x120", class: "thumbnail"
+          - else
+            = image_tag "noimg.png"
+        .col-md-6
+          = review.user.username
+          br
+          = review.content
+          br
+          .starRate
+            span.star-rating
+              input name="rating" type="radio" value="#{review.rate_point}"
+      hr
       h4 Product
       .row
         - @products.each do |product|
@@ -63,20 +74,6 @@
           = link_to "Add product", generate_product_2_path(@shop, "new")
       br
       br
-      h4 Review
-      - @reviews.each do |review|
-        .row
-        .col-md-2
-          - if current_user.image?
-            = image_tag current_user.image, size: "100x120", class: "thumbnail"
-          - else
-            = image_tag "noimg.png"
-        .col-md-6
-          = review.user.username
-          br
-          = review.content
-          br
-          = review.rate_point
 
       = render partial: "shared/modal_reviews", locals: {reviewable_id: @shop.id, reviewable_type: "Shop"}
 
