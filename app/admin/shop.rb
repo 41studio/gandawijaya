@@ -30,6 +30,9 @@ ActiveAdmin.register Shop do
       f.input :categories
       f.actions
    end
+   panel "Premum Account settings" do
+    render partial: "premium_account_form", locals: {shop: shop}
+  end
  end
 
   show do 
@@ -45,6 +48,9 @@ ActiveAdmin.register Shop do
       row :business_name
       row :business_email
       row :categories
+    end
+    panel "Premum Account settings" do
+      render partial: "premium_account_form", locals: {shop: shop}
     end
     active_admin_comments
 

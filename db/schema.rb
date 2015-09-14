@@ -12,7 +12,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20150910081943) do
-
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -141,10 +140,11 @@ ActiveRecord::Schema.define(version: 20150910081943) do
 
   create_table "premium_accounts", force: :cascade do |t|
     t.string   "url"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.integer  "user_id"
     t.integer  "shop_id"
+    t.boolean  "status",     default: false
   end
 
   add_index "premium_accounts", ["shop_id"], name: "index_premium_accounts_on_shop_id", using: :btree

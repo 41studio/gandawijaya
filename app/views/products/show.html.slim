@@ -31,7 +31,7 @@
            = @product.description
 
     .caption style="text-align:right;"
-        = link_to product_like_path(@product), class: "like", method: :get do
+      = link_to product_like_path(@product), class: "like", method: :get do
           button.btn.btn-info aria-label=("Left Align") type="button"
           span.glyphicon.glyphicon-thumbs-up.glyphicon-align-center aria-hidden="true"
           span.badge = @product.get_upvotes.size

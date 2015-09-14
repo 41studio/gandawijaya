@@ -1,0 +1,6 @@
+= simple_form_for(shop.premium_account.present? ? shop.premium_account : shop.build_premium_account, url: create_premium_account_path) do |f|
+  = f.input :status, as: :boolean, checked_value: true, unchecked_value: false, label: "premium shop :"
+  = f.input :url
+  = f.hidden_field :shop_id, value: shop.id
+  = f.hidden_field :user_id, value: shop.user.id
+  = f.button :submit, "Save"

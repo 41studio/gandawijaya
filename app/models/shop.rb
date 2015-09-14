@@ -8,6 +8,10 @@
 #  updated_at  :datetime         not null
 #  image       :string
 #  description :text
+#  slug        :string
+#  user_id     :integer
+#  address     :string
+#  status      :integer
 #
 
 require 'elasticsearch/model'
@@ -20,10 +24,9 @@ class Shop < ActiveRecord::Base
   belongs_to :user
   searchkick word_start: [:name]
   acts_as_votable
-  has_many :premium_shop_requests
-  has_many :opening_hours, dependent: :destroy
-  has_one :premium_account
-  has_many :reviews, as: :reviewable
+  has_many :premium_shop_requests, dependent: :destroy
+  has_one :premium_account, dependent: :destroy
+  has_many :reviews, as: :reviewable, dependent: :destroy
   has_many :products, dependent: :destroy
   after_save :send_mail_new_shop
   accepts_nested_attributes_for :opening_hours, allow_destroy: true

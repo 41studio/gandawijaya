@@ -1,0 +1,32 @@
+.row
+  .col-md-2
+    br
+    .thumbnail
+      - if current_user.image?
+        = image_tag current_user.image, size: "170x190"
+      - else
+        = image_tag "noimg.png"
+      hr
+      center
+        = link_to 'Change Avatar', "#" , class: "btn btn-success", data: {toggle: "modal", target: "#upload" }
+  .col-md-4.form_edit
+    br
+    br
+    = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+      = f.error_notification
+
+      .form-inputs
+        = f.input :username, required: true, autofocus: true, input_html: { class: "form-control" }
+        = f.input :first_name, required: true, input_html: { class: "form-control" }
+        = f.input :last_name, required: true, input_html: { class: "form-control" }
+        = f.input :email, required: true, input_html: { class: "form-control" }
+        = f.input :address, required: true, input_html: { class: "form-control"}
+        = f.input :handphone, required: true, input_html: { class: "form-control"}
+        = f.input :birthday, as: :date, start_year: Date.today.year-10, end_year: 1950, required: true, input_html: { class: "form-control"}
+        = f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false, input_html: { class: "form-control"}
+        = f.input :password_confirmation, required: false, input_html: { class: "form-control"}
+      .form-actions
+        = f.button :submit,  class: "btn btn-primary"
+        = link_to "cancel", profile_pages_path, class: "btn btn-default"
+
+= render "shared/modal_upload_image"

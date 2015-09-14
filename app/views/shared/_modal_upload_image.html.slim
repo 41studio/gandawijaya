@@ -1,0 +1,14 @@
+.modal.fade id="upload" role="dialog"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button type="button" class="close" data-dismiss="modal" aria-label="Close"
+          span aria-hidden="true"&times;
+        h4 class="modal-title" Modal title
+      = form_tag( '/avatarchange',  method: :put, multipart: true ) do |f|
+        .modal-body
+          = image_tag current_user.image, size: "170x170", class: "thumbnail" if current_user.image
+          = file_field_tag :image, required: true, input_html: { class: 'form-control' }
+        .modal-footer
+          button type="button" class="btn btn-default" data-dismiss="modal"Close
+          = submit_tag :submit, class: "btn btn-primary"
