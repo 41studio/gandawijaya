@@ -9,7 +9,7 @@
         .modal-body
           = f.input :content
           .starRate
-            span.star-rating
+            span.star-rating.star-ratings
               input name="rating" type="radio" value="1"
                 i
               input name="rating" type="radio" value="2"
@@ -20,11 +20,33 @@
                 i
               input name="rating" type="radio" value="5"
                 i
-            strong.choice Choose a rating
-
           = f.hidden_field :rate_point
           = f.hidden_field :reviewable_id, value: reviewable_id
           = f.hidden_field :reviewable_type,  value: reviewable_type
         .modal-footer
           button type="button" class="btn btn-default" data-dismiss="modal"Close
           = f.button :submit, class: "btn btn-primary"
+
+.modal.fade id="show_review" role="dialog"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button type="button" class="close" data-dismiss="modal" aria-label="Close"
+          span aria-hidden="true"&times;
+        h4 class="modal-title" All Review
+        .modal-body
+          - @reviews.offset(4).each do |review|
+            .row
+              .col-md-3
+                - if current_user.try(:image)
+                  = image_tag review.user.image, size: "100x120", class: "thumbnail"
+                - else
+                  = image_tag "noimg.png"
+              .col-md-9
+                = review.user.username
+                br
+                = review.content
+                br
+                  = star_view(review.id, review.rate_point)
+        .modal-footer
+          button type="button" class="btn btn-default" data-dismiss="modal"Close

@@ -38,7 +38,7 @@
   z-index: 2;
   position: relative;
 }
-.star-rating input:hover + i,
+.star-ratings input:hover + i,
 .star-rating input:checked + i {
   opacity: 1;
 }
@@ -54,5 +54,4 @@
 .star-rating i ~ i ~ i ~ i ~ i {
   width: 100%;
 }
-
 
