@@ -208,14 +208,16 @@ ActiveRecord::Schema.define(version: 20150911040233) do
 
   create_table "shops", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.string   "image"
     t.text     "description"
     t.string   "slug"
     t.integer  "user_id"
     t.string   "address"
     t.integer  "status"
+    t.string   "telephone"
+    t.string   "mobile_phones"
   end
 
   add_index "shops", ["slug"], name: "index_shops_on_slug", unique: true, using: :btree

@@ -14,9 +14,9 @@ table class= "table table-hover"
     - @shops.each do |shop|
       tr
         td = shop.name
-        td = link_to 'Show', shop
-        td = link_to 'Edit', edit_shop_path(shop)
-        td = link_to 'Destroy', shop, data: {:confirm => 'Are you sure?'}, :method => :delete
+        td = link_to '', shop, class: "glyphicon glyphicon-eye-open"
+        td = link_to '', edit_shop_path(shop), class: "glyphicon glyphicon-edit"
+        td = link_to '', shop, data: {:confirm => 'Are you sure?'}, :method => :delete, class: "glyphicon glyphicon-trash"
 
 br
 

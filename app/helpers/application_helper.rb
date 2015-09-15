@@ -33,7 +33,7 @@ module ApplicationHelper
          new_product_premium_path(premium_path: object.shop.premium_account.url)
       elsif action.eql? "form"
         [object.shop, object]
-      elsif "destroy"
+      elsif action.eql? "destroy"
         product_premium_path(premium_path: object.shop.premium_account.url, id: object)
      end
     else
@@ -45,7 +45,7 @@ module ApplicationHelper
         new_shop_product_path(shop_id: object.shop)
       elsif action.eql? "form"
         [object.shop, object]
-      elsif "destroy"
+      elsif action.eql? "destroy"
         product_path(shop_id: object.id, id: object)
       end
     end

@@ -19,7 +19,7 @@ ActiveAdmin.register Product do
       f.input :name
       f.input :price
       f.input :description
-      f.input :status, :as => :select, :collection => ["under_review", "on_progress", "approved"]
+      f.input :status, :as => :select, :collection => ["under_review", "on_progress", "approved"] 
       f.actions
    end
  end
