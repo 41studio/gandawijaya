@@ -68,11 +68,16 @@
         - if @products.present?
           - @products.each do |product|
             .col-md-4
-              p = link_to (image_tag product.galleries.first.image.url, size: "120x100"), generate_product_path(product, "show")
+              p
+                - if product.galleries.first
+                  = link_to (image_tag product.galleries.first.image.url, size: "120x100", class: "img-rounded"), generate_product_path(product, "show")
+                - else
+                  = link_to (image_tag "noimg.png", size: "120x100", class: "img-rounded"), generate_product_path(product, "show")
               p = link_to product.name, generate_product_path(product, "show")
               p = product.price
               p = truncate product.description, length: 120
               p = link_to 'Edit', generate_product_path(product, "edit")
+              p = link_to 'Delete', generate_product_path(product, "destroy"), data: {confirm: 'Are you sure?'}, method: :delete
 
           br
         - else

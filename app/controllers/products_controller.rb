@@ -19,6 +19,10 @@ before_action :find_product, only: [:upvote, :downvote]
 
   def create
     @product = current_user.products.new(product_params)
+    shop = Shop.find params[:product][:shop_id]
+    if shop.status.eql? "approved"
+      @product.status = "approved"
+    end
     create!
   end
 

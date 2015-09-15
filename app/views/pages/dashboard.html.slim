@@ -35,7 +35,11 @@ h4
   - @products.each do |product|
     .col-md-3
       - if product.status == "approved"
-        p = link_to (image_tag product.galleries.first.image.url, size: "120x100", class: "img-rounded"), generate_product_path(product, "show")
+        p
+          - if product.galleries.first
+            = link_to (image_tag product.galleries.first.image.url, size: "120x100", class: "img-rounded"), generate_product_path(product, "show")
+          - else
+            = link_to (image_tag "noimg.png", size: "120x100", class: "img-rounded"), generate_product_path(product, "show")
       -else
         p = link_to (image_tag "noimg.png", size: "120x100", class: "img-rounded"), generate_product_path(product, "show")
       p = link_to product.name, generate_product_path(product, "show")

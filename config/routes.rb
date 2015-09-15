@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   resources :shops do
-    resources :products
+    resources :products, only: [:index, :new, :create, :update, :edit, :show]
     get 'controlpanel', on: :member
   end
   devise_for :users, controllers: { sessions: "users/sessions",
@@ -48,7 +48,6 @@ Rails.application.routes.draw do
   scope '/:premium_path' do
     resources :products, as: :product_premium
   end
-
   get '/prodiscc/:id', to: 'products#product_disccusion', as: :product_disccusion
   post '/comment_create', to: 'products#create_comment', as: :comment_create
   get 'search', to: 'pages#dashboard'
