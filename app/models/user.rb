@@ -53,7 +53,7 @@ class User < ActiveRecord::Base
 
   validates :handphone, numericality: true
   validates :username, format: { with: /\A[a-zA-Z0-9]+\Z/ }
-  validates :terms_of_service, acceptance: true
+  validates :term_of_user, acceptance: { accept: true }
   validates :username, :first_name, :last_name, :address, presence: true
 
   def self.from_omniauth(auth, user_agent)

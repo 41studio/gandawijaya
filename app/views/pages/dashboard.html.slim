@@ -44,12 +44,9 @@ h4
     .col-md-3
       - if product.status == "approved"
         p
-          - if product.galleries.first
-            = link_to (image_tag product.galleries.first.image.url, size: "120x100", class: "img-rounded"), generate_product_path(product, "show")
-          - else
-            = link_to (image_tag "noimg.png", size: "120x100", class: "img-rounded"), generate_product_path(product, "show")
+          = link_to (image_tag product.galleries.first.try(:image).try(:url) || "noimg.png", size: "120x100", class: "img-rounded"), generate_product_path(product, "show")
       -else
         p = link_to (image_tag "ud.png", size: "120x100", class: "img-rounded"), generate_product_path(product, "show")
-        p = link_to product.name, generate_product_path(product, "show")
-        p = product.price
-        p = truncate product.description, length: 100
+      p = link_to product.name, generate_product_path(product, "show")
+      p = product.price
+      p = truncate product.description, length: 100

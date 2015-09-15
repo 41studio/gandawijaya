@@ -4,7 +4,7 @@
     p
       h1 = @product.name
     .img_position
-      = image_tag @galleries.first.image.thumb.url, class: "img-thumbnail"
+      = image_tag @galleries.first.try(:image).try(:thumb).try(:url) || "noimg.png", class: "img-thumbnail"
     .caption style="text-align:right;"
       = link_to like_product_path(@product), data: {toggle: "tooltip", placement: "top"}, title: "Like", class: "btn btn-default btn-sm", method: :put, remote: true do
         ' Like

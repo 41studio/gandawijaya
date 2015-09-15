@@ -78,10 +78,7 @@
           - @reviews.limit(4).each do |review|
             .col-md-6
               .col-md-3
-                - if review.user.try(:image)
-                  = image_tag review.user.image, size: "100x120", class: "thumbnail"
-                - else
-                  = image_tag "noimg.png", size: "100x120", class: "thumbnail"
+                = image_tag review.user.try(:image) || "noimg.png", size: "100x120", class: "thumbnail"
               .col-md-9
                 = review.user.username
                 br
@@ -100,10 +97,7 @@
           - @products.each do |product|
             .col-md-4
               p
-                - if product.galleries.first
-                  = link_to (image_tag product.galleries.first.image.url, size: "120x100", class: "img-rounded"), generate_product_path(product, "show")
-                - else
-                  = link_to (image_tag "noimg.png", size: "120x100", class: "img-rounded"), generate_product_path(product, "show")
+                = link_to (image_tag product.galleries.first.try(:image).try(:url) || "noimg.png", size: "120x100", class: "img-rounded"), generate_product_path(product, "show")
               p = link_to product.name, generate_product_path(product, "show")
               p = product.price
               p = truncate product.description, length: 120

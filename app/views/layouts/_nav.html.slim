@@ -5,7 +5,7 @@ nav.navbar.navbar-default.navbar-static-top
         = link_to "Gandawijaya", root_path
     ul.nav.navbar-nav.navbar-right.profil
       - if user_signed_in?
-         = link_to (image_tag current_user.image.url, size: "50x50", class: "img-circle image"), profile_pages_path
+         = link_to (image_tag current_user.image.url || "noimg.png" , size: "50x50", class: "img-circle image"), profile_pages_path
          = link_to "Create your shop", new_shop_path, class: "btn btn-primary"
          = link_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-danger"
       - else
