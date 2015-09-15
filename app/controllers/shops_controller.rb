@@ -2,7 +2,7 @@ class ShopsController < InheritedResources::Base
 before_action :authenticate_user!, except: [:show, :index, :approve, :reject]
 before_action :check_and_set_premium_url, only: [:edit, :show]
 before_action :set_products, only: [:show]
-before_action :find_shop, only: [:upvote, :downvote]
+before_action :find_shop, only: [:like, :dislike]
 
   def create
     @shop = current_user.shops.new(shop_params)
@@ -22,14 +22,20 @@ before_action :find_shop, only: [:upvote, :downvote]
     redirect_to :back
   end
 
-  def upvote
-    @shop.upvote_by current_user
-    redirect_to :back
+  def like
+    @shop.like_by current_user
+    respond_to do |format|
+        format.html { redirect_to :back }
+        format.js { render template: "shops/like_dislike.js" }
+    end
   end
 
-  def downvote
-    @shop.downvote_by current_user
-    redirect_to :back
+  def dislike
+    @shop.dislike_by current_user
+    respond_to do |format|
+        format.html { redirect_to :back }
+        format.js { render template: "shops/like_dislike.js" }
+    end
   end
 
   def show
@@ -51,7 +57,7 @@ before_action :find_shop, only: [:upvote, :downvote]
     end
   end
 
-    def controlpanel
+  def controlpanel
     @products = Product.all
     @shop =
       if params[:premium_path]

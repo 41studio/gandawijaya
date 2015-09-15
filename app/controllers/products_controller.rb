@@ -3,7 +3,7 @@ before_action :authenticate_user!, except: [:show, :product_disccusion]
 before_action :set_shop_from_params, only: [:new]
 before_action :set_shop, only: [:show, :edit]
 before_action :set_galleries, only: [:show, :product_disccusion]
-before_action :find_product, only: [:upvote, :downvote]
+before_action :find_product, only: [:like, :dislike]
 
   def show
     @review = Review.new
@@ -20,8 +20,8 @@ before_action :find_product, only: [:upvote, :downvote]
   def create
     @product = current_user.products.new(product_params)
     shop = Shop.find params[:product][:shop_id]
-    if shop.status.eql? "approved"
-      @product.status = "approved"
+    if shop.approved?
+      @product.approved!
     end
     create!
   end
@@ -44,14 +44,20 @@ before_action :find_product, only: [:upvote, :downvote]
    redirect_to product_disccusion_path(@product)
   end
 
-  def upvote
-    @product.upvote_by current_user
-    redirect_to :back
+  def like
+    @product.like_by current_user
+    respond_to do |format|
+        format.html { redirect_to :back }
+        format.js { render template: "products/like_dislike.js" }
+    end
   end
 
-  def downvote
-    @product.downvote_by current_user
-    redirect_to :back
+  def dislike
+    @product.dislike_by current_user
+    respond_to do |format|
+        format.html { redirect_to :back }
+        format.js { render template: "products/like_dislike.js" }
+    end
   end
 
   private

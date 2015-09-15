@@ -25,14 +25,15 @@ Rails.application.routes.draw do
   put '/avatarchange', to: 'pages#change_avatar', as: :change_avatar
   get '/myprofile', to: "pages#profile", as: :profile_pages
   post '/reviews/create', to: 'review#create', as: "reviews"
-  get "product/like", to: "products#upvote"
-  get "product/dislike", to: "products#downvote"
-  get "shop/like", to: "shops#upvote"
-  get "shop/dislike", to: "shops#downvote"
+
+  put "/likeproduct/:id", to: "products#like", as: :like_product
+  put "/dislikeproduct/:id", to:"products#dislike", as: :dislike_product
+  put "/likeshop/:id", to: "shops#like", as: :like_shop
+  put "/dislikeshop/:id", to: "shops#dislike", as: :dislike_shop
 
   # buat routes yang mengarah pada fungsi approve dan reject
   post 'shop/approve', to: "shops#approve", as: "approve"
-  delete 'shop/reject', to: "shops#reject", as: "reject" 
+  delete 'shop/reject', to: "shops#reject", as: "reject"
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)

@@ -5,6 +5,14 @@
       h1 = @product.name
     .img_position
       = image_tag @galleries.first.image.thumb.url, class: "img-thumbnail"
+    .caption style="text-align:right;"
+      = link_to like_product_path(@product), data: {toggle: "tooltip", placement: "top"}, title: "Like", class: "btn btn-default btn-sm", method: :put, remote: true do
+        ' Like
+        span.glyphicon.glyphicon-thumbs-up id="product-upvote-size" = @shop.get_upvotes.size
+
+      = link_to dislike_product_path(@product), data: {toggle: "tooltip", placement: "bottom"}, title: "Dislike", class: "btn btn-danger btn-sm", method: :put, remote: true do
+        ' Dislike
+        span.glyphicon.glyphicon-thumbs-down id="product-downvote-size" = @shop.get_downvotes.size
     .row
       p
         .price_position
@@ -29,18 +37,6 @@
       .text-justify
         blockquote
            = @product.description
-
-    .caption style="text-align:right;"
-      = link_to product_like_path(@product), class: "like", method: :get do
-          button.btn.btn-info aria-label=("Left Align") type="button"
-          span.glyphicon.glyphicon-thumbs-up.glyphicon-align-center aria-hidden="true"
-          span.badge = @product.get_upvotes.size
-
-
-      = link_to product_dislike_path(@product), class: "like", method: :get do
-          button.btn.btn-info aria-label=("Left Align") type="button"
-          span.glyphicon.glyphicon-thumbs-down.glyphicon-align-center aria-hidden="true"
-          span.badge = @product.get_downvotes.size
 
     'Rating
     = @product.reviews.average(:rate_point)
