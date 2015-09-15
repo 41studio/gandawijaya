@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  day_work: 1
+  start_work: 1
+  end_work: 1
+
+two:
+  day_work: 1
+  start_work: 1
+  end_work: 1

@@ -21,14 +21,18 @@
         h2.comment_count= pluralize(@comments.count, "Comment")
       - @comments.each do |comment|
           .comment
-            p.comment= comment.comment
+            .modal_img
+              p.image = image_tag comment.user.image, size: "50x50", class: "img-circle"
+            pre
+              h4
+               p.comment= comment.comment
             br/
 
       = render 'comment'
 
 
-    = link_to 'Edit', edit_product_path(@product)
-    |
+
+    
     = link_to 'Back', @shop
 - else
   .show
@@ -62,19 +66,6 @@
                          h4 class="modal-title" Modal Window
 
                      div class="modal-body"
-                         form role="form"
-                             div class="form-group"
-                                 label for="recipient-name" class="control-label" Handphone:
-                                 input type="text" class="form-control" id="recipient-name"
+                        == render partial: 'modal_comment', locals: { action: "modal_comment"}
 
-                             div class="form-group"
-                                 label for="recipient-name" class="control-label" Email:
-                                 input type="text" class="form-control" id="recipient-name"
-
-                             div class="form-group"
-                                 label for="message-text" class="control-label" Message:
-                                 textarea class="form-control" id="message-text"
-
-                     div class="modal-footer"
-                         button type="button" class="btn btn-default" data-dismiss="modal" Cancel
-                         button type="button" class="btn btn-primary" Send
+                     

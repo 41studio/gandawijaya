@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150911040233) do
+ActiveRecord::Schema.define(version: 20150914062257) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -122,6 +122,15 @@ ActiveRecord::Schema.define(version: 20150911040233) do
   add_index "impressions", ["impressionable_type", "message", "impressionable_id"], name: "impressionable_type_message_index", using: :btree
   add_index "impressions", ["user_id"], name: "index_impressions_on_user_id", using: :btree
 
+  create_table "opening_hours", force: :cascade do |t|
+    t.integer  "day_work"
+    t.integer  "start_work"
+    t.integer  "end_work"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "shop_id"
+  end
+
   create_table "overall_averages", force: :cascade do |t|
     t.integer  "rateable_id"
     t.string   "rateable_type"
@@ -208,8 +217,8 @@ ActiveRecord::Schema.define(version: 20150911040233) do
 
   create_table "shops", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.string   "image"
     t.text     "description"
     t.string   "slug"
@@ -218,6 +227,10 @@ ActiveRecord::Schema.define(version: 20150911040233) do
     t.integer  "status"
     t.string   "telephone"
     t.string   "mobile_phones"
+    t.string   "business_name"
+    t.string   "business_email"
+    t.string   "categories"
+    t.string   "cover_image"
   end
 
   add_index "shops", ["slug"], name: "index_shops_on_slug", unique: true, using: :btree

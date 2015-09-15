@@ -5,12 +5,14 @@ nav.navbar.navbar-default.navbar-static-top
         = link_to "Gandawijaya", root_path
     ul.nav.navbar-nav.navbar-right.profil
       - if user_signed_in?
-         = link_to "Create your shop", new_shop_path, class: "btn btn-primary"
          = link_to (image_tag current_user.image.url, size: "50x50", class: "img-circle image"), profile_pages_path
+         = link_to "Create your shop", new_shop_path, class: "btn btn-primary"
          = link_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-danger"
       - else
+
         .btn.group
           = link_to "Sign In", new_user_session_path, class: "btn btn-primary", data: {toggle: "tooltip", placement: "left"}, title: "clik if want to sign in"
           = link_to "Sign Up", new_user_registration_path, class: "btn btn-primary", data: {toggle: "tooltip", placement: "bottom"}, title: "clik if want to sign up"
           = link_to "f", user_omniauth_authorize_path(:facebook),class:"btn btn-primary"
           = link_to "g", user_omniauth_authorize_path(:google_oauth2),class:"btn btn-danger gg"
+
