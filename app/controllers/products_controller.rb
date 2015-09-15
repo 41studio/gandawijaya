@@ -6,15 +6,30 @@ before_action :set_galleries, only: [:show, :product_disccusion]
 before_action :find_product, only: [:like, :dislike]
 
   def show
-    @review = Review.new
-    @reviews = resource.reviews
-    impressionist(resource, "view product")
-    @impression_count = resource.impressionist_count(:filter=>:all)
-    show!
+    if any_redirect_to_premium_path(@shop)
+      redirect_to product_premium_path(premium_path: @shop.premium_account.url, id: resource), status: 301
+    else
+      @review = Review.new
+      @reviews = resource.reviews
+      impressionist(resource, "view product")
+      @impression_count = resource.impressionist_count(:filter=>:all)
+      show!
+    end
   end
 
   def new
     @product = @shop.products.new
+    if any_redirect_to_premium_path(@shop)
+      redirect_to new_product_premium_path(premium_path: @shop.premium_account.url), status: 301
+    end
+  end
+
+  def edit
+    if any_redirect_to_premium_path(resource.shop)
+      redirect_to edit_product_premium_path(premium_path: resource.shop.premium_account.url, id: resource), status: 301
+    else
+      edit!
+    end
   end
 
   def create
@@ -73,7 +88,6 @@ before_action :find_product, only: [:like, :dislike]
          if premium_account.present?
           @shop = Shop.find premium_account.shop_id
         else
-          @products = collection
           redirect_to shops_path, notice: "maaf url tidak ada" and return
         end
       end

@@ -9,4 +9,7 @@ class ApplicationController < ActionController::Base
       Rack::MiniProfiler.authorize_request
     end
 
+    def any_redirect_to_premium_path(resource)
+      params[:premium_path].blank? && resource.premium_account.present? && resource.premium_account.status
+    end
  end
