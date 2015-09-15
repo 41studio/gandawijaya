@@ -10,13 +10,17 @@
       = f.input :business_name, placeholder: "www.yourbusinessname.com", input_html: { class: "form-control" }
       = f.input :business_email, placeholder: "Business Email", input_html: { class: "form-control" }
       = f.input :categories, placeholder: "e.g. Computer or Tradisional", input_html: { class: "form-control" }
-      = f.input :description, placeholder: "About your shop", input_html: { class: "form-control" }
       = f.input :image, as: :file, input_html: { class: "form-control" }
+      = f.input :cover_image, as: :file, input_html: { class: "form-control"}
       = f.simple_fields_for :opening_hours do |opening_hour|
         = render 'opening_hour_fields', f: opening_hour
       .links
-        = link_to_add_association 'add', f, :opening_hours, class: "btn btn-default"
+        br/
+        = link_to_add_association 'Add Hours', f, :opening_hours, class: "btn btn-default"
       hr  
+      = f.input :description, placeholder: "About your shop", input_html: { class: "form-control" }
+      br/
+      hr
     .form-actions
       = f.button :submit,  class: "btn btn-primary"
       = link_to 'Back', shops_path, class: "btn btn-default"

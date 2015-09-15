@@ -83,7 +83,7 @@ before_action :find_shop, only: [:upvote, :downvote]
     end
 
     def shop_params
-      params.require(:shop).permit(:name, :image, :description, :address, :telephone, :mobile_phones, :business_name, :business_email, :categories)
+      params.require(:shop).permit(:name, :image, :description, :address, :telephone, :mobile_phones, :business_name, :business_email, :categories, :cover_image)
     end
 end
 

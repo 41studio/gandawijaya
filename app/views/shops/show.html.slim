@@ -4,6 +4,7 @@
     - if @shop.status == "approved"
       .row
         .col-md-4
+          = image_tag @shop.cover_image.cover.url, class: "img-thumbnail"
           = image_tag @shop.image.url, size: "240x200", class: "img-thumbnail"
         .col-md-8
           h1
@@ -100,7 +101,7 @@
       - @reviews.each do |review|
         .row
         .col-md-2
-          - if current_user.image?
+          - if current_user.try(:image)
             = image_tag current_user.image, size: "100x120", class: "thumbnail"
           - else
             = image_tag "noimg.png"
@@ -113,8 +114,8 @@
 
       = render partial: "shared/modal_reviews", locals: {reviewable_id: @shop.id, reviewable_type: "Shop"}
 
-    - elsif @shop.status == "on_progress"
-        = image_tag "ip.png", size: "240x200", class: "img-thumbnail"
+    - elsif @shop.status == "rejected"
+        = image_tag "rj.jpg", size: "240x200", class: "img-thumbnail"
         h1
           = @shop.name
         p
@@ -123,11 +124,11 @@
             = @shop.description
 
         div class="bs-example"
-          div id="myAlert" class="alert alert-success"
+          div id="myAlert" class="alert alert-danger"
            a href="#" class="close" &times;
            strong
             | Note!
-            | This shop is on progress to show
+            | Sorry this store rejected by admin
     - else
         = image_tag "ur.jpg", size: "240x200", class: "img-thumbnail"
         h1

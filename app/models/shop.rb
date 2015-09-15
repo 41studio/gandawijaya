@@ -21,6 +21,7 @@ class Shop < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name_and_id, use: [:slugged, :finders]
   mount_uploader :image, GalleryUploader
+  mount_uploader :cover_image, GalleryUploader
   belongs_to :user
   searchkick word_start: [:name]
   acts_as_votable
@@ -29,6 +30,7 @@ class Shop < ActiveRecord::Base
   has_many :reviews, as: :reviewable, dependent: :destroy
   has_many :products, dependent: :destroy
   after_save :send_mail_new_shop
+  has_many :opening_hours
   accepts_nested_attributes_for :opening_hours, allow_destroy: true
 
   def send_mail_new_shop
