@@ -46,7 +46,7 @@ module ApplicationHelper
       elsif action.eql? "form"
         [object.shop, object]
       elsif action.eql? "destroy"
-        product_path(shop_id: object.id, id: object)
+        shop_product_path(shop_id: object.id, id: object)
       end
     end
   end

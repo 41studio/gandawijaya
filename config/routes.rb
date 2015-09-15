@@ -38,7 +38,7 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   resources :shops do
-    resources :products, only: [:index, :new, :create, :update, :edit, :show]
+    resources :products
     get 'controlpanel', on: :member
   end
   devise_for :users, controllers: { sessions: "users/sessions",
