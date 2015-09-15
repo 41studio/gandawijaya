@@ -32,13 +32,33 @@ before_action :find_product, only: [:like, :dislike]
     end
   end
 
+  def update
+    if resource.shop.premium_account.present?
+      update! do |success, failure|
+        success.html { redirect_to product_premium_path(premium_path: resource.shop.premium_account.url, id: resource) }
+      end
+    else
+      update! do |success, failure|
+        success.html { redirect_to shop_product_path(shop_id: resource.shop, id: resource) }
+      end
+    end
+  end
+
   def create
     @product = current_user.products.new(product_params)
     shop = Shop.find params[:product][:shop_id]
     if shop.approved?
       @product.approved!
     end
-    create!
+    if shop.premium_account.present?
+      create! do |success, failure|
+        success.html { redirect_to product_premium_path(premium_path: shop.premium_account.url, id: @product) }
+      end
+    else
+      create! do |success, failure|
+        success.html { redirect_to shop_product_path(shop_id: shop, id: @product) }
+      end
+    end
   end
 
   def product_disccusion
