@@ -23,7 +23,7 @@ ActiveAdmin.register Shop do
       f.input :description
       f.input :status, :as => :select, :collection => ["under_review", "on_progress", "approved"]
       h4 "premium account settings", id: "premium-h4"
-      f.inputs "", for: [:premium_account, f.object.premium_account || shop.premium_account.new] do |form|
+      f.inputs "", for: [:premium_account, f.object.premium_account || shop.build_premium_account] do |form|
           form.input :status, label: "premium shop"
           form.input :url
           form.input :shop_id, value: shop.user.id, as: :hidden

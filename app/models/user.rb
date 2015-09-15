@@ -51,7 +51,10 @@ class User < ActiveRecord::Base
   has_many :premium_accounts, dependent: :destroy
   has_many :comments
 
-  validates :username, presence: true
+  validates :handphone, numericality: true
+  validates :username, format: { with: /\A[a-zA-Z0-9]+\Z/ }
+  validates :terms_of_service, acceptance: true
+  validates :username, :first_name, :last_name, :address, presence: true
 
   def self.from_omniauth(auth, user_agent)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
