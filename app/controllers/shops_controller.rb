@@ -6,7 +6,6 @@ before_action :find_shop, only: [:like, :dislike]
 
   def create
     @shop = current_user.shops.new(shop_params)
-    sdf
     create!
   end
 
