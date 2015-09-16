@@ -20,11 +20,21 @@ ready = ->
     partial = $('.nested').eq(-1)
     partial_selects = partial.find('select')
 
-    partial.addClass("col-md-2")
+    partial.addClass("col-md-3")
 
     $("<span />", { text: $(partial_selects[0]).find("option:selected").text(), class: "day-work"  }).insertAfter(partial_selects[0]);
-    $("<span />", { text: $(partial_selects[1]).find("option:selected").text(), class: "open-hour"  }).insertAfter(partial_selects[1]);
-    $("<span />", { text: $(partial_selects[2]).find("option:selected").text() }).insertAfter(partial_selects[2]);
+
+    open  = $(partial_selects[1]).find("option:selected").text()
+    close = $(partial_selects[2]).find("option:selected").text()
+
+    if close == "Closed"
+      open = close
+
+    if open == "Closed"
+      close = open
+
+    $("<span />", { text: open, class: "open-hour"  }).insertAfter(partial_selects[1]);
+    $("<span />", { text: close }).insertAfter(partial_selects[2]);
 
     partial.find('select').hide()
     partial.find('label').hide()

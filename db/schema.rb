@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150914062257) do
+ActiveRecord::Schema.define(version: 20150916082942) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -215,6 +215,22 @@ ActiveRecord::Schema.define(version: 20150914062257) do
 
   add_index "reviews", ["user_id"], name: "index_reviews_on_user_id", using: :btree
 
+  create_table "scategories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "scategory_shops", force: :cascade do |t|
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "shop_id"
+    t.integer  "scategory_id"
+  end
+
+  add_index "scategory_shops", ["scategory_id"], name: "index_scategory_shops_on_scategory_id", using: :btree
+  add_index "scategory_shops", ["shop_id"], name: "index_scategory_shops_on_shop_id", using: :btree
+
   create_table "shops", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at",     null: false
@@ -297,5 +313,7 @@ ActiveRecord::Schema.define(version: 20150914062257) do
   add_foreign_key "products", "shops"
   add_foreign_key "products", "users"
   add_foreign_key "reviews", "users"
+  add_foreign_key "scategory_shops", "scategories"
+  add_foreign_key "scategory_shops", "shops"
   add_foreign_key "shops", "users"
 end

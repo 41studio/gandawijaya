@@ -58,5 +58,6 @@ Rails.application.routes.draw do
   post '/comment_create', to: 'products#create_comment', as: :comment_create
   get 'search', to: 'pages#dashboard'
   patch 'user/status/update', to: "pages#change_status", as: :change_status_user
+  get "/shop/autocompletecategory", to: "shops#autocompletecategory"
  end
 

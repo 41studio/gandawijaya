@@ -9,7 +9,7 @@
         = f.input :mobile_phones, label: false, placeholder: "Mobile Phones", input_html: { class: "form-control" }
       = f.input :business_name, label: false, placeholder: "www.yourbusinessname.com", input_html: { class: "form-control" }
       = f.input :business_email, label: false, placeholder: "Business Email", input_html: { class: "form-control" }
-      = f.input :categories, placeholder: "e.g. Computer or Tradisional", input_html: { class: "form-control" }
+      = f.input :categories, placeholder: "e.g. Computer or Tradisional", input_html: { class: "form-control", id: "search-category" }
       = f.input :image, as: :file, input_html: { class: "form-control" }
       = f.input :cover_image, as: :file, input_html: { class: "form-control"}
       = f.simple_fields_for :opening_hours, @shop.opening_hours.new do |o|
@@ -24,3 +24,26 @@
     .form-actions
       = f.button :submit,  class: "btn btn-primary"
       = link_to 'Back', shops_path, class: "btn btn-default"
+
+javascript:
+ $( "#search-category" ).autocomplete({
+   source: function( request, response ) {
+     $.ajax({
+       url: "/shop/autocompletecategory",
+       dataType: "json",
+       data: {
+         search: request.term
+       },
+       success: function( data ) {
+         response( data );
+       }
+     });
+   },
+   minLength: 3,
+     open: function() {
+       $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+     },
+     close: function() {
+       $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+     }
+ });

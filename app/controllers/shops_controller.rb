@@ -83,6 +83,10 @@ before_action :find_shop, only: [:like, :dislike]
     end
   end
 
+  def autocompletecategory
+    render json: Scategory.search(params[:search], fields: [:name]).map(&:name)
+  end
+
   private
     def check_and_set_premium_url
       if params[:premium_path]
