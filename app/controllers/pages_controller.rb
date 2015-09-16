@@ -7,7 +7,8 @@ class PagesController < ApplicationController
   end
 
   def profile
-
+    @user_products = current_user.products
+    @user_shops = current_user.shops
   end
 
   def change_avatar

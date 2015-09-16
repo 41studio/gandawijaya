@@ -6,6 +6,7 @@ before_action :find_shop, only: [:like, :dislike]
 
   def create
     @shop = current_user.shops.new(shop_params)
+    sdf
     create!
   end
 
@@ -103,7 +104,7 @@ before_action :find_shop, only: [:like, :dislike]
     end
 
     def shop_params
-      params.require(:shop).permit(:name, :image, :description, :address, :telephone, :mobile_phones, :business_name, :business_email, :categories, :cover_image)
+      params.require(:shop).permit(:name, :image, :description, :address, :telephone, :mobile_phones, :business_name, :business_email, :categories, :cover_image, opening_hours_attributes: [:id, :day_work, :start_work, :end_work, :_destroy])
     end
 end
 
