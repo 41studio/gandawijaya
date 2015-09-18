@@ -23,8 +23,13 @@ $(".close").click(function(){
     $("#myAlert").alert('close');
   });
 
-// $(document).on("page:load", function(){
-//   $(':radio').change(  function(){    $('.choice').text( this.value + ' stars' );  } )
-// });
+    // if close == "Closed"
+    //   open = close
+    //   $(partial_selects[1]).find("option:selected").val = $(partial_selects[2]).find("option:selected").val
+
+    // if open == "Closed"
+    //   close = open
+    //   $(partial_selects[2]).find("option:selected").val = $(partial_selects[1]).find("option:selected").val
+    // $('.nested-fields').eq(-1).find('.btn-remove').removeClass('hide')
 
 });

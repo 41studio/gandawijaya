@@ -13,8 +13,20 @@ ready = ->
     else
       $('.btn-submit-review').prop("disabled", true)
 
-  $("#radio_1").prop("checked", true)
-  $("#radio_1").prop("checked", true)
+  $('#btn-destroy').click ->
+    $(this).parent('.category').remove();
+    s--;
+    if s < 3
+      $( ".shop_categories" ).show();
+
+  $('.remove-scategory').click ->
+    $('.current-category').addClass("hide");
+    s = $('.current-category-name').length;
+    $('.scategory-destroy').each (index, element) ->
+      $('.scategory-destroy')[index].value = 1
+    if s < 3
+      $( ".shop_categories" ).show();
+
 
   $('.add_fields').click ->
     partial = $('.nested').eq(-1)
@@ -27,18 +39,11 @@ ready = ->
     open  = $(partial_selects[1]).find("option:selected").text()
     close = $(partial_selects[2]).find("option:selected").text()
 
-    if close == "Closed"
-      open = close
-
-    if open == "Closed"
-      close = open
-
     $("<span />", { text: open, class: "open-hour"  }).insertAfter(partial_selects[1]);
     $("<span />", { text: close }).insertAfter(partial_selects[2]);
 
     partial.find('select').hide()
     partial.find('label').hide()
-    $('.nested-fields').eq(-1).find('.btn-remove').removeClass('hide')
 
 $(document).ready ready
 $(document).on "page:load", ready

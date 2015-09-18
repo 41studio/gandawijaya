@@ -31,7 +31,7 @@ before_action :find_shop, only: [:like, :dislike]
   end
 
   def update
-    if resource.premium_account.present?
+    if resource.premium_account.present? && resource.premium_account.status
       update! do |success, failure|
         success.html { redirect_to shop_premium_url(resource.premium_account.url) }
       end
@@ -83,7 +83,7 @@ before_action :find_shop, only: [:like, :dislike]
   end
 
   def autocompletecategory
-    render json: Scategory.search(params[:search], fields: [:name]).map(&:name)
+    render json: Scategory.all.where("name ILIKE ?", "%#{params[:search]}%").as_json(only: [:name, :id])
   end
 
   private
@@ -107,7 +107,13 @@ before_action :find_shop, only: [:like, :dislike]
     end
 
     def shop_params
-      params.require(:shop).permit(:name, :image, :description, :address, :telephone, :mobile_phones, :business_name, :business_email, :categories, :cover_image, opening_hours_attributes: [:id, :day_work, :start_work, :end_work, :_destroy])
+      params.require(:shop).permit(:name, :image,  :description,   :address,
+                                   :mobile_phones, :business_name, :business_email,
+                                   :categories,    :cover_image,   :telephone,
+                                   opening_hours_attributes:  [:id, :day_work, :start_work,
+                                                               :end_work, :_destroy],
+                                   scategory_shops_attributes: [:id, :shop_id, :scategory_id,
+                                                               :_destroy])
     end
 end
 
