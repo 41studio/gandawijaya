@@ -1,7 +1,11 @@
 .nested-fields
   .nested
     = f.input :day_work, as: :select, collection: Shop::SHOP_DAY_WORK, prompt: false,  input_html: { class: "form-control" }
-    = f.input :start_work, as: :select, collection: Shop::SHOP_WORK_HOUR, selected: Shop::SHOP_WORK_HOUR[9], input_html: { class: "form-control"}
-    = f.input :end_work, as: :select, collection: Shop::SHOP_WORK_HOUR, selected: Shop::SHOP_WORK_HOUR[16], input_html: { class: "form-control" }
-  br/
-  = link_to_remove_association "remove", f, class: "btn btn-info btn-remove"
+    - if @auto_select
+      = f.input :start_work, as: :select, collection: Shop::SHOP_WORK_HOUR, selected: Shop::SHOP_WORK_HOUR[9] , input_html: { class: "form-control"}
+      = f.input :end_work, as: :select, collection: Shop::SHOP_WORK_HOUR, selected: Shop::SHOP_WORK_HOUR[16], input_html: { class: "form-control" }
+    - else
+      = f.input :start_work, as: :select, collection: Shop::SHOP_WORK_HOUR , input_html: { class: "form-control"}
+      = f.input :end_work, as: :select, collection: Shop::SHOP_WORK_HOUR, input_html: { class: "form-control" }
+    = link_to_remove_association "remove", f, class: "btn btn-info btn-remove hide"
+    br

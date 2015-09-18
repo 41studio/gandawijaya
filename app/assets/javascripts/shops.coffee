@@ -14,8 +14,12 @@ ready = ->
       $('.btn-submit-review').prop("disabled", true)
 
   $('.add_fields').click ->
+    $('.nested-fields').eq(-1).addClass("row")
     partial = $('.nested').eq(-1)
     partial_selects = partial.find('select')
+
+    # Get current selected days
+    # If selected days exist on elemen
 
     partial.addClass("col-md-3")
 
@@ -29,6 +33,7 @@ ready = ->
 
     partial.find('select').hide()
     partial.find('label').hide()
+    $('.nested-fields').eq(-1).find('.btn-remove').removeClass("hide");
 
 $(document).ready ready
 $(document).on "page:load", ready

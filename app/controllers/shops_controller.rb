@@ -7,12 +7,19 @@ before_action :find_shop, only: [:like, :dislike]
   def create
     @shop = current_user.shops.new(shop_params)
     create!
+    @shop.opening_hours.last.destroy
+  end
+
+  def new
+    @auto_select = true
+    new!
   end
 
   def edit
     if any_redirect_to_premium_path(resource)
       redirect_to edit_shop_premium_path(resource.premium_account.url), status: 301
     else
+      @auto_select = false
       edit!
     end
   end
@@ -22,7 +29,8 @@ before_action :find_shop, only: [:like, :dislike]
       redirect_to shop_premium_path(resource.premium_account.url), status: 301
     else
       @categories = @shop.scategories
-      @work_hours = @shop.opening_hours
+      @work_hours = @shop.opening_hours.order("day_work= 6, day_work= 5, day_work= 4, day_work= 3,
+                                               day_work= 2, day_work= 1, day_work= 0 ");
       @review = Review.new
       @reviews = resource.reviews
       @products = Product.all
