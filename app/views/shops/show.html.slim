@@ -31,9 +31,6 @@
           p
             = @shop.business_email
           p
-           b Categories :
-           br/
-          p
             = @shop.categories
           br/
 
@@ -50,6 +47,20 @@
             .text-justify
               blockquote
                 = @shop.description
+          p
+           b Categories :
+           br/
+          - @categories.each do |category|
+            = category.name
+            br
+          p
+            b Work Hours :
+          .row
+            - @work_hours.each do |work|
+              center.col-md-3
+                h5 = work.day_work
+                .btn = work.start_work
+                .btn = work.end_work
           br
           .caption style="text-align:right;"
             = link_to like_shop_path(@shop), data: {toggle: "tooltip", placement: "top"}, title: "Like", class: "btn btn-default btn-sm", method: :put, remote: true do

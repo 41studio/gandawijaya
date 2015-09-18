@@ -21,6 +21,8 @@ before_action :find_shop, only: [:like, :dislike]
     if any_redirect_to_premium_path(resource)
       redirect_to shop_premium_path(resource.premium_account.url), status: 301
     else
+      @categories = @shop.scategories
+      @work_hours = @shop.opening_hours
       @review = Review.new
       @reviews = resource.reviews
       @products = Product.all
