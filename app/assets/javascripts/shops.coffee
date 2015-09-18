@@ -13,21 +13,6 @@ ready = ->
     else
       $('.btn-submit-review').prop("disabled", true)
 
-  $('#btn-destroy').click ->
-    $(this).parent('.category').remove();
-    s--;
-    if s < 3
-      $( ".shop_categories" ).show();
-
-  $('.remove-scategory').click ->
-    $('.current-category').addClass("hide");
-    s = $('.current-category-name').length;
-    $('.scategory-destroy').each (index, element) ->
-      $('.scategory-destroy')[index].value = 1
-    if s < 3
-      $( ".shop_categories" ).show();
-
-
   $('.add_fields').click ->
     partial = $('.nested').eq(-1)
     partial_selects = partial.find('select')

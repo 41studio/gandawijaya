@@ -37,14 +37,16 @@
       = link_to 'Back', shops_path, class: "btn btn-default"
 
 javascript:
-  s = $('.current-category-name').length
+  b = $('.current-category-name').length
+  s = b
     function log( name, id ) {
       s++;
-      $( "<div class='category' id='"+s+"'>" ).appendTo("#categories");
-      $( "<h4>" ).text( name ).addClass("btn").appendTo( "#"+s );
-      $( "<input type='hidden' name='shop[scategory_shops_attributes]["+id+"][scategory_id]' value="+id+" />" ).appendTo( "#"+s );
-      $("<input type='hidden' name='shop[opening_hours_attributes]["+id+"][_destroy]'' value='false'>").appendTo( "#"+s );
-      $("#btn-destroy").clone(true).removeClass("hide").appendTo( "#"+s );
+      ids= new Date($.now())/1;
+      $( "<div class='category' id='"+ids+"'>" ).appendTo("#categories");
+      $( "<h4>" ).text( name ).addClass("btn").appendTo( "#"+ids );
+      $( "<input type='hidden' name='shop[scategory_shops_attributes]["+ids+"][scategory_id]' value="+id+" />" ).appendTo( "#"+ids );
+      $("<input type='hidden' name='shop[opening_hours_attributes]["+ids+"][_destroy]'' value='false'>").appendTo( "#"+ids );
+      $("#btn-destroy").clone(true).removeClass("hide").appendTo( "#"+ids );
       if(s == 3){
         $( ".shop_categories" ).hide();
       }
@@ -74,10 +76,25 @@ javascript:
           $(this).val(''); return false;
         }
    });
-  $('.remove-scategory').click(function(){
-    $('.current-category').addClass("hide");
-    s = 0;
+
+  $('#btn-destroy').click(function(){
+    $(this).parent('.category').remove();
+    s--;
     if(s < 3){
       $( ".shop_categories" ).show();
     }
   })
+
+  $('.remove-scategory').click(function(){
+    $('.current-category').addClass("hide");
+    alert(s);
+    s = s-b;
+    alert(s);
+    $('.scategory-destroy').each(function(index, element){
+      $('.scategory-destroy')[index].value = 1
+    if(s < 3){
+      $( ".shop_categories" ).show();
+    }
+    });
+  });
+
