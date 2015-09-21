@@ -2,16 +2,22 @@
 #
 # Table name: shops
 #
-#  id          :integer          not null, primary key
-#  name        :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  image       :string
-#  description :text
-#  slug        :string
-#  user_id     :integer
-#  address     :string
-#  status      :integer
+#  id             :integer          not null, primary key
+#  name           :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  image          :string
+#  description    :text
+#  slug           :string
+#  user_id        :integer
+#  address        :string
+#  status         :integer
+#  telephone      :string
+#  mobile_phones  :string
+#  business_name  :string
+#  business_email :string
+#  categories     :string
+#  cover_image    :string
 #
 
 require 'elasticsearch/model'
@@ -32,6 +38,7 @@ class Shop < ActiveRecord::Base
   has_many :products,                 dependent: :destroy
   has_one  :premium_account,          dependent: :destroy
   has_many :opening_hours,            dependent: :destroy
+  has_many :offer_rooms,              dependent: :destroy
   belongs_to :user
 
   accepts_nested_attributes_for :premium_account, allow_destroy: true

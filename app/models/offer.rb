@@ -1,15 +1,13 @@
 # == Schema Information
 #
-# Table name: scategories
+# Table name: offers
 #
 #  id         :integer          not null, primary key
-#  name       :string
+#  content    :text
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 
-class Scategory < ActiveRecord::Base
-  has_many :scategory_shops
-  has_many :shops, through: :scategory_shops
+class Offer < ActiveRecord::Base
+  belongs_to :offer_room
 end
-

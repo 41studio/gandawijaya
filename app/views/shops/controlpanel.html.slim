@@ -16,3 +16,14 @@ div id="graphTabsContent" class="tab-content"
   - @products.each do |product|
     div role="tabpanel" class="tab-pane fade in" id="#{product.id}" aria-labelledBy="#{product.id}-tab"
       = column_chart product_impression_graph(product.id, "Product")
+
+- @offer_rooms.each do |room|
+  = Product.find(room.product_id).name
+  br
+  - room.offers.each do |offer|
+    = offer.content
+    '   by
+    = User.find(offer.user_id).username
+    br
+  hr
+end

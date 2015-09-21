@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150918075221) do
+ActiveRecord::Schema.define(version: 20150921090601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -121,6 +121,28 @@ ActiveRecord::Schema.define(version: 20150918075221) do
   add_index "impressions", ["impressionable_type", "impressionable_id", "session_hash"], name: "poly_session_index", using: :btree
   add_index "impressions", ["impressionable_type", "message", "impressionable_id"], name: "impressionable_type_message_index", using: :btree
   add_index "impressions", ["user_id"], name: "index_impressions_on_user_id", using: :btree
+
+  create_table "offer_rooms", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "product_id"
+    t.integer  "shop_id"
+  end
+
+  add_index "offer_rooms", ["product_id"], name: "index_offer_rooms_on_product_id", using: :btree
+  add_index "offer_rooms", ["shop_id"], name: "index_offer_rooms_on_shop_id", using: :btree
+
+  create_table "offers", force: :cascade do |t|
+    t.text     "content"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "user_id"
+    t.integer  "offer_room_id"
+    t.string   "owner"
+  end
+
+  add_index "offers", ["offer_room_id"], name: "index_offers_on_offer_room_id", using: :btree
+  add_index "offers", ["user_id"], name: "index_offers_on_user_id", using: :btree
 
   create_table "opening_hours", force: :cascade do |t|
     t.integer  "day_work"
@@ -306,6 +328,10 @@ ActiveRecord::Schema.define(version: 20150918075221) do
   add_index "votes", ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope", using: :btree
 
   add_foreign_key "galleries", "products"
+  add_foreign_key "offer_rooms", "products"
+  add_foreign_key "offer_rooms", "shops"
+  add_foreign_key "offers", "offer_rooms"
+  add_foreign_key "offers", "users"
   add_foreign_key "premium_accounts", "shops"
   add_foreign_key "premium_accounts", "users"
   add_foreign_key "premium_shop_requests", "shops"

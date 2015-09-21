@@ -1,24 +1,17 @@
 # == Schema Information
 #
-# Table name: opening_hours
+# Table name: offers
 #
 #  id         :integer          not null, primary key
-#  day_work   :integer
-#  start_work :string
-#  end_work   :string
+#  content    :text
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  shop_id    :integer
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  day_work: 1
-  start_work: 1
-  end_work: 1
+  content: MyText
 
 two:
-  day_work: 1
-  start_work: 1
-  end_work: 1
+  content: MyText

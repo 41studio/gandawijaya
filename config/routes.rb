@@ -59,5 +59,6 @@ Rails.application.routes.draw do
   get 'search', to: 'pages#dashboard'
   patch 'user/status/update', to: "pages#change_status", as: :change_status_user
   get "/shop/autocompletecategory", to: "shops#autocompletecategory"
+  resources :offers, only: [:create]
  end
 
