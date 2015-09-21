@@ -52,7 +52,11 @@ class User < ActiveRecord::Base
   has_many :comments
 
   validates :handphone, numericality: true
-  validates :username, format: { with: /\A[a-zA-Z0-9]+\Z/ }
+  validates :username,  format: { with: /\A[a-zA-Z0-9]+\Z/ },
+                        length: { within: 2..40,
+                                  too_short: 'too short name',
+                                  too_long: 'too long name' }
+
   validates :term_of_user, acceptance: { accept: true }
   validates :username, :first_name, :last_name, :address, presence: true
 

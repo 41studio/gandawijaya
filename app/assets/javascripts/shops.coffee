@@ -1,6 +1,7 @@
 ready = ->
-  day_taken = ""
-  first = 0
+  DayTaken = ""
+  First = 0
+
   $('.choice').hide()
   $('.btn-submit-review').prop("disabled", true)
 
@@ -16,7 +17,7 @@ ready = ->
       $('.btn-submit-review').prop("disabled", true)
 
   $('.add_fields').click (e) ->
-    if first == 1 && $('.nested-fields').length > 0
+    if First == 1 && $('.nested-fields').length > 0
       partial = $('.nested').eq(-1)
       partial_selects = partial.find('select')
 
@@ -25,8 +26,8 @@ ready = ->
       close = $(partial_selects[2]).find("option:selected").text()
 
       if open != "Choose hour" && close != "Choose hour"
-        day_taken = $('.day-work:visible').text()
-        if (day_taken.indexOf(day) < 0)
+        DayTaken = $('.day-work:visible').text()
+        if (DayTaken.indexOf(day) < 0)
 
           $('.nested-fields').eq(-1).addClass("row")
           partial.addClass("col-md-3")
@@ -47,7 +48,7 @@ ready = ->
         e.stopPropagation();
 
     else
-      first++
+      First++
 
   if $('.edit_shop').length > 0
     $('.nested-fields:last').remove();
@@ -70,8 +71,17 @@ ready = ->
       $(this).find('.btn-remove').removeClass("hide");
 
   $(".edit_shop").submit (e) ->
-    if $(".nested-fields .nested:last .select:visible").length > 0
-      $(".nested-fields .nested:last .select:visible").remove()
+    if $('.category-title').length <= 0
+      alert "Please choose at least 1 category"
+      e.preventDefault()
+    else
+      if $(".nested-fields .nested:last .select:visible").length > 0
+        $(".nested-fields .nested:last .select:visible").remove()
 
+  $(".new_shop").submit (e) ->
+    if $('.category-title').length <= 0
+          alert "Please choose at least 1 category"
+          e.preventDefault()
+    else
 $(document).ready ready
 $(document).on "page:load", ready

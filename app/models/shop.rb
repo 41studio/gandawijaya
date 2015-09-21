@@ -40,7 +40,14 @@ class Shop < ActiveRecord::Base
 
   after_create :send_mail_new_shop
 
-  validates_associated :scategory_shops
+  validates :name,  presence: true, format: { with: /\A[a-zA-Z0-9]+\Z/ },
+                    length: {  within: 2..40,
+                               too_short: 'too short name',
+                               too_long: 'too long name' }
+  validates :address, presence: true
+  validates :telephone, presence: true, numericality: true
+  validates :mobile_phones, presence: true, numericality: true
+
   SHOP_DAY_WORK  = [ "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu" ]
   SHOP_WORK_HOUR = ["Closed", "1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00",
                     "9:00",   "10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00",

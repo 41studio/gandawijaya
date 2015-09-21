@@ -3,8 +3,8 @@
     - if @shop.status == "approved"
       .row
         .col-md-4
-          = image_tag @shop.cover_image.cover.url, class: "img-thumbnail"
-          = image_tag @shop.image.url, size: "240x200", class: "img-thumbnail"
+          = image_tag @shop.cover_image.cover.url  || "noimg.png", class: "img-thumbnail"
+          = image_tag @shop.image.url || "noimg.png", size: "240x200", class: "img-thumbnail"
           p
            b Telephone :
            br/

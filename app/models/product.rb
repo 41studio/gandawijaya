@@ -29,6 +29,10 @@ class Product < ActiveRecord::Base
   belongs_to :user
 
   accepts_nested_attributes_for :galleries, allow_destroy: true
+
+  validates :name, presence: true
+  validates :price, presence: true
+
   after_create :sendmail_create_product
 
   def sendmail_create_product
