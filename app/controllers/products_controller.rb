@@ -3,11 +3,11 @@ before_action :authenticate_user!, except: [:show, :product_disccusion]
 before_action :set_shop_from_params, only: [:new]
 before_action :set_shop, only: [:show, :edit]
 before_action :set_galleries, only: [:show, :product_disccusion]
-before_action :find_product, only: [:like, :dislike]
+before_action :find_product, only: [:like, :dislike, :product_disccusion]
 
   def show
     if any_redirect_to_premium_path(@shop)
-      redirect_to product_premium_path(premium_path: @shop.premium_account.url, id: resource), status: 301
+      redirect_to product_premium_url(premium_path: @shop.premium_account.url, id: resource), status: 301
     else
       @review = Review.new
       @reviews = resource.reviews
@@ -20,26 +20,26 @@ before_action :find_product, only: [:like, :dislike]
   def new
     @product = @shop.products.new
     if any_redirect_to_premium_path(@shop)
-      redirect_to new_product_premium_path(premium_path: @shop.premium_account.url), status: 301
+      redirect_to new_product_premium_url(premium_path: @shop.premium_account.url), status: 301
     end
   end
 
   def edit
     if any_redirect_to_premium_path(resource.shop)
-      redirect_to edit_product_premium_path(premium_path: resource.shop.premium_account.url, id: resource), status: 301
+      redirect_to edit_product_premium_url(premium_path: resource.shop.premium_account.url, id: resource), status: 301
     else
       edit!
     end
   end
 
   def update
-    if resource.shop.premium_account.present?
+    if resource.shop.premium_account.present? && shop.premium_account.status
       update! do |success, failure|
-        success.html { redirect_to product_premium_path(premium_path: resource.shop.premium_account.url, id: resource) }
+        success.html { redirect_to product_premium_url(premium_path: resource.shop.premium_account.url, id: resource) }
       end
     else
       update! do |success, failure|
-        success.html { redirect_to shop_product_path(shop_id: resource.shop, id: resource) }
+        success.html { redirect_to shop_product_url(shop_id: resource.shop, id: resource) }
       end
     end
   end
@@ -50,19 +50,18 @@ before_action :find_product, only: [:like, :dislike]
     if shop.approved?
       @product.approved!
     end
-    if shop.premium_account.present?
+    if shop.premium_account.present? && shop.premium_account.status
       create! do |success, failure|
-        success.html { redirect_to product_premium_path(premium_path: shop.premium_account.url, id: @product) }
+        success.html { redirect_to product_premium_url(premium_path: shop.premium_account.url, id: @product) }
       end
     else
       create! do |success, failure|
-        success.html { redirect_to shop_product_path(shop_id: shop, id: @product) }
+        success.html { redirect_to shop_product_url(shop_id: shop, id: @product) }
       end
     end
   end
 
   def product_disccusion
-    @product = Product.find(params[:id])
     @comments = @product.comments
   end
 
@@ -76,7 +75,7 @@ before_action :find_product, only: [:like, :dislike]
         CommentMailer.comment_created(@user, current_user, @comment ).deliver
       end
 
-   redirect_to product_disccusion_path(@product)
+   redirect_to product_disccusion_url(@product)
   end
 
   def like

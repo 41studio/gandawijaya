@@ -1,4 +1,4 @@
-= simple_form_for(@shop) do |f|
+= simple_form_for(@shop, class: "form_add_edit_shop") do |f|
   = f.error_notification
   .col-md-8
     .form-inputs
@@ -22,12 +22,13 @@
       = f.input :categories, placeholder: "e.g. Computer or Tradisional", input_html: { class: "form-control", id: "search-category" }
       = f.input :image, as: :file, input_html: { class: "form-control" }
       = f.input :cover_image, as: :file, input_html: { class: "form-control"}
-      = f.simple_fields_for :opening_hours, @shop.opening_hours || @shop.opening_hours.new do |o|
-        = render 'opening_hour_fields', f: o
-      .links
-        br/
-        button type='button' id='btn-destroy' class="hide" remove
-        = link_to_add_association 'Add Hours', f, :opening_hours, class: "btn btn-default"
+      .opening-hour
+        = f.simple_fields_for :opening_hours, @shop.opening_hours || @shop.opening_hours.new do |o|
+          = render 'opening_hour_fields', f: o
+        .links
+          br/
+          button type='button' id='btn-destroy' class="hide" remove
+          = link_to_add_association 'Add Hours', f, :opening_hours, class: "btn btn-default"
       hr
       = f.input :description, placeholder: "About your shop", input_html: { class: "form-control" }
       br/
@@ -40,15 +41,20 @@ javascript:
   b = $('.current-category-name').length
   s = b
     function log( name, id ) {
-      s++;
-      ids= new Date($.now())/1;
-      $( "<div class='category' id='"+ids+"'>" ).appendTo("#categories");
-      $( "<h4>" ).text( name ).addClass("btn").appendTo( "#"+ids );
-      $( "<input type='hidden' name='shop[scategory_shops_attributes]["+ids+"][scategory_id]' value="+id+" />" ).appendTo( "#"+ids );
-      $("<input type='hidden' name='shop[opening_hours_attributes]["+ids+"][_destroy]'' value='false'>").appendTo( "#"+ids );
-      $("#btn-destroy").clone(true).removeClass("hide").appendTo( "#"+ids );
-      if(s == 3){
-        $( ".shop_categories" ).hide();
+      category_taken = $('.category-title').text();
+      if(category_taken.indexOf(name) < 0){
+        s++;
+        ids= new Date($.now())/1;
+        $( "<div class='category' id='"+ids+"'>" ).appendTo("#categories");
+        $( "<h4 class='category-title'>" ).text( name ).addClass("btn").appendTo( "#"+ids );
+        $( "<input type='hidden' name='shop[scategory_shops_attributes]["+ids+"][scategory_id]' value="+id+" />" ).appendTo( "#"+ids );
+        $("<input type='hidden' name='shop[opening_hours_attributes]["+ids+"][_destroy]'' value='false'>").appendTo( "#"+ids );
+        $("#btn-destroy").clone(true).removeClass("hide").appendTo( "#"+ids );
+        if(s == 3){
+          $( ".shop_categories" ).hide();
+        }
+      } else {
+        alert('That category has already choosen');
       }
     }
 

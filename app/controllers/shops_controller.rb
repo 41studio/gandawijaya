@@ -7,7 +7,7 @@ before_action :find_shop, only: [:like, :dislike]
   def create
     @shop = current_user.shops.new(shop_params)
     create!
-    @shop.opening_hours.last.destroy
+    @shop.opening_hours.last.try(:destroy)
   end
 
   def new
@@ -17,7 +17,7 @@ before_action :find_shop, only: [:like, :dislike]
 
   def edit
     if any_redirect_to_premium_path(resource)
-      redirect_to edit_shop_premium_path(resource.premium_account.url), status: 301
+      redirect_to edit_shop_premium_url(resource.premium_account.url), status: 301
     else
       @auto_select = false
       edit!
@@ -26,13 +26,13 @@ before_action :find_shop, only: [:like, :dislike]
 
   def show
     if any_redirect_to_premium_path(resource)
-      redirect_to shop_premium_path(resource.premium_account.url), status: 301
+      redirect_to shop_premium_url(resource.premium_account.url), status: 301
     else
       @categories = @shop.scategories
       @work_hours = @shop.opening_hours.order("day_work= 6, day_work= 5, day_work= 4, day_work= 3,
                                                day_work= 2, day_work= 1, day_work= 0 ");
-      @review = Review.new
       @reviews = resource.reviews
+      @review = Review.new
       @products = Product.all
       @this_is_current_user_shop = current_user.shops.where(id: @shop.id) if current_user
       @products = resource.products
@@ -58,7 +58,7 @@ before_action :find_shop, only: [:like, :dislike]
         Shop.find params[:id]
       end
     if any_redirect_to_premium_path(@shop)
-      redirect_to controlpanel_shop_premium_path(@shop.premium_account.url), status: 301
+      redirect_to controlpanel_shop_premium_url(@shop.premium_account.url), status: 301
     else
       @products = Product.all
     end
