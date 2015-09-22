@@ -60,9 +60,14 @@ before_action :find_shop, only: [:like, :dislike]
     if any_redirect_to_premium_path(@shop)
       redirect_to controlpanel_shop_premium_url(@shop.premium_account.url), status: 301
     else
-      @products = Product.all
+      @products = @shop.products
     end
-    @offer_rooms = @shop.offer_rooms.order(:product_id)
+    if params[:product].present?
+      product = Product.find params[:product]
+      @offer_rooms = product.offer_rooms
+    else
+      @offer_rooms = @shop.offer_rooms.order(:product_id)
+    end
   end
 
   def approve

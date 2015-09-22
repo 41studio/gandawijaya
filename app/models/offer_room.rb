@@ -5,9 +5,9 @@
 #  id         :integer          not null, primary key
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  user_id    :integer
 #  product_id :integer
 #  shop_id    :integer
+#  offerer    :string
 #
 
 class OfferRoom < ActiveRecord::Base

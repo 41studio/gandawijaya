@@ -41,6 +41,7 @@ Rails.application.routes.draw do
     resources :products
     get 'controlpanel', on: :member
   end
+  get '/:shop_id/controlpanel/offer/:product_id/:user_id', to: "offers#show", as: :show_offers
   devise_for :users, controllers: { sessions: "users/sessions",
                                     registrations: "users/registrations",
                                     omniauth_callbacks: "users/omniauth_callbacks" }
@@ -50,6 +51,7 @@ Rails.application.routes.draw do
   get '/:premium_path/edit',to: "shops#edit", as: :edit_shop_premium
   get '/:premium_path',to: "shops#show", as: :shop_premium
   get '/:premium_path/controlpanel', to: "shops#controlpanel", as: :controlpanel_shop_premium
+  get '/:premium_path/controlpanel/offer/:product_id/:user_id', to: "offers#show", as: :show_offers_premium
   put '/:premium_path',to: "shops#update", as: :update_shop_premium
   scope '/:premium_path' do
     resources :products, as: :product_premium
@@ -60,7 +62,5 @@ Rails.application.routes.draw do
   patch 'user/status/update', to: "pages#change_status", as: :change_status_user
   get "/shop/autocompletecategory", to: "shops#autocompletecategory"
   resources :offers, only: [:create]
-  get "/controlpanel/offer/:id", to: "offers#room", as: :room_offers
-  get "/controlpanel/offer/:product_id/:user_id", to: "offers#show", as: :show_offers
  end
 

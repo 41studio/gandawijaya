@@ -227,6 +227,10 @@ GEM
       activesupport (>= 4.1.0)
     groupdate (2.4.0)
       activesupport (>= 3)
+    guard-annotate (2.2)
+      annotate (~> 2.4, >= 2.4.0)
+      guard-compat (~> 1.2, >= 1.2.1)
+    guard-compat (1.2.1)
     has_scope (0.6.0)
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
@@ -438,6 +442,7 @@ DEPENDENCIES
   fog (~> 1.34.0)
   friendly_id
   groupdate
+  guard-annotate
   impressionist
   inherited_resources
   jbuilder (~> 2.0)

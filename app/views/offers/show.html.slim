@@ -3,7 +3,7 @@
     center
       h1 = @product.name
     hr
-      = link_to "back", room_offers_path(@product)
+      = link_to "back", generate_path_for(@product.shop, "controlpanel")
     - @offers.try(:each) do |offer|
       .row
         .col-md-1

@@ -1,0 +1,4 @@
+  tr data-link= "#{generate_path_for(room.shop, 'show_offer', product_id: room.product.id, user_id: room.offerer)}"
+    td = room.product.name
+    td = User.find(room.offerer).username
+    td = time_ago_in_words room.offers.last.created_at
