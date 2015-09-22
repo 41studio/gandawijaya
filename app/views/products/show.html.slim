@@ -40,16 +40,21 @@
   hr
 
   h4 Review
-  - if @reviews.any?
-    - @reviews.each do |review|
-
-      = review.user.username
-      br
-      = review.content
-      br
-      = review.rate_point
-  - else
-    p Theres no review yet
+  .row
+    - if @reviews.present?
+      - @reviews.limit(4).each do |review|
+        .col-md-6
+          .col-md-3
+            = image_tag review.user.try(:image) || "noimg.png", size: "100x120", class: "thumbnail"
+          .col-md-9
+            = review.user.username
+            br
+            = review.content
+            br
+              = star_view(review.id, review.rate_point)
+    - else
+      .col-md-6
+        h5 There's no review yet
 
 = render partial: "shared/modal_reviews", locals: {reviewable_id: @product.id, reviewable_type: "Product"}
 = render partial: "shared/modal_offer", locals: {reviewable_id: @product.id, reviewable_type: "Product"}
