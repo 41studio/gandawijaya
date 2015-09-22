@@ -60,5 +60,7 @@ Rails.application.routes.draw do
   patch 'user/status/update', to: "pages#change_status", as: :change_status_user
   get "/shop/autocompletecategory", to: "shops#autocompletecategory"
   resources :offers, only: [:create]
+  get "/controlpanel/offer/:id", to: "offers#room", as: :room_offers
+  get "/controlpanel/offer/:product_id/:user_id", to: "offers#show", as: :show_offers
  end
 

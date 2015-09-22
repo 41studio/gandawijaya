@@ -16,6 +16,19 @@ before_action :offer_params, only: [:create]
     end
   end
 
+  def room
+    @current_product = Product.find params[:id]
+    @shop = @current_product.shop
+    @products = @shop.products
+    @offer_rooms = @current_product.offer_rooms
+  end
+
+  def show
+    @offerer = User.find params[:user_id]
+    @product = Product.find params[:product_id]
+    @offers = @product.offer_rooms.where(product: @product.id, offerer: @offerer.id).first.offers
+  end
+
   private
 
   def offer_params

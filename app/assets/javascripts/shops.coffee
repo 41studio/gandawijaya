@@ -83,5 +83,9 @@ ready = ->
           alert "Please choose at least 1 category"
           e.preventDefault()
     else
+
+  $("tr[data-link]").click ->
+    window.location = $(this).data("link")
+
 $(document).ready ready
 $(document).on "page:load", ready

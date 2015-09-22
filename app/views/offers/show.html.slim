@@ -1,0 +1,20 @@
+.row
+  .col-md-8.col-md-offset-2
+    center
+      h1 = @product.name
+    hr
+      = link_to "back", room_offers_path(@product)
+    - @offers.try(:each) do |offer|
+      .row
+        .col-md-1
+          = image_tag offer.user.image || "noimg.png" , size: "50x50"
+        .col-md-11
+          h5 = offer.user.username
+          = offer.content
+
+    = simple_form_for Offer.new, defaults: { input_html: { class: "form-control" } } do |f|
+      = f.input :content
+      = f.hidden_field :offerer, value: @offerer.id
+      = f.hidden_field :shop_id, value: @product.shop.id
+      = f.hidden_field :product_id, value: @product.id
+      = f.button :submit, "Reply", class: "btn btn-primary"

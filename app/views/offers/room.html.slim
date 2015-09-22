@@ -19,25 +19,28 @@ div id="graphTabsContent" class="tab-content"
 
 h3 Offers
 ul id="offerTabs" class="nav nav-tabs" role="tablist"
-  li role="presentation" class="active"
+  li role="presentation"
     = link_to "All Offer", generate_path_for(@shop, "controlpanel")
   - @products.each do |product|
-    li role="presentation"
-      = link_to product.name, room_offers_path(product)
+    - if product.id.equal? @current_product.id
+      li role="presentation" class="active"
+        = link_to product.name, room_offers_path(product), class: "active"
+    - else
+      li role="presentation"
+        = link_to product.name, room_offers_path(product), class: "active"
 
 table.table.table-hover
-  thead
-    tr
-      th Product
-      th Offer by
-      th
-  - @offer_rooms.each do |room|
-    tbody
+    thead
       tr
-        td = room.product.name
-        td = User.find(room.offerer).username
-        td = time_ago_in_words room.offers.last.created_at
-
+        th Product
+        th Offer by
+        th
+    - @offer_rooms.each do |room|
+        tbody
+          tr data-link= "#{show_offers_path(product_id: @current_product, user_id: room.offerer)}"
+            td = room.product.name
+            td = User.find(room.offerer).username
+            td = time_ago_in_words room.offers.last.created_at
 - unless @offer_rooms.any?
   center
     i There's no offer for this product yet
