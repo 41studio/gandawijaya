@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150921090601) do
+ActiveRecord::Schema.define(version: 20150922024751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(version: 20150921090601) do
     t.datetime "updated_at", null: false
     t.integer  "product_id"
     t.integer  "shop_id"
+    t.string   "offerer"
   end
 
   add_index "offer_rooms", ["product_id"], name: "index_offer_rooms_on_product_id", using: :btree
@@ -138,7 +139,6 @@ ActiveRecord::Schema.define(version: 20150921090601) do
     t.datetime "updated_at",    null: false
     t.integer  "user_id"
     t.integer  "offer_room_id"
-    t.string   "owner"
   end
 
   add_index "offers", ["offer_room_id"], name: "index_offers_on_offer_room_id", using: :btree

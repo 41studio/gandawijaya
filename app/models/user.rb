@@ -50,6 +50,7 @@ class User < ActiveRecord::Base
   has_many :products
   has_many :premium_accounts, dependent: :destroy
   has_many :comments
+  has_many :offers
 
   validates :handphone, numericality: true
   validates :username,  format: { with: /\A[a-zA-Z0-9]+\Z/ },

@@ -11,6 +11,8 @@
 #
 
 class OfferRoom < ActiveRecord::Base
-  has_many :offers, dependent: :destroy
+  has_many   :offers, dependent: :destroy
+  belongs_to :product
   belongs_to :shop
+  belongs_to :user
 end

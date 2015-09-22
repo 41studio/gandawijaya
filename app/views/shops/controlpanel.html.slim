@@ -18,12 +18,18 @@ div id="graphTabsContent" class="tab-content"
       = column_chart product_impression_graph(product.id, "Product")
 
 - @offer_rooms.each do |room|
-  = Product.find(room.product_id).name
+  b = room.product.name
   br
   - room.offers.each do |offer|
     = offer.content
     '   by
-    = User.find(offer.user_id).username
+    = offer.user.username
     br
+  = simple_form_for Offer.new do |f|
+    = f.input :content
+    = f.hidden_field :offerer, value: room.offerer
+    = f.hidden_field :shop_id, value: room.shop.id
+    = f.hidden_field :product_id, value: room.product.id
+    = f.button :submit
   hr
 end

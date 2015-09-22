@@ -62,7 +62,7 @@ before_action :find_shop, only: [:like, :dislike]
     else
       @products = Product.all
     end
-    @offer_rooms = @shop.offer_rooms
+    @offer_rooms = @shop.offer_rooms.order(:product_id)
   end
 
   def approve

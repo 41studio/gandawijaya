@@ -53,7 +53,7 @@
 
   = simple_form_for Offer.new do |f|
     = f.input :content
-    = f.hidden_field :owner, value: @product.user.id
+    = f.hidden_field :offerer, value: nil
     = f.hidden_field :shop_id, value: @product.shop.id
     = f.hidden_field :product_id, value: @product.id
     = f.button :submit
