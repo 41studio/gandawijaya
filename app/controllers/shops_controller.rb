@@ -34,8 +34,8 @@ before_action :find_shop, only: [:like, :dislike]
       @reviews = resource.reviews
       @review = Review.new
       @products = Product.all
-      @this_is_current_user_shop = current_user.shops.where(id: @shop.id) if current_user
       @products = resource.products
+      @this_is_current_user_shop = current_user.shops.where(id: @shop.id) if current_user
       show!
     end
   end

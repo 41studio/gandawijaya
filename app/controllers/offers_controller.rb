@@ -2,7 +2,7 @@ class OffersController < ApplicationController
 before_action :offer_params, only: [:create]
 
   def create
-    params[:offer][:offerer] = current_user.id if params[:offer][:offerer].nil?
+    params[:offer][:offerer] = current_user.id unless params[:offer][:offerer].present?
     offer_room = OfferRoom.where(shop_id:    params[:offer][:shop_id],
                                  product_id: params[:offer][:product_id],
                                  offerer:    params[:offer][:offerer]

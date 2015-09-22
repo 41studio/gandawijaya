@@ -26,6 +26,7 @@ class Product < ActiveRecord::Base
   has_many   :galleries, dependent: :destroy
   has_many   :reviews, as: :reviewable
   has_many   :offers
+  has_many   :offer_rooms
   belongs_to :shop
   belongs_to :user
 
