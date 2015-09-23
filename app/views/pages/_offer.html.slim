@@ -1,0 +1,6 @@
+.row
+  .col-md-1
+    = image_tag offer.user.image || "noimg.png" , size: "50x50"
+  .col-md-10
+    h5 = offer.user.username
+    = offer.content

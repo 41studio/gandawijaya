@@ -1,0 +1,18 @@
+#ajax-modal.modal tabindex="-1"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close aria-hidden="true" data-dismiss="modal" type="button" &times;
+        h3.modal-title Campustask
+      = simple_form_for Offer.new, remote: true, defaults: { input_html: { class: 'form-control' } }  do |f|
+        .modal-body
+          .modal-body-content
+          .ajax-loader
+            center loading....
+          = f.input :content
+          = f.hidden_field :offerer, value: ""
+          = f.hidden_field :shop_id, value: ""
+          = f.hidden_field :product_id, value: ""
+        .modal-footer
+          = f.button :submit, class: "btn btn-success"
+          button.btn type="button" data-dismiss="modal" close

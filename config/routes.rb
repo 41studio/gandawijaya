@@ -24,6 +24,8 @@ Rails.application.routes.draw do
   root 'pages#dashboard'
   put '/avatarchange', to: 'pages#change_avatar', as: :change_avatar
   get '/myprofile', to: "pages#profile", as: :profile_pages
+  get '/collect_offers', to: "pages#collect_offers"
+
   post '/reviews/create', to: 'review#create', as: "reviews"
 
   put "/likeproduct/:id", to: "products#like", as: :like_product

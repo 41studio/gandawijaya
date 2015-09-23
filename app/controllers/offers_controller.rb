@@ -9,10 +9,12 @@ before_action :offer_params, only: [:create]
                                  ).first_or_create
     offer = offer_room.offers.new(offer_params)
     offer.user_id = current_user.id
+    @offers = offer.offer_room.offers
     if offer.save!
-      redirect_to :back, notice: "offer succesfully created"
-    else
-      redirect_to :back
+      respond_to do |format|
+        format.html{ redirect_to :back, notice: "offer succesfully created" }
+        format.js
+      end
     end
   end
 

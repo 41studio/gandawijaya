@@ -9,6 +9,12 @@ class PagesController < ApplicationController
   def profile
     @user_products = current_user.products
     @user_shops = current_user.shops
+    @offer_rooms = OfferRoom.where offerer: current_user.id
+  end
+
+  def collect_offers
+    @product = Product.find params[:product]
+    @offers = @product.offer_rooms.where(offerer: params[:offerer]).first.try(:offers)
   end
 
   def change_avatar

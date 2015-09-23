@@ -14,6 +14,7 @@ before_action :find_product, only: [:like, :dislike, :product_disccusion]
       impressionist(resource, "view product")
       @impression_count = resource.impressionist_count(:filter=>:all)
       @offers = resource.offer_rooms.where(offerer: current_user.id).first.try(:offers) if current_user
+      @this_is_current_user_product = current_user.products.where(id: resource.id).blank? if current_user
       show!
     end
   end

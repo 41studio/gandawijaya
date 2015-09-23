@@ -5,6 +5,7 @@
 //= require bootstrap-datepicker
 //= require pages
 //= require shops
+//= require offer
 //= require cocoon
 //= require turbolinks
 

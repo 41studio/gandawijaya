@@ -84,10 +84,5 @@ ready = ->
           e.preventDefault()
     else
 
-  $(".js-offer-poduct-tab").click ->
-
-  $("tr[data-link]").click ->
-    window.location = $(this).data("link")
-
 $(document).ready ready
 $(document).on "page:load", ready

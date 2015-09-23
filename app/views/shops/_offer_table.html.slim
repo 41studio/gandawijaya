@@ -23,6 +23,8 @@ ul id="offerTabs" class="nav nav-tabs" role="tablist"
     tbody
       = render partial: "shops/offer_rooms", collection: offer_rooms, as: :room
 
+
   - unless offer_rooms.any?
     center
       i There's no offer for this product yet
+= render partial: "shared/modal_offer_ajax", locals: { offers: @ffers, product: @product}
