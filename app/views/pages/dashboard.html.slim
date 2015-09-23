@@ -15,7 +15,7 @@ h4
     .col-md-3
       - link  = generate_path_for(shop, "show")
       - if shop.status == "approved"
-        = link_to (image_tag shop.image.url, size: "120x100", class: "img-rounded"), link
+        = link_to (image_tag "reject.jpg", size: "120x100", class: "img-rounded"), link
         h3 = detail_shop && detail_shop[:highlight][:name] ? detail_shop[:highlight][:name].html_safe : shop.name
         - if detail_shop && detail_shop[:highlight][:name]
           p = detail_shop[:highlight][:name].html_safe
@@ -28,7 +28,7 @@ h4
             p = detail_shop[:highlight][:name].html_safe
           p = truncate shop.description, length: 100
       - else
-        = link_to (image_tag "ue.png", size: "120x100", class: "img-rounded"), link
+        = link_to (image_tag "ue.jpg", size: "120x100", class: "img-rounded"), link
         .text-muted
           h3 = detail_shop && detail_shop[:highlight][:name] ? detail_shop[:highlight][:name].html_safe : shop.name
           - if detail_shop && detail_shop[:highlight][:name]
@@ -46,7 +46,7 @@ h4
         p
           = link_to (image_tag product.galleries.first.try(:image).try(:url) || "noimg.png", size: "120x100", class: "img-rounded"), generate_product_path(product, "show")
       -else
-        p = link_to (image_tag "ud.png", size: "120x100", class: "img-rounded"), generate_product_path(product, "show")
+        p = link_to (image_tag "ud.jpg", size: "120x100", class: "img-rounded"), generate_product_path(product, "show")
       p = link_to product.name, generate_product_path(product, "show")
       p = product.price
       p = truncate product.description, length: 100
