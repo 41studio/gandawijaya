@@ -15,7 +15,7 @@ h4
     .col-md-3
       - link  = generate_path_for(shop, "show")
       - if shop.status == "approved"
-        = link_to (image_tag "reject.jpg", size: "120x100", class: "img-rounded"), link
+        = link_to (image_tag shop.image.url || "noimg.png", size: "120x100", class: "img-rounded"), link
         h3 = detail_shop && detail_shop[:highlight][:name] ? detail_shop[:highlight][:name].html_safe : shop.name
         - if detail_shop && detail_shop[:highlight][:name]
           p = detail_shop[:highlight][:name].html_safe
