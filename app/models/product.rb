@@ -23,10 +23,9 @@ class Product < ActiveRecord::Base
   friendly_id :name, use: [:slugged, :finders]
   enum status: [:under_review, :on_progress, :approved]
 
-  has_many   :galleries, dependent: :destroy
-  has_many   :reviews, as: :reviewable
-  has_many   :offers
-  has_many   :offer_rooms
+  has_many   :galleries,   dependent: :destroy
+  has_many   :reviews,     dependent: :destroy,  as: :reviewable
+  has_many   :offer_rooms, dependent: :destroy
   belongs_to :shop
   belongs_to :user
 

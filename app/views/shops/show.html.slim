@@ -40,7 +40,7 @@
           b
            'Rating
           - if @shop.reviews.any?
-            = @shop.reviews.average(:rate_point)
+            = star_view(Time.now.to_i, @shop.reviews.average(:rate_point))
           - else
             'Unrated
           p

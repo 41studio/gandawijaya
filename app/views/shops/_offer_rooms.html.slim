@@ -1,4 +1,4 @@
-tr
+tr class="#{ 'unread' unless room.offers.last.read_by_owner }"
   td = link_to room.product.name,collect_offers_path(product: room.product, offerer: room.offerer), data: {toggle: "modal", target:"#ajax-modal"}, remote: true
   td = link_to User.find(room.offerer).username, collect_offers_path(product: room.product, offerer: room.offerer), data: {toggle: "modal", target:"#ajax-modal"}, remote: true
   td = link_to time_ago_in_words(room.offers.last.created_at),collect_offers_path(product: room.product, offerer: room.offerer), data: {toggle: "modal", target:"#ajax-modal"}, remote: true

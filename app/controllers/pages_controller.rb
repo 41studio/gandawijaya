@@ -9,12 +9,17 @@ class PagesController < ApplicationController
   def profile
     @user_products = current_user.products
     @user_shops = current_user.shops
-    @offer_rooms = OfferRoom.where offerer: current_user.id
+    @offer_rooms = OfferRoom.where(offerer: current_user.id).order(:created_at).reverse
   end
 
   def collect_offers
     @product = Product.find params[:product]
     @offers = @product.offer_rooms.where(offerer: params[:offerer]).first.try(:offers)
+    if params[:offerer].to_i.eql? current_user.id
+      @offers.each{ |o| o.update_attribute :read_by_offerer, true }
+    else
+      @offers.each{ |o| o.update_attribute :read_by_owner, true }
+    end
   end
 
   def change_avatar
