@@ -105,7 +105,7 @@ before_action :find_shop, only: [:like, :dislike]
   private
     def check_and_set_premium_url
       if params[:premium_path]
-        premium_account = PremiumAccount.with_url(params[:premium_path])
+        premium_account = PremiumAccount.with_url(params[:premium_path]).first
         if premium_account.present?
           @shop = Shop.find premium_account.shop_id
         else

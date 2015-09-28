@@ -87,22 +87,19 @@
   .col-md-4.col-md-offset-2
     .list-group
       .list-group-item.list-group-item-info Recently Offer
-      - @offer_rooms.each do |room|
-        = link_to collect_offers_path(product: room.product, offerer: room.offerer), class: "list-group-item #{ 'unread' unless room.offers.last.read_by_offerer } ", data: {toggle: "modal", target:"#ajax-modal"}, remote: true do
-          b.list-group-item-heading = room.product.name
-          .row
-            .col-md-3
-              = image_tag room.product.galleries.first.try(:image).try(:url) || "noimg.png" , size: "50x50"
-            .col-md-6
-              = room.offers.last.content
-              hr
-              .text-muted
-                = time_ago_in_words room.offers.last.created_at
-            .col-md-3
-              center
-                = image_tag room.offers.last.user.image || "noimg.png" , size: "50x50"
-                = room.offers.last.user.id == current_user.id ? "Me" : "#{room.product.user.username}"
+      .js-all-user-offer
+        = render partial: 'shared/modal_offer_user', collection: @offer_rooms, as: :room
 
 = link_to "back to index", root_path
+
+
+
 = render "shared/modal_upload_image"
 = render partial: "shared/modal_offer_ajax", locals: { offers: @ffers, product: @product}
+
+/ javascript:
+/   $(document).ready(function(){
+/     $('#ajax-modal').on('hidden.bs.modal', function(){
+/       $('.js-all-user-offer').html("<%= j(render(partial: 'shared/modal_offer_user', collection: OfferRoom.first, as: 'room')) %>");
+/     });
+/   })

@@ -1,0 +1,14 @@
+= link_to collect_offers_path(product: room.product, offerer: room.offerer), class: "list-group-item #{ 'unread' unless room.offers.last.read_by_offerer } ", data: {toggle: "modal", target:"#ajax-modal"}, remote: true do
+    b.list-group-item-heading = room.product.name
+    .row
+      .col-md-3
+        = image_tag room.product.galleries.first.try(:image).try(:url) || "noimg.png" , size: "50x50"
+      .col-md-6
+        = room.offers.last.content
+        hr
+        .text-muted
+          = time_ago_in_words room.offers.last.created_at
+      .col-md-3
+        center
+          = image_tag room.offers.last.user.image || "noimg.png" , size: "50x50"
+          = room.offers.last.user.id == current_user.id ? "Me" : "#{room.product.user.username}"

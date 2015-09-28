@@ -4,3 +4,5 @@
   .col-md-10
     h5 = offer.user.username
     = offer.content
+    .text-muted
+    = time_ago_in_words offer.created_at

@@ -1,3 +1,6 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+ready = ->
+  $('#offer').on 'shown.bs.modal', ->
+    $('.modal-body-content')[0].scrollTop = $('.modal-body-content')[0].scrollHeight;
+
+$(document).ready ready
+$(document).on "page:load", ready

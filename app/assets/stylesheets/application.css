@@ -6,6 +6,11 @@
  *= require_self
  */
 
+ .modal-body-content{
+  height: 300px;
+  overflow-x: hidden;
+ }
+
  .star-rating {
   font-size: 0;
   white-space: nowrap;

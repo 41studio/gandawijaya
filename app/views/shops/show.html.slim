@@ -119,7 +119,7 @@
         - else
           .col-md-12
             h5 There's no product yet
-        - if @this_is_current_user_shop
+        - if @this_is_current_user_shop.any?
           p = link_to "Add product", generate_product_2_path(@shop, "new")
       br
       br
