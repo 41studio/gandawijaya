@@ -32,6 +32,30 @@ ready = ->
       $('.btn-submit-offer').prop("disabled", false)
     else
       $('.btn-submit-offer').prop("disabled", true)
+
+  #   $('#offer_content').keyup ->
+  #   if $(this).val() &&  $('#email-offerer').val()
+  #     if $('#email-offerer').length >= 0
+  #       if $('#email-offerer').val().match(/[a-zA-Z]+/)
+  #         $('.btn-submit-offer').prop("disabled", false)
+  #       else
+  #         $('.btn-submit-offer').prop("disabled", true)
+  #     else
+  #       $('.btn-submit-offer').prop("disabled", true)
+  #   else
+  #     $('.btn-submit-offer').prop("disabled", true)
+
+  # $('#email-offerer').keyup ->
+  #   if $(this).val() && $('#offer_content').val()
+  #     if $('#email-offerer').length >= 0
+  #       if $('#email-offerer').val().match(/[a-zA-Z]+/)
+  #         $('.btn-submit-offer').prop("disabled", false)
+  #       else
+  #         $('.btn-submit-offer').prop("disabled", true)
+  #     else
+  #       $('.btn-submit-offer').prop("disabled", true)
+  #   else
+  #     $('.btn-submit-offer').prop("disabled", true)
 #==============================================================
 
   $('.btn-add-hours').click (e) ->
