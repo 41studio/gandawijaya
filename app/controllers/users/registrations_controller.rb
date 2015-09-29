@@ -8,9 +8,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    super
+  end
 
   # GET /resource/edit
   # def edit
@@ -40,7 +40,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
    def configure_sign_up_params
-     devise_parameter_sanitizer.for(:sign_up) << [:username, :first_name, :last_name, :neighborhood, :address, :image, :gender, :birthday, :subscribe, :handphone, :term_of_user, :status, :last_ip, :user_agent]
+     devise_parameter_sanitizer.for(:sign_up) << [:first_name, :last_name, :subscribe, :term_of_user, :user_agent, :address]
    end
 
   # If you have extra params to permit, append them to the sanitizer.

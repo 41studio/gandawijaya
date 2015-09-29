@@ -52,11 +52,13 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :offers          , dependent: :destroy
 
-  validates :handphone, allow_blank: true, numericality: true
-  validates :username,  format: { with: /\A[a-zA-Z0-9 ]+\Z/ },
+  validates :handphone, numericality: { allow_blank: true }
+  validates :username,  format: { with: /\A[a-zA-Z0-9 ]+\Z/, allow_blank: true },
                         length: { within: 2..40,
                                   too_short: 'too short name',
-                                  too_long: 'too long name' }
+                                  too_long: 'too long name',
+                                  allow_blank: true
+                                }
 
   validates :term_of_user, acceptance: { accept: true }
   validates :first_name, :last_name, :address, presence: true

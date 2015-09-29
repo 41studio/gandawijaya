@@ -3,7 +3,7 @@ before_action :authenticate_user!, except: [:show, :product_disccusion]
 before_action :set_shop_from_params, only: [:new]
 before_action :set_shop, only: [:show, :edit]
 before_action :set_galleries, only: [:show, :product_disccusion]
-before_action :find_product, only: [:like, :dislike, :product_disccusion]
+before_action :find_product, only: [:like, :product_disccusion]
 
   def show
     if any_redirect_to_premium_path(@shop)
@@ -82,14 +82,6 @@ before_action :find_product, only: [:like, :dislike, :product_disccusion]
 
   def like
     @product.like_by current_user
-    respond_to do |format|
-        format.html { redirect_to :back }
-        format.js { render template: "products/like_dislike.js" }
-    end
-  end
-
-  def dislike
-    @product.dislike_by current_user
     respond_to do |format|
         format.html { redirect_to :back }
         format.js { render template: "products/like_dislike.js" }

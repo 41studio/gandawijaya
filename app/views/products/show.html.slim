@@ -22,12 +22,8 @@
         = @product.reviews.average(:rate_point) || "Thre's no rating given yet"
       .caption style="text-align:right;"
         = link_to like_product_path(@product), data: {toggle: "tooltip", placement: "top"}, title: "Like", class: "btn btn-default btn-sm", method: :put, remote: true do
-          ' Like
-          span.glyphicon.glyphicon-thumbs-up id="product-upvote-size" = @shop.get_upvotes.size
-
-        = link_to dislike_product_path(@product), data: {toggle: "tooltip", placement: "bottom"}, title: "Dislike", class: "btn btn-danger btn-sm", method: :put, remote: true do
-          ' Dislike
-          span.glyphicon.glyphicon-thumbs-down id="product-downvote-size" = @shop.get_downvotes.size
+          | Like
+          span.glyphicon.glyphicon-thumbs-up id="product-upvote-size" = @product.get_upvotes.size
     .col-md-2
       - if user_signed_in? && !@this_is_current_user_product
         = link_to 'Edit', generate_product_path(@product, "edit"), class: "btn btn-success"

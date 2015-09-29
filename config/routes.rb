@@ -29,9 +29,7 @@ Rails.application.routes.draw do
   post '/reviews/create', to: 'review#create', as: "reviews"
 
   put "/likeproduct/:id", to: "products#like", as: :like_product
-  put "/dislikeproduct/:id", to:"products#dislike", as: :dislike_product
   put "/likeshop/:id", to: "shops#like", as: :like_shop
-  put "/dislikeshop/:id", to: "shops#dislike", as: :dislike_shop
 
   # buat routes yang mengarah pada fungsi approve dan reject
   post 'shop/approve', to: "shops#approve", as: "approve"

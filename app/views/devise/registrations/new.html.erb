@@ -12,6 +12,7 @@
 		    <%= f.input :email, required: true, input_html: { class: "form-control" } %>
 		    <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length), input_html: { class: "form-control" }%>
 		    <%= f.input :password_confirmation, required: true, input_html: { class: "form-control" } %>
+		    <%= f.input :address, required: true, input_html: { class: "form-control" } %>
 				<%= f.input :subscribe, required: true, input_html: { :checked => true } %>
 				<%= f.input :term_of_user, required: true %>
 				<%= f.hidden_field :user_agent, value: "#{request.user_agent}", input_html: { class: "form-control"} %>

@@ -2,7 +2,7 @@ class ShopsController < InheritedResources::Base
 before_action :authenticate_user!, except: [:show, :index, :approve, :reject]
 before_action :check_and_set_premium_url, only: [:edit, :show]
 before_action :set_products, only: [:show]
-before_action :find_shop, only: [:like, :dislike]
+before_action :find_shop, only: [:like]
 
   def create
     @shop = current_user.shops.new(shop_params)
@@ -84,14 +84,6 @@ before_action :find_shop, only: [:like, :dislike]
 
   def like
     @shop.like_by current_user
-    respond_to do |format|
-        format.html { redirect_to :back }
-        format.js { render template: "shops/like_dislike.js" }
-    end
-  end
-
-  def dislike
-    @shop.dislike_by current_user
     respond_to do |format|
         format.html { redirect_to :back }
         format.js { render template: "shops/like_dislike.js" }

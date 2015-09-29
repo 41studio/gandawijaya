@@ -83,13 +83,8 @@
           br
           .caption style="text-align:right;"
             = link_to like_shop_path(@shop), data: {toggle: "tooltip", placement: "top"}, title: "Like", class: "btn btn-default btn-sm", method: :put, remote: true do
-              ' Like
+              | Like
               span.glyphicon.glyphicon-thumbs-up id="shop-upvote-size" = @shop.get_upvotes.size
-
-            = link_to dislike_shop_path(@shop), data: {toggle: "tooltip", placement: "bottom"}, title: "Dislike", class: "btn btn-danger btn-sm", method: :put, remote: true do
-              ' Dislike
-              span.glyphicon.glyphicon-thumbs-down id="shop-downvote-size" = @shop.get_downvotes.size
-
           b
            ' Total Product:
           = @shop.products.count
@@ -131,14 +126,15 @@
               p = link_to product.name, generate_product_path(product, "show")
               p = product.price
               p = truncate product.description, length: 120
-              p = link_to 'Edit', generate_product_path(product, "edit")
-              p = link_to 'Delete', generate_product_path(product, "destroy"), data: {confirm: 'Are you sure?'}, method: :delete
+              - if @this_is_current_user_shop.any?
+                p = link_to 'Edit', generate_product_path(product, "edit")
+                p = link_to 'Delete', generate_product_path(product, "destroy"), data: {confirm: 'Are you sure?'}, method: :delete
 
           br
         - else
           .col-md-12
             h5 There's no product yet
-        - if @this_is_current_user_shop
+        - if @this_is_current_user_shop.any?
           p = link_to "Add product", generate_product_2_path(@shop, "new")
       br
       br
