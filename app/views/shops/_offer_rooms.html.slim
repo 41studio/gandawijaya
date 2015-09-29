@@ -1,5 +1,13 @@
-tr class="#{ 'unread' unless room.offers.try(:last).try(:read_by_owner) }"
-  td = link_to room.product.name,collect_offers_path(product: room.product, offerer: room.offerer), data: {toggle: "modal", target:"#ajax-modal"}, remote: true
-  td = link_to User.find(room.offerer).username, collect_offers_path(product: room.product, offerer: room.offerer), data: {toggle: "modal", target:"#ajax-modal"}, remote: true
-  td = link_to time_ago_in_words(room.offers.last.created_at),collect_offers_path(product: room.product, offerer: room.offerer), data: {toggle: "modal", target:"#ajax-modal"}, remote: true
-
+tr class="#{ 'unread' unless room.offers.where.not(user_id: current_user.id).last.try(:read_by_owner) }" id="offer-row-#{room.id}"
+  - if room.offerer[/[a-zA-Z]+/].nil?
+    td = link_to room.product.name,collect_offers_path(product: room.product, offerer: room.offerer), data: {toggle: "modal", target:"#ajax-modal"}, remote: true
+    td = link_to "#{User.find(room.offerer).username}(#{User.find(room.offerer).email})", collect_offers_path(product: room.product, offerer: room.offerer), data: {toggle: "modal", target:"#ajax-modal"}, remote: true
+    td = link_to time_ago_in_words(room.offers.last.created_at),collect_offers_path(product: room.product, offerer: room.offerer), data: {toggle: "modal", target:"#ajax-modal"}, remote: true
+  - else
+    td = room.product.name
+    td
+      = User::ANNONYM
+      = " (#{room.offerer})"
+      br
+      = room.offers.last.content
+    td = time_ago_in_words(room.offers.last.created_at)

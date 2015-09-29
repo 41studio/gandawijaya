@@ -2,6 +2,7 @@ ready = ->
   DayTaken = ""
   First = 0
 
+#================== validate modal review ====================
   $('.choice').hide()
   $('.btn-submit-review').prop("disabled", true)
 
@@ -15,6 +16,16 @@ ready = ->
       $('.btn-submit-review').prop("disabled", false)
     else
       $('.btn-submit-review').prop("disabled", true)
+#==============================================================
+
+#================== validate modal offer ======================
+  $('.btn-submit-offer').prop("disabled", true)
+  $('#offer_content').keyup ->
+    if $(this).val()
+      $('.btn-submit-offer').prop("disabled", false)
+    else
+      $('.btn-submit-offer').prop("disabled", true)
+#==============================================================
 
   $('.btn-add-hours').click (e) ->
     if First == 1 && $('.nested-fields').length > 0

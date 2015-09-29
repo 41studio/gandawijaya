@@ -1,8 +1,14 @@
 var title       =   '.modal-title',
     loader      =   '.ajax-loader',
     content     =   '.modal-body-content',
+    offerId     =    '<%= @offers.try(:last).try(:offer_room).try(:id) %>',
+    offerRow    =   '#offer-row-'+ offerId,
+    offerA      =   '#offer-a-'+ offerId,
     modal       =   '#ajax-modal';
+
 $(title).html('<%= @product.name %>');
+$(offerRow).removeClass('unread');
+$(offerA).removeClass('unread');
 $(loader).fadeToggle('fast', function() {
   $(loader).fadeOut('slow');
   $(content).html("<%= j render partial: 'pages/offer', collection: @offers, as: :offer %>");

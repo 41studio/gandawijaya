@@ -12,7 +12,6 @@
 #
 
 class PremiumAccount < ActiveRecord::Base
-
   scope :with_url, -> (url) { where(url: url) }
   belongs_to :shop
   belongs_to :user

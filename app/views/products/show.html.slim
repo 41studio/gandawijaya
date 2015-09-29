@@ -29,12 +29,13 @@
         = link_to 'Edit', generate_product_path(@product, "edit"), class: "btn btn-success"
       = link_to 'Back', generate_path_for(@shop, "show"), class: "btn btn-primary"
 
-  - if user_signed_in?
-    .btn-group
-      - if unreviewed_by?(current_user, @product.id, "Product")
-        = link_to 'Rate & Review', "#" , class: "btn btn-success", data: {toggle: "modal", target: "#rate" }
-      - if @this_is_current_user_product
-        = link_to 'Send an offer', "#" , class: "btn btn-success", data: {toggle: "modal", target: "#offer" }
+  .btn-group
+    - if user_signed_in? && unreviewed_by?(current_user, @product.id, "Product")
+      = link_to 'Rate & Review', "#" , class: "btn btn-success", data: {toggle: "modal", target: "#rate" }
+    - if @this_is_current_user_product
+        = link_to 'Send an offer' ,collect_offers_path(product: @product, offerer: current_user), data: {toggle: "modal", target:"#ajax-modal"}, class: "btn btn-success", remote: true
+    - else
+      = link_to 'Send an offer' ,"#", data: {toggle: "modal", target:"#ajax-modal"}, class: "btn btn-success"
   hr
 
   h4 Review
@@ -55,4 +56,12 @@
         h5 There's no review yet
 
 = render partial: "shared/modal_reviews", locals: {reviewable_id: @product.id, reviewable_type: "Product"}
-= render partial: "shared/modal_offer", locals: {offers: @offers, product: @product}
+= render partial: "shared/modal_offer_ajax", locals: {offers: @offers, product: @product}
+= render partial: "shared/modal_offer_unsigned_in_handle", locals: {offers: @offers, product: @product}
+
+-if !user_signed_in?
+  javascript:
+    $('#offer_shop_id').val("#{ @product.shop.id }");
+    $('#offer_product_id').val("#{ @product.id }");
+
+

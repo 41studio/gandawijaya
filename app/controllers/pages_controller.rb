@@ -15,10 +15,12 @@ class PagesController < ApplicationController
   def collect_offers
     @product = Product.find params[:product]
     @offers = @product.offer_rooms.where(offerer: params[:offerer]).first.try(:offers)
-    if params[:offerer].to_i.eql? current_user.id
-      @offers.each{ |o| o.update_attribute :read_by_offerer, true }
-    else
-      @offers.each{ |o| o.update_attribute :read_by_owner, true }
+    if @offers
+      if params[:offerer].to_i.eql? current_user.id
+        @offers.each{ |o| o.update_attribute :read_by_offerer, true }
+      else
+        @offers.each{ |o| o.update_attribute :read_by_owner, true }
+      end
     end
   end
 

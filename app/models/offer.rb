@@ -13,7 +13,7 @@
 class Offer < ActiveRecord::Base
   belongs_to :offer_room
   belongs_to :user
-  # after_create :send_notif
+  after_create :send_notif
   def send_notif
     OfferNotifier.received(self).deliver_later
   end

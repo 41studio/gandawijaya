@@ -7,7 +7,7 @@
  */
 
  .modal-body-content{
-  height: 300px;
+  max-height: 300px;
   overflow-x: hidden;
  }
 

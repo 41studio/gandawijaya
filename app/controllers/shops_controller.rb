@@ -53,7 +53,7 @@ before_action :find_shop, only: [:like]
   def controlpanel
     @shop =
       if params[:premium_path]
-        Shop.find PremiumAccount.with_url(params[:premium_path]).shop_id
+        Shop.find PremiumAccount.find_by!(url: params[:premium_path]).shop_id
       else
         Shop.find params[:id]
       end

@@ -7,6 +7,8 @@ class OfferNotifier < ApplicationMailer
   #
   def received(offer)
     @content = offer.content
+    offerer  = offer.offer_room.offerer
+    email_sender = offerer[/[a-zA-Z]+/].present? ? offerer : User.find(offerer).email
     mail to: offer.offer_room.product.user.email,
          from: offer.offer_room.offerer,
          subject: "Offer for yur product | #{offer.offer_room.product.name}"

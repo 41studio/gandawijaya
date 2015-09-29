@@ -38,7 +38,7 @@
 
 class User < ActiveRecord::Base
   mount_uploader :image, AvatarUploader
-
+  ANNONYM = "annonymous"
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:facebook, :google_oauth2]
