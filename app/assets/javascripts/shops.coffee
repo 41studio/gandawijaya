@@ -19,7 +19,7 @@ ready = ->
 #==============================================================
 
 #================== validate modal offer ======================
-  $('.btn-submit-offer').prop("disabled", true)
+  # $('.btn-submit-offer').prop("disabled", true)
 
   # $('#offer_content').keyup ->
   #   if $(this).val() &&  $('#email-offerer').val()
