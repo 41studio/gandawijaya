@@ -22,13 +22,13 @@ ready = ->
   $('.btn-submit-offer').prop("disabled", true)
 
   $('#offer_content').keyup ->
-    if $(this).val() &&  $('#email-offerer').val() && ($('#email-offerer').val().match(/[a-zA-Z]+/))
+    if $(this).val() &&  $('#email-offerer').val()
       $('.btn-submit-offer').prop("disabled", false)
     else
       $('.btn-submit-offer').prop("disabled", true)
 
   $('#email-offerer').keyup ->
-    if $(this).val() && $('#offer_content').val() && ($('#email-offerer').val().match(/[a-zA-Z]+/))
+    if $(this).val() && $('#offer_content').val()
       $('.btn-submit-offer').prop("disabled", false)
     else
       $('.btn-submit-offer').prop("disabled", true)
