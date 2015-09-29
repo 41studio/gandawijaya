@@ -50,22 +50,23 @@ class User < ActiveRecord::Base
   has_many :products
   has_many :premium_accounts, dependent: :destroy
   has_many :comments
-  has_many :offers
+  has_many :offers          , dependent: :destroy
 
-  validates :handphone, numericality: true
-  validates :username,  format: { with: /\A[a-zA-Z0-9]+\Z/ },
+  validates :handphone, allow_blank: true, numericality: true
+  validates :username,  format: { with: /\A[a-zA-Z0-9 ]+\Z/ },
                         length: { within: 2..40,
                                   too_short: 'too short name',
                                   too_long: 'too long name' }
 
   validates :term_of_user, acceptance: { accept: true }
-  validates :username, :first_name, :last_name, :address, presence: true
+  validates :first_name, :last_name, :address, presence: true
 
   def self.from_omniauth(auth, user_agent)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email.present? ? auth.info.email : "#{auth.info.first_name}#{auth.info.last_name}@mail.com"
       user.password = Devise.friendly_token[0,20]
       user.username = auth.info.name
+      user.address = "No address given"
       user.skip_confirmation!
       user.first_name = auth.info.first_name
       user.last_name = auth.info.last_name

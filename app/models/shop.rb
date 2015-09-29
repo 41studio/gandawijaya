@@ -47,7 +47,7 @@ class Shop < ActiveRecord::Base
 
   after_create :send_mail_new_shop
 
-  validates :name,  presence: true, format: { with: /\A[a-zA-Z0-9]+\Z/ },
+  validates :name,  presence: true, format: { with: /\A[a-zA-Z0-9 ]+\Z/ },
                     length: {  within: 2..40,
                                too_short: 'too short name',
                                too_long: 'too long name' }

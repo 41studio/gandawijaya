@@ -1,10 +1,29 @@
 .show
   .show-detail-image
-    - if @shop.status == "approved"
+    - if @shop.status == "rejected"
+        = image_tag "rj.jpg", size: "240x200", class: "img-thumbnail"
+        h1
+          = @shop.name
+        p
+        .text-justify
+          blockquote
+            = @shop.description
+
+        div class="bs-example"
+          div id="myAlert" class="alert alert-danger"
+           a href="#" class="close" &times;
+           strong
+            | Note!
+            | Sorry this store rejected by admin
+    - else
       .row
         .col-md-4
-          = image_tag @shop.cover_image.cover.url  || "noimg.png", class: "img-thumbnail"
-          = image_tag @shop.image.url || "noimg.png", size: "240x200", class: "img-thumbnail"
+          - if @shop.status == "approved"
+            = image_tag @shop.cover_image.cover.url  || "noimg.png", class: "img-thumbnail"
+            = image_tag @shop.image.url || "noimg.png", size: "240x200", class: "img-thumbnail"
+          - else
+            = image_tag "ur.jpg", class: "img-thumbnail"
+            = image_tag "ur.jpg", size: "240x200", class: "img-thumbnail"
           p
            b Telephone :
            br/
@@ -125,33 +144,4 @@
       br
       = render partial: "shared/modal_reviews", locals: {reviewable_id: @shop.id, reviewable_type: "Shop"}
 
-    - elsif @shop.status == "rejected"
-        = image_tag "rj.jpg", size: "240x200", class: "img-thumbnail"
-        h1
-          = @shop.name
-        p
-        .text-justify
-          blockquote
-            = @shop.description
 
-        div class="bs-example"
-          div id="myAlert" class="alert alert-danger"
-           a href="#" class="close" &times;
-           strong
-            | Note!
-            | Sorry this store rejected by admin
-    - else
-        = image_tag "ur.jpg", size: "240x200", class: "img-thumbnail"
-        h1
-          = @shop.name
-        p
-        .text-justify
-          blockquote
-            = @shop.description
-
-        div class="bs-example"
-          div id="myAlert" class="alert alert-info"
-           a href="#" class="close" &times;
-           strong
-            | Note!
-            | Waiting authorized from the admin

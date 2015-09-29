@@ -16,7 +16,7 @@ ready = ->
     else
       $('.btn-submit-review').prop("disabled", true)
 
-  $('.add_fields').click (e) ->
+  $('.btn-add-hours').click (e) ->
     if First == 1 && $('.nested-fields').length > 0
       partial = $('.nested').eq(-1)
       partial_selects = partial.find('select')
@@ -71,12 +71,8 @@ ready = ->
       $(this).find('.btn-remove').removeClass("hide");
 
   $(".edit_shop").submit (e) ->
-    if $('.category-title').length <= 0
-      alert "Please choose at least 1 category"
-      e.preventDefault()
-    else
-      if $(".nested-fields .nested:last .select:visible").length > 0
-        $(".nested-fields .nested:last .select:visible").remove()
+    if $(".nested-fields .nested:last .select:visible").length > 0
+      $(".nested-fields .nested:last .select:visible").remove()
 
   $(".new_shop").submit (e) ->
     if $('.category-title').length <= 0
