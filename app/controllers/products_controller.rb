@@ -35,7 +35,7 @@ before_action :find_product, only: [:like, :product_disccusion]
   end
 
   def update
-    if resource.shop.premium_account.present? && shop.premium_account.status
+    if resource.shop.premium_account.present? && resource.shop.premium_account.status
       update! do |success, failure|
         success.html { redirect_to product_premium_url(premium_path: resource.shop.premium_account.url, id: resource) }
       end

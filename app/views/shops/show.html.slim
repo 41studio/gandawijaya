@@ -126,7 +126,7 @@
               p = link_to product.name, generate_product_path(product, "show")
               p = product.price
               p = truncate product.description, length: 120
-              - if @this_is_current_user_shop.any?
+              - if @this_is_current_user_shop.present?
                 p = link_to 'Edit', generate_product_path(product, "edit")
                 p = link_to 'Delete', generate_product_path(product, "destroy"), data: {confirm: 'Are you sure?'}, method: :delete
 
@@ -134,7 +134,7 @@
         - else
           .col-md-12
             h5 There's no product yet
-        - if @this_is_current_user_shop.any?
+        - if @this_is_current_user_shop.present?
           p = link_to "Add product", generate_product_2_path(@shop, "new")
       br
       br
