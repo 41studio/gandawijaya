@@ -92,14 +92,5 @@
 
 = link_to "back to index", root_path
 
-
-
 = render "shared/modal_upload_image"
 = render partial: "shared/modal_offer_ajax", locals: { offers: @ffers, product: @product}
-
-/ javascript:
-/   $(document).ready(function(){
-/     $('#ajax-modal').on('hidden.bs.modal', function(){
-/       $('.js-all-user-offer').html("<%= j(render(partial: 'shared/modal_offer_user', collection: OfferRoom.first, as: 'room')) %>");
-/     });
-/   })
