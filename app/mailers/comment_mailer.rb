@@ -10,8 +10,6 @@ class CommentMailer < ActionMailer::Base
   		   from: "services@gandawijaya.com",
   		   subject: "Comment Created",
   	)
- 
-    
-  end	
+  end
 
-end	
+end

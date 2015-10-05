@@ -1,2 +1,1 @@
-$("#product-downvote-size").html("<%= @product.get_downvotes.size %>");
-$("#product-upvote-size").html("<%= @product.get_upvotes.size %>");
+$("#product-upvotes-size").html("Like (<%=@product.get_upvotes.size%>) ");

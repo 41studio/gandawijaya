@@ -1,6 +1,13 @@
 module ApplicationHelper
-	def unreviewed_by?(current_user, id, type)
-		current_user.shops.where(id: @shop.id).blank? && current_user.reviews.where(reviewable_id: id, reviewable_type: type).blank?
+	def unreviewed_by?(id, type)
+		if current_user
+			if type.eql? "Shop"
+				owner = current_user.shops.find_by(id: id).nil?
+			else
+				owner = current_user.products.find_by(id: id).nil?
+			end
+			 owner && current_user.reviews.where(reviewable_id: id, reviewable_type: type).blank?
+		end
 	end
 
 	def generate_path_for(object, action, options={})

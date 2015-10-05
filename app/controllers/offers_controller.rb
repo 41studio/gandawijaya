@@ -4,19 +4,19 @@ before_action :offer_params, only: [:create]
   def create
     unless user_signed_in?
       params[:offer][:offerer] = params[:email_offerer]
+    else
+      params[:offer][:user_id] = current_user.id unless params[:offer][:user_id].present?
     end
-
-    params[:offer][:offerer] = current_user.id unless params[:offer][:offerer].present?
-    offer_room = OfferRoom.where(shop_id:    params[:offer][:shop_id],
-                                 product_id: params[:offer][:product_id],
-                                 offerer:    params[:offer][:offerer]
-                                 ).first_or_create
+    offer_room = OfferRoom.where(shop_id:     params[:offer][:shop_id],
+                                  product_id: params[:offer][:product_id],
+                                  user_id:    params[:offer][:user_id]
+                                  ).first_or_create{ |offer| offer.offerer = params[:offer][:offerer] }
     offer = offer_room.offers.new(offer_params)
 
     if user_signed_in?
       offer.user_id = current_user.id
       @offers = offer.offer_room.offers
-      @offer_rooms = OfferRoom.where(offerer: current_user.id).order(:created_at).reverse
+      @offer_rooms = OfferRoom.where(user_id: params[:offer][:user_id]).newest
     end
 
     if offer.save!
@@ -25,12 +25,6 @@ before_action :offer_params, only: [:create]
         format.js
       end
     end
-  end
-
-  def show
-    @offerer = User.find params[:user_id]
-    @product = Product.find params[:product_id]
-    @offers = @product.offer_rooms.where(product: @product.id, offerer: @offerer.id).first.offers
   end
 
   private

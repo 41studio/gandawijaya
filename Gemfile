@@ -44,6 +44,7 @@ gem 'jquery-ui-rails'
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 gem 'searchkick'
+gem "rails_best_practices"
 
 group :production do
   gem 'rails_12factor'

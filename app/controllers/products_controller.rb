@@ -12,9 +12,10 @@ before_action :find_product, only: [:like, :product_disccusion]
       @review = Review.new
       @reviews = resource.reviews
       impressionist(resource, "view product")
-      @impression_count = resource.impressionist_count(:filter=>:all)
-      @offers = resource.offer_rooms.where(offerer: current_user.id).first.try(:offers) if current_user
-      @this_is_current_user_product = current_user.products.where(id: resource.id).blank? if current_user
+      if current_user
+        @offers = resource.offer_rooms.where(user_id: current_user.id).first.try(:offers)
+        @user_product = current_user.products.find_by(id: resource.id).present?
+      end
       show!
     end
   end

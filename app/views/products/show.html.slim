@@ -1,67 +1,52 @@
 .show
-  p#notice = notice
   .row
     .col-md-5
       br
-      = image_tag @galleries.first.try(:image).try(:thumb).try(:url) || "noimg.png", size: "410x340",class: "thumbnail"
+      = image_tag product_image(@product), size: "410x340",class: "thumbnail"
       .row
         - @galleries.each do |gallery|
           .col-md-3
             = image_tag gallery.image.url, size: "130x100", class: "thumbnail"
+
     .col-md-5
       h1 = @product.name
       p
-        b Description
+        b Description:
         = @product.description
       p
         strong Price:
         = @product.price
-
       p
         b Rating
-        = @product.reviews.average(:rate_point) || "Thre's no rating given yet"
-      .caption style="text-align:right;"
-        = link_to like_product_path(@product), data: {toggle: "tooltip", placement: "top"}, title: "Like", class: "btn btn-default btn-sm", method: :put, remote: true do
-          | Like
-          span.glyphicon.glyphicon-thumbs-up id="product-upvote-size" = @product.get_upvotes.size
+        = star_view(Time.now.to_i, @product.reviews.average(:rate_point))
+      = link_to "Like (#{@product.get_upvotes.size})", like_product_path(@product.id), data: {toggle: "tooltip", placement: "top"}, title: "Like", class: "btn btn-default btn-sm", id: "product-upvotes-size",method: :put, remote: true
+
     .col-md-2
-      - if user_signed_in? && !@this_is_current_user_product
+      - if @user_product
         = link_to 'Edit', generate_product_path(@product, "edit"), class: "btn btn-success"
       = link_to 'Back', generate_path_for(@shop, "show"), class: "btn btn-primary"
 
   .btn-group
-    - if user_signed_in? && unreviewed_by?(current_user, @product.id, "Product")
+    -if unreviewed_by?(@product.id, "Product")
       = link_to 'Rate & Review', "#" , class: "btn btn-success", data: {toggle: "modal", target: "#rate" }
-    - if @this_is_current_user_product
-        = link_to 'Send an offer' ,collect_offers_path(product: @product, offerer: current_user), data: {toggle: "modal", target:"#ajax-modal"}, class: "btn btn-success", remote: true
-    - else
+    - if !@user_product
+        = link_to 'Send an offer' ,collect_offers_path(product: @product, user_id: current_user), data: {toggle: "modal", target:"#ajax-modal"}, class: "btn btn-success", remote: true
+    - elsif !user_signed_in?
       = link_to 'Send an offer' ,"#", data: {toggle: "modal", target:"#ajax-modal"}, class: "btn btn-success"
   hr
 
   h4 Review
   .row
     - if @reviews.present?
-      - @reviews.limit(4).each do |review|
-        .col-md-6
-          .col-md-3
-            = image_tag review.user.try(:image) || "noimg.png", size: "100x120", class: "thumbnail"
-          .col-md-9
-            = review.user.username
-            br
-            = review.content
-            br
-              = star_view(review.id, review.rate_point)
+      == render @reviews.limit(4)
     - else
       .col-md-6
         h5 There's no review yet
 
 = render partial: "shared/modal_reviews", locals: {reviewable_id: @product.id, reviewable_type: "Product"}
 = render partial: "shared/modal_offer_ajax", locals: {offers: @offers, product: @product}
-= render partial: "shared/modal_offer_unsigned_in_handle", locals: {offers: @offers, product: @product}
 
 -if !user_signed_in?
   javascript:
     $('#offer_shop_id').val("#{ @product.shop.id }");
     $('#offer_product_id').val("#{ @product.id }");
-
-

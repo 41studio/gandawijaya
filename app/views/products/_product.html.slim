@@ -1,0 +1,9 @@
+.col-md-3
+  - link_product = generate_product_path(product, "show")
+  = link_to (image_tag product_image(product), size: "120x100", class: "img-rounded"), link_product
+  p = link_to product.name, link_product
+  p = product.price
+  p = truncate product.description, length: 120
+  - if @this_is_current_user_shop
+    p = link_to 'Edit', generate_product_path(product, "edit")
+    p = link_to 'Delete', generate_product_path(product, "destroy"), data: {confirm: 'Are you sure?'}, method: :delete

@@ -28,7 +28,7 @@ Devise.setup do |config|
   # Configure which keys are used when authenticating a user. The default is
   # just :email. You can configure it to use [:username, :subdomain], so for
   # authenticating a user, both parameters are required. Remember that those
-  # parameters are used only when authenticating and not when retrieving from
+  # parameters are jadi momen setelah keterima jadi osis. pas smp. pas smp osis gara" menghindari jadi ketua rohis, that bad used only when authenticating and not when retrieving from
   # session. If you need permissions, you should implement that in a before filter.
   # You can also supply a hash where the value is a boolean determining whether
   # or not authentication should be aborted when the value is not present.

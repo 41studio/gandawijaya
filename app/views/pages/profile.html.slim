@@ -43,44 +43,12 @@
 
     h3 My Bussiness
     .row
-      - @user_shops.each do |shop, detail_shop|
-        .col-md-5
-          - link  = generate_path_for(shop, "show")
-          - if shop.status == "approved"
-            = link_to (image_tag shop.image.url, size: "120x100", class: "img-rounded"), link
-            h3 = detail_shop && detail_shop[:highlight][:name] ? detail_shop[:highlight][:name].html_safe : shop.name
-            - if detail_shop && detail_shop[:highlight][:name]
-              p = detail_shop[:highlight][:name].html_safe
-            p = truncate shop.description, length: 100
-          - elsif shop.status == "rejected"
-            p = link_to (image_tag "reject.jpg", size: "120x100", class: "img-rounded"), link
-            .text-muted
-              h3 = detail_shop && detail_shop[:highlight][:name] ? detail_shop[:highlight][:name].html_safe : shop.name
-              - if detail_shop && detail_shop[:highlight][:name]
-                p = detail_shop[:highlight][:name].html_safe
-              p = truncate shop.description, length: 100
-          - else
-            = link_to (image_tag "ue.jpg", size: "120x100", class: "img-rounded"), link
-            .text-muted
-              h3 = detail_shop && detail_shop[:highlight][:name] ? detail_shop[:highlight][:name].html_safe : shop.name
-              - if detail_shop && detail_shop[:highlight][:name]
-                p = detail_shop[:highlight][:name].html_safe
-              p = truncate shop.description, length: 100
-
+      == render @user_shops
     hr
 
     h3 My Ads
     .row
-      - @user_products.each do |product|
-        .col-md-4
-          - if product.status == "approved"
-            p
-              = link_to (image_tag product.galleries.first.try(:image).try(:url) || "noimg.png", size: "100x80", class: "img-rounded"), generate_product_path(product, "show")
-          -else
-            p = link_to (image_tag "ud.png", size: "120x100", class: "img-rounded"), generate_product_path(product, "show")
-          p = link_to product.name, generate_product_path(product, "show")
-          p = product.price
-          p = truncate product.description, length: 100
+      == render @user_products
 
     br
     br

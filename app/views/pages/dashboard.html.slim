@@ -1,52 +1,9 @@
-form class="navbar-form navbar-left" role="search" method= "get" action= "/"
-  div class="form-group"
-    input type="text" class="form-control" placeholder="Search" name="search" id= "search"
-  button type="submit" class="btn btn-primary"
-    span class= "glyphicon glyphicon-search"
-br
-br
-br
-h4
-  | All shops (
-  = @shops.size
-  | )
+h4 = "All shops (#{@shops.size})"
 .row
-  - @shops.each do |shop, detail_shop|
-    .col-md-3
-      - link  = generate_path_for(shop, "show")
-      - if shop.status == "approved"
-        = link_to (image_tag shop.image.url || "noimg.png", size: "120x100", class: "img-rounded"), link
-        h3 = detail_shop && detail_shop[:highlight][:name] ? detail_shop[:highlight][:name].html_safe : shop.name
-        - if detail_shop && detail_shop[:highlight][:name]
-          p = detail_shop[:highlight][:name].html_safe
-        p = truncate shop.description, length: 100
-      - elsif shop.status == "rejected"
-        p = link_to (image_tag "reject.jpg", size: "120x100", class: "img-rounded"), link
-        .text-muted
-          h3 = detail_shop && detail_shop[:highlight][:name] ? detail_shop[:highlight][:name].html_safe : shop.name
-          - if detail_shop && detail_shop[:highlight][:name]
-            p = detail_shop[:highlight][:name].html_safe
-          p = truncate shop.description, length: 100
-      - else
-        = link_to (image_tag "ue.jpg", size: "120x100", class: "img-rounded"), link
-        .text-muted
-          h3 = detail_shop && detail_shop[:highlight][:name] ? detail_shop[:highlight][:name].html_safe : shop.name
-          - if detail_shop && detail_shop[:highlight][:name]
-            p = detail_shop[:highlight][:name].html_safe
-          p = truncate shop.description, length: 100
-  br
+  == render @shops
+br
 
 hr
-h4
-  ' All Product
+h4 = "All shops (#{@products.size})"
 .row
-  - @products.each do |product|
-    .col-md-3
-      - if product.status == "approved"
-        p
-          = link_to (image_tag product.galleries.first.try(:image).try(:url) || "noimg.png", size: "120x100", class: "img-rounded"), generate_product_path(product, "show")
-      -else
-        p = link_to (image_tag "ud.jpg", size: "120x100", class: "img-rounded"), generate_product_path(product, "show")
-      p = link_to product.name, generate_product_path(product, "show")
-      p = product.price
-      p = truncate product.description, length: 100
+  == render @products

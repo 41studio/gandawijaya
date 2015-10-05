@@ -12,7 +12,7 @@ ActiveAdmin.register AdminUser do
     column :created_at
     actions
   end
-  
+
   filter :name
   filter :email
   filter :image

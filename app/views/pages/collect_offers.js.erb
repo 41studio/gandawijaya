@@ -15,7 +15,7 @@ $(loader).fadeToggle('fast', function() {
   $(content)[0].scrollTop = $(content)[0].scrollHeight;
   $('#offer_shop_id').val("<%= @product.shop.id %>");
   $('#offer_product_id').val("<%= @product.id %>");
-  $('#offer_offerer').val("<%= params[:offerer]%>")
+  $('#offer_user_id').val("<%= params[:user_id]%>")
   $(modal).modal();
 });
 $(content).on('click', dataRemote, function(){

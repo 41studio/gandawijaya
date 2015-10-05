@@ -1,0 +1,9 @@
+.col-md-6
+  .col-md-3
+    = image_tag review.user.try(:image) || "noimg.png", size: "100x120", class: "thumbnail"
+  .col-md-9
+    = review.user.username
+    br
+    = review.content
+    br
+      = star_view(review.id, review.rate_point)

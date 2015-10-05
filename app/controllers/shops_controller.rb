@@ -1,5 +1,5 @@
 class ShopsController < InheritedResources::Base
-before_action :authenticate_user!, except: [:show, :index, :approve, :reject]
+before_action :authenticate_user!, except: [:show, :index, :approve, :on_progress]
 before_action :check_and_set_premium_url, only: [:edit, :show]
 before_action :set_products, only: [:show]
 before_action :find_shop, only: [:like]
@@ -29,13 +29,12 @@ before_action :find_shop, only: [:like]
       redirect_to shop_premium_url(resource.premium_account.url), status: 301
     else
       @categories = @shop.scategories
-      @work_hours = @shop.opening_hours.order("day_work= 6, day_work= 5, day_work= 4, day_work= 3,
-                                               day_work= 2, day_work= 1, day_work= 0 ");
-      @reviews = resource.reviews
-      @review = Review.new
-      @products = Product.all
-      @products = resource.products
-      @this_is_current_user_shop = current_user.shops.where(id: @shop.id) if current_user
+      @work_hours = @shop.opening_hours.order_by_day
+      @reviews    = resource.reviews
+      @review     = Review.new
+      @products   = Product.all
+      @products   = resource.products
+      @this_is_current_user_shop = current_user.shops.find_by(id: resource.id) if current_user
       show!
     end
   end
@@ -76,9 +75,9 @@ before_action :find_shop, only: [:like]
     redirect_to :back
   end
 
-  def reject
+  def on_progress
     @shop = Shop.find(params[:id])
-    @shop.rejected!
+    @shop.on_progress!
     redirect_to :back
   end
 
@@ -116,7 +115,7 @@ before_action :find_shop, only: [:like]
 
     def shop_params
       params.require(:shop).permit(:name, :image,  :description,   :address,
-                                   :mobile_phones, :business_name, :business_email,
+                                     :mobile_phones, :business_name, :business_email,
                                    :categories,    :cover_image,   :telephone,
                                    opening_hours_attributes:  [:id, :day_work, :start_work,
                                                                :end_work, :_destroy],

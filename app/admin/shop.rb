@@ -56,7 +56,7 @@ ActiveAdmin.register Shop do
       row :image do
         image_tag shop.image.url
       end
-      row :status, :as => :select, :collection => ["under_review", "rejected", "approved"]
+      row :status, :as => :select, :collection => ["under_review", "on_progress", "approved"]
       row :address
       row :telephone
       row :mobile_phones
@@ -74,7 +74,7 @@ ActiveAdmin.register Shop do
 
     action_item only: :show do |resource|
       if shop.status.eql? "under_review"
-        link_to 'Reject', reject_path(id: shop.id), method: :delete
+        link_to 'on_progress', on_progress_path(id: shop.id), method: :post
       else
         link_to 'Approve', approve_path(id: shop.id), method: :post
 
@@ -85,7 +85,7 @@ ActiveAdmin.register Shop do
     if shop.status.eql? "under_review"
       link_to 'Approve', approve_path(id: shop.id), method: :post
     else
-      link_to 'Reject', reject_path(id: shop.id), method: :delete
+      link_to 'On Progress', on_progress_path(id: shop.id), method: :post
     end
    end
 end

@@ -33,7 +33,7 @@ Rails.application.routes.draw do
 
   # buat routes yang mengarah pada fungsi approve dan reject
   post 'shop/approve', to: "shops#approve", as: "approve"
-  delete 'shop/reject', to: "shops#reject", as: "reject"
+  post 'shop/on_progress', to: "shops#on_progress", as: "on_progress"
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)

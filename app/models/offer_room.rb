@@ -15,4 +15,6 @@ class OfferRoom < ActiveRecord::Base
   belongs_to :product
   belongs_to :shop
   belongs_to :user
+
+  scope :newest, -> { order('created_at DESC') }
 end

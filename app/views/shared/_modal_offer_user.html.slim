@@ -1,4 +1,4 @@
-= link_to collect_offers_path(product: room.product, offerer: room.offerer), class: "list-group-item #{ 'unread' unless room.offers.where.not(user_id: current_user.id).last.try(:read_by_offerer) } ", data: {toggle: "modal", target:"#ajax-modal"}, remote: true, id: "offer-a-#{room.id}" do
+= link_to collect_offers_path(product: room.product, user_id: current_user.id), class: "list-group-item #{ unread_by_offerer?(room.offers) } ", data: {toggle: "modal", target:"#ajax-modal"}, remote: true, id: "offer-a-#{room.id}" do
     b.list-group-item-heading = room.product.name
     .row
       .col-md-3

@@ -19,7 +19,7 @@ ActiveAdmin.register Product do
       f.input :name
       f.input :price
       f.input :description
-      f.input :status, :as => :select, :collection => ["under_review", "on_progress", "approved"] 
+      f.input :status, :as => :select, :collection => ["under_review", "on_progress", "approved"]
       f.actions
    end
  end
@@ -28,7 +28,7 @@ ActiveAdmin.register Product do
     attributes_table do
       row :name
       row :image do
-        image_tag product.galleries.first.image.url
+        image_tag product.galleries.first.try(:image).try(:url) || "noimg.png"
       end
     end
     active_admin_comments
