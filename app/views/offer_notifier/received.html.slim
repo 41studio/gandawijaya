@@ -1,7 +1,7 @@
 p
   'Hi
   = @owner.username
-p someone offer for your product
+p = "Anda menerima penawaran untuk product #{@product}"
 p Contact info:
 p
   b Name:
@@ -14,6 +14,9 @@ p
   = @phone
 hr
 p
+  b Penawaran:
+  br
   = @content
+hr
 
-p please reply to email above
+p Balas penawaran ini ke email penawar yang sudah di cantumkan diatas

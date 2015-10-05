@@ -1,9 +1,9 @@
 class ProductsController < InheritedResources::Base
 before_action :authenticate_user!, except: [:show, :product_disccusion]
-before_action :set_shop_from_params, only: [:new]
+before_action :check_and_set_premium_url, only: [:new]
 before_action :set_shop, only: [:show, :edit]
-before_action :set_galleries, only: [:show, :product_disccusion]
-before_action :find_product, only: [:like, :product_disccusion]
+before_action :set_galleries, only: [:show]
+before_action :find_product, only: [:like]
 
   def show
     if any_redirect_to_premium_path(@shop)
@@ -28,6 +28,7 @@ before_action :find_product, only: [:like, :product_disccusion]
   end
 
   def edit
+    @product = current_user.products.find params[:id]
     if any_redirect_to_premium_path(resource.shop)
       redirect_to edit_product_premium_url(premium_path: resource.shop.premium_account.url, id: resource), status: 301
     else
@@ -64,23 +65,6 @@ before_action :find_product, only: [:like, :product_disccusion]
     end
   end
 
-  def product_disccusion
-    @comments = @product.comments
-  end
-
-  def create_comment
-   @product = Product.find(params[:comment][:product_id])
-   @user = @product.user
-   @comment = current_user.comments.new
-   @comment.comment = params[:comment][:comment]
-   @comment.commentable = @product
-     if @comment.save
-        CommentMailer.comment_created(@user, current_user, @comment ).deliver
-      end
-
-   redirect_to product_disccusion_url(@product)
-  end
-
   def like
     @product.like_by current_user
     respond_to do |format|
@@ -92,19 +76,6 @@ before_action :find_product, only: [:like, :product_disccusion]
   private
     def find_product
       @product = Product.find(params[:id])
-    end
-
-    def set_shop_from_params
-      if params[:shop_id].present?
-        @shop = Shop.find(params[:shop_id])
-      elsif params[:premium_path].present?
-        premium_account = PremiumAccount.select(:shop_id).where(url: params[:premium_path]).first
-         if premium_account.present?
-          @shop = Shop.find premium_account.shop_id
-        else
-          redirect_to shops_path, notice: "maaf url tidak ada" and return
-        end
-      end
     end
 
     def set_shop

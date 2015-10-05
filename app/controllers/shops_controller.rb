@@ -1,6 +1,6 @@
 class ShopsController < InheritedResources::Base
 before_action :authenticate_user!, except: [:show, :index, :approve, :on_progress]
-before_action :check_and_set_premium_url, only: [:edit, :show]
+before_action :check_and_set_premium_url, only: [:edit, :show, :controlpanel]
 before_action :set_products, only: [:show]
 before_action :find_shop, only: [:like]
 
@@ -16,6 +16,7 @@ before_action :find_shop, only: [:like]
   end
 
   def edit
+    @shop = current_user.shops.find params[:id]
     if any_redirect_to_premium_path(resource)
       redirect_to edit_shop_premium_url(resource.premium_account.url), status: 301
     else
@@ -50,17 +51,11 @@ before_action :find_shop, only: [:like]
   end
 
   def controlpanel
-    @shop =
-      if params[:premium_path]
-        Shop.find PremiumAccount.find_by!(url: params[:premium_path]).shop_id
-      else
-        Shop.find params[:id]
-      end
     if any_redirect_to_premium_path(@shop)
       redirect_to controlpanel_shop_premium_url(@shop.premium_account.url), status: 301
-    else
-      @products = @shop.products
     end
+      @products = @shop.products
+
     if params[:product].present?
       product = Product.find params[:product]
       @offer_rooms = product.offer_rooms
@@ -94,16 +89,6 @@ before_action :find_shop, only: [:like]
   end
 
   private
-    def check_and_set_premium_url
-      if params[:premium_path]
-        premium_account = PremiumAccount.with_url(params[:premium_path]).first
-        if premium_account.present?
-          @shop = Shop.find premium_account.shop_id
-        else
-          redirect_to shops_path, notice: "maaf url tidak ada" and return
-        end
-      end
-    end
 
     def find_shop
       @shop = Shop.find(params[:id])

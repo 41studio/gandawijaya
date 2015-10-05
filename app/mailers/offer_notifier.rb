@@ -8,6 +8,7 @@ class OfferNotifier < ApplicationMailer
   def received(offer)
     @content = offer.content
     room  = offer.offer_room
+    @product = room.product.name
     @owner = room.product.user
     if room.user_id?
       owner  = room.user
@@ -22,6 +23,6 @@ class OfferNotifier < ApplicationMailer
     end
     mail to: @email,
          from: 'services@gandawijaya.com',
-         subject: "#{offer.offer_room.product.name} Offer"
+         subject: "#{@product} Offer"
   end
 end
