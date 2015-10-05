@@ -6,8 +6,14 @@ tr class="#{ unread_by_owner?(room.offers) }" id="offer-row-#{room.id}"
   - else
     td = room.product.name
     td
-      = User::ANNONYM
-      = " (#{room.offerer})"
+      - contact = room.offerer.split('|')
+      = contact.second || User::ANNONYM
+      = "(#{contact.first})"
+      -if contact.length==3
+        br
+        b
+          ' telp:
+        = contact.third
       br
       = room.offers.last.content
     td = time_ago_in_words(room.offers.last.created_at)

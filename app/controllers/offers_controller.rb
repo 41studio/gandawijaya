@@ -3,7 +3,7 @@ before_action :offer_params, only: [:create]
 
   def create
     unless user_signed_in?
-      params[:offer][:offerer] = params[:email_offerer]
+      params[:offer][:offerer] = params[:email_offerer]+'|'+params[:name]+'|'+params[:phone]
     else
       params[:offer][:user_id] = current_user.id unless params[:offer][:user_id].present?
     end

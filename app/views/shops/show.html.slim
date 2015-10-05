@@ -28,7 +28,7 @@
             b = category.name
           h4 Rating
           - if @shop.reviews.any?
-            = star_view(Time.now.to_i, @shop.reviews.average(:rate_point))
+            = star_view(Time.now.to_i, @shop.reviews.average(:rate_point).to_i)
           - else
             'Unrated
 

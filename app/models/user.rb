@@ -61,7 +61,7 @@ class User < ActiveRecord::Base
                                 }
 
   validates :term_of_user, acceptance: { accept: true }
-  validates :first_name, :last_name, :address, presence: true
+  validates :first_name, :last_name, presence: true
 
   def self.from_omniauth(auth, user_agent)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

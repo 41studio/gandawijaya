@@ -1,6 +1,6 @@
 .col-md-6
   .col-md-3
-    = image_tag review.user.try(:image) || "noimg.png", size: "100x120", class: "thumbnail"
+    = image_tag review.user.try(:image).try(:url) || "noimg.png", size: "100x120", class: "thumbnail"
   .col-md-9
     = review.user.username
     br
