@@ -8,6 +8,7 @@
 #  product_id :integer
 #  shop_id    :integer
 #  offerer    :string
+#  user_id    :integer
 #
 
 require 'test_helper'

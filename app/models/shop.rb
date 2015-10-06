@@ -29,17 +29,21 @@ class Shop < ActiveRecord::Base
   friendly_id    :name_and_id, use: [:slugged, :finders]
   mount_uploader :image, GalleryUploader
   mount_uploader :cover_image, GalleryUploader
-
   enum status: [:under_review, :on_progress, :approved]
 
-  has_many :scategories, through: :scategory_shops
-  has_many :scategory_shops,          dependent: :destroy
-  has_many :reviews, as: :reviewable, dependent: :destroy
-  has_many :products,                 dependent: :destroy
-  has_one  :premium_account,          dependent: :destroy
-  has_many :opening_hours,            dependent: :destroy
-  has_many :offer_rooms,              dependent: :destroy
+  with_options dependent: :destroy do
+    has_many :scategory_shops
+    has_many :reviews, as: :reviewable
+    has_many :products
+    has_one  :premium_account
+    has_many :opening_hours
+    has_many :offer_rooms
+  end
+  has_many   :scategories, through: :scategory_shops
   belongs_to :user
+
+  delegate :username, :id, to: :user, allow_nil: true, prefix: true
+  delegate :url, :status, to: :premium_account, prefix: true
 
   accepts_nested_attributes_for :premium_account, allow_destroy: true
   accepts_nested_attributes_for :opening_hours, allow_destroy: true
@@ -69,10 +73,6 @@ class Shop < ActiveRecord::Base
 
   def should_generate_new_friendly_id?
     name_changed? || super
-  end
-
-  def self.search_kick(query)
-    search query, fields: [{name: :word_start}]
   end
 
 end

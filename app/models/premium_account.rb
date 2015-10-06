@@ -12,7 +12,9 @@
 #
 
 class PremiumAccount < ActiveRecord::Base
-  scope :with_url, -> (url) { where(url: url) }
   belongs_to :shop
   belongs_to :user
+  delegate   :id, :username, :image, to: :shop, allow_nil: true, prefix: true
+
+  scope :with_url, -> (url) { where(url: url) }
 end

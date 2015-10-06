@@ -60,7 +60,7 @@
       to see more useful Rails Best Practices.
     </p>
     <p>
-        Found 65 warnings.
+        Found 43 warnings.
     </p>
     <table>
           <tr>
@@ -69,22 +69,8 @@
                 />&nbsp;<label for="AlwaysAddDbIndexReview">Always Add Db Index</label>
               </td>
               <td>
-                <input type="checkbox" class="error-type" id="NotUseTimeAgoInWordsReview" value="NotUseTimeAgoInWordsReview"
-                />&nbsp;<label for="NotUseTimeAgoInWordsReview">Not Use Time Ago In Words</label>
-              </td>
-              <td>
-                <input type="checkbox" class="error-type" id="SimplifyRenderInViewsReview" value="SimplifyRenderInViewsReview"
-                />&nbsp;<label for="SimplifyRenderInViewsReview">Simplify Render In Views</label>
-              </td>
-          </tr>
-          <tr>
-              <td>
-                <input type="checkbox" class="error-type" id="DefaultScopeIsEvilReview" value="DefaultScopeIsEvilReview"
-                />&nbsp;<label for="DefaultScopeIsEvilReview">Default Scope Is Evil</label>
-              </td>
-              <td>
-                <input type="checkbox" class="error-type" id="RemoveEmptyHelpersReview" value="RemoveEmptyHelpersReview"
-                />&nbsp;<label for="RemoveEmptyHelpersReview">Remove Empty Helpers</label>
+                <input type="checkbox" class="error-type" id="RemoveUnusedMethodsInControllersReview" value="RemoveUnusedMethodsInControllersReview"
+                />&nbsp;<label for="RemoveUnusedMethodsInControllersReview">Remove Unused Methods In Controllers</label>
               </td>
               <td>
                 <input type="checkbox" class="error-type" id="UseModelAssociationReview" value="UseModelAssociationReview"
@@ -97,8 +83,8 @@
                 />&nbsp;<label for="IsolateSeedDataReview">Isolate Seed Data</label>
               </td>
               <td>
-                <input type="checkbox" class="error-type" id="RemoveUnusedMethodsInControllersReview" value="RemoveUnusedMethodsInControllersReview"
-                />&nbsp;<label for="RemoveUnusedMethodsInControllersReview">Remove Unused Methods In Controllers</label>
+                <input type="checkbox" class="error-type" id="RemoveUnusedMethodsInModelsReview" value="RemoveUnusedMethodsInModelsReview"
+                />&nbsp;<label for="RemoveUnusedMethodsInModelsReview">Remove Unused Methods In Models</label>
               </td>
               <td>
                 <input type="checkbox" class="error-type" id="UseMultipartAlternativeAsContentTypeOfEmailReview" value="UseMultipartAlternativeAsContentTypeOfEmailReview"
@@ -107,12 +93,12 @@
           </tr>
           <tr>
               <td>
-                <input type="checkbox" class="error-type" id="LawOfDemeterReview" value="LawOfDemeterReview"
-                />&nbsp;<label for="LawOfDemeterReview">Law Of Demeter</label>
+                <input type="checkbox" class="error-type" id="MoveModelLogicIntoModelReview" value="MoveModelLogicIntoModelReview"
+                />&nbsp;<label for="MoveModelLogicIntoModelReview">Move Model Logic Into Model</label>
               </td>
               <td>
-                <input type="checkbox" class="error-type" id="RemoveUnusedMethodsInModelsReview" value="RemoveUnusedMethodsInModelsReview"
-                />&nbsp;<label for="RemoveUnusedMethodsInModelsReview">Remove Unused Methods In Models</label>
+                <input type="checkbox" class="error-type" id="ReplaceInstanceVariableWithLocalVariableReview" value="ReplaceInstanceVariableWithLocalVariableReview"
+                />&nbsp;<label for="ReplaceInstanceVariableWithLocalVariableReview">Replace Instance Variable With Local Variable</label>
               </td>
               <td>
                 <input type="checkbox" class="error-type" id="UseObserverReview" value="UseObserverReview"
@@ -121,22 +107,22 @@
           </tr>
           <tr>
               <td>
-                <input type="checkbox" class="error-type" id="MoveCodeIntoControllerReview" value="MoveCodeIntoControllerReview"
-                />&nbsp;<label for="MoveCodeIntoControllerReview">Move Code Into Controller</label>
-              </td>
-              <td>
-                <input type="checkbox" class="error-type" id="ReplaceInstanceVariableWithLocalVariableReview" value="ReplaceInstanceVariableWithLocalVariableReview"
-                />&nbsp;<label for="ReplaceInstanceVariableWithLocalVariableReview">Replace Instance Variable With Local Variable</label>
-              </td>
-          </tr>
-          <tr>
-              <td>
-                <input type="checkbox" class="error-type" id="MoveModelLogicIntoModelReview" value="MoveModelLogicIntoModelReview"
-                />&nbsp;<label for="MoveModelLogicIntoModelReview">Move Model Logic Into Model</label>
+                <input type="checkbox" class="error-type" id="NotUseTimeAgoInWordsReview" value="NotUseTimeAgoInWordsReview"
+                />&nbsp;<label for="NotUseTimeAgoInWordsReview">Not Use Time Ago In Words</label>
               </td>
               <td>
                 <input type="checkbox" class="error-type" id="SimplifyRenderInControllersReview" value="SimplifyRenderInControllersReview"
                 />&nbsp;<label for="SimplifyRenderInControllersReview">Simplify Render In Controllers</label>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                <input type="checkbox" class="error-type" id="RemoveEmptyHelpersReview" value="RemoveEmptyHelpersReview"
+                />&nbsp;<label for="RemoveEmptyHelpersReview">Remove Empty Helpers</label>
+              </td>
+              <td>
+                <input type="checkbox" class="error-type" id="SimplifyRenderInViewsReview" value="SimplifyRenderInViewsReview"
+                />&nbsp;<label for="SimplifyRenderInViewsReview">Simplify Render In Views</label>
               </td>
           </tr>
         <tr>
@@ -159,54 +145,9 @@
             <td class='filename'>
                 db/schema.rb
             </td>
-            <td class='line'>54</td>
-            <td class='message'>
-              <a href='http://rails-bestpractices.com/posts/2010/07/24/always-add-db-index/' target='_blank'>always add db index (average_caches => [rater_id])</a>
-            </td>
-          </tr>
-          <tr class="AlwaysAddDbIndexReview">
-            <td class='filename'>
-                db/schema.rb
-            </td>
-            <td class='line'>54</td>
-            <td class='message'>
-              <a href='http://rails-bestpractices.com/posts/2010/07/24/always-add-db-index/' target='_blank'>always add db index (average_caches => [rateable_id, rateable_type])</a>
-            </td>
-          </tr>
-          <tr class="AlwaysAddDbIndexReview">
-            <td class='filename'>
-                db/schema.rb
-            </td>
-            <td class='line'>149</td>
-            <td class='message'>
-              <a href='http://rails-bestpractices.com/posts/2010/07/24/always-add-db-index/' target='_blank'>always add db index (opening_hours => [shop_id])</a>
-            </td>
-          </tr>
-          <tr class="AlwaysAddDbIndexReview">
-            <td class='filename'>
-                db/schema.rb
-            </td>
-            <td class='line'>158</td>
-            <td class='message'>
-              <a href='http://rails-bestpractices.com/posts/2010/07/24/always-add-db-index/' target='_blank'>always add db index (overall_averages => [rateable_id, rateable_type])</a>
-            </td>
-          </tr>
-          <tr class="AlwaysAddDbIndexReview">
-            <td class='filename'>
-                db/schema.rb
-            </td>
-            <td class='line'>230</td>
+            <td class='line'>179</td>
             <td class='message'>
               <a href='http://rails-bestpractices.com/posts/2010/07/24/always-add-db-index/' target='_blank'>always add db index (reviews => [reviewable_id, reviewable_type])</a>
-            </td>
-          </tr>
-          <tr class="DefaultScopeIsEvilReview">
-            <td class='filename'>
-                app/models/comment.rb
-            </td>
-            <td class='line'>22</td>
-            <td class='message'>
-              <a href='http://rails-bestpractices.com/posts/2013/06/15/default_scope-is-evil/' target='_blank'>default_scope is evil</a>
             </td>
           </tr>
           <tr class="IsolateSeedDataReview">
@@ -218,157 +159,22 @@
               <a href='http://rails-bestpractices.com/posts/2010/07/24/isolating-seed-data/' target='_blank'>isolate seed data</a>
             </td>
           </tr>
-          <tr class="LawOfDemeterReview">
+          <tr class="MoveModelLogicIntoModelReview">
             <td class='filename'>
-                app/mailers/offer_notifier.rb
-            </td>
-            <td class='line'>10</td>
-            <td class='message'>
-              <a href='http://rails-bestpractices.com/posts/2010/07/24/the-law-of-demeter/' target='_blank'>law of demeter</a>
-            </td>
-          </tr>
-          <tr class="LawOfDemeterReview">
-            <td class='filename'>
-                app/mailers/offer_notifier.rb
-            </td>
-            <td class='line'>12</td>
-            <td class='message'>
-              <a href='http://rails-bestpractices.com/posts/2010/07/24/the-law-of-demeter/' target='_blank'>law of demeter</a>
-            </td>
-          </tr>
-          <tr class="LawOfDemeterReview">
-            <td class='filename'>
-                app/mailers/offer_notifier.rb
-            </td>
-            <td class='line'>13</td>
-            <td class='message'>
-              <a href='http://rails-bestpractices.com/posts/2010/07/24/the-law-of-demeter/' target='_blank'>law of demeter</a>
-            </td>
-          </tr>
-          <tr class="LawOfDemeterReview">
-            <td class='filename'>
-                app/controllers/shops_controller.rb
-            </td>
-            <td class='line'>60</td>
-            <td class='message'>
-              <a href='http://rails-bestpractices.com/posts/2010/07/24/the-law-of-demeter/' target='_blank'>law of demeter</a>
-            </td>
-          </tr>
-          <tr class="LawOfDemeterReview">
-            <td class='filename'>
-                app/controllers/products_controller.rb
-            </td>
-            <td class='line'>10</td>
-            <td class='message'>
-              <a href='http://rails-bestpractices.com/posts/2010/07/24/the-law-of-demeter/' target='_blank'>law of demeter</a>
-            </td>
-          </tr>
-          <tr class="LawOfDemeterReview">
-            <td class='filename'>
-                app/controllers/products_controller.rb
-            </td>
-            <td class='line'>26</td>
-            <td class='message'>
-              <a href='http://rails-bestpractices.com/posts/2010/07/24/the-law-of-demeter/' target='_blank'>law of demeter</a>
-            </td>
-          </tr>
-          <tr class="LawOfDemeterReview">
-            <td class='filename'>
-                app/controllers/products_controller.rb
-            </td>
-            <td class='line'>56</td>
-            <td class='message'>
-              <a href='http://rails-bestpractices.com/posts/2010/07/24/the-law-of-demeter/' target='_blank'>law of demeter</a>
-            </td>
-          </tr>
-          <tr class="LawOfDemeterReview">
-            <td class='filename'>
-                app/controllers/products_controller.rb
-            </td>
-            <td class='line'>58</td>
-            <td class='message'>
-              <a href='http://rails-bestpractices.com/posts/2010/07/24/the-law-of-demeter/' target='_blank'>law of demeter</a>
-            </td>
-          </tr>
-          <tr class="LawOfDemeterReview">
-            <td class='filename'>
-                app/views/reviews/_review.html.slim
-            </td>
-            <td class='line'>5</td>
-            <td class='message'>
-              <a href='http://rails-bestpractices.com/posts/2010/07/24/the-law-of-demeter/' target='_blank'>law of demeter</a>
-            </td>
-          </tr>
-          <tr class="LawOfDemeterReview">
-            <td class='filename'>
-                app/views/products/product_disccusion.html.slim
-            </td>
-            <td class='line'>25</td>
-            <td class='message'>
-              <a href='http://rails-bestpractices.com/posts/2010/07/24/the-law-of-demeter/' target='_blank'>law of demeter</a>
-            </td>
-          </tr>
-          <tr class="LawOfDemeterReview">
-            <td class='filename'>
-                app/views/shared/_modal_reviews.html.slim
-            </td>
-            <td class='line'>42</td>
-            <td class='message'>
-              <a href='http://rails-bestpractices.com/posts/2010/07/24/the-law-of-demeter/' target='_blank'>law of demeter</a>
-            </td>
-          </tr>
-          <tr class="LawOfDemeterReview">
-            <td class='filename'>
-                app/views/shared/_modal_reviews.html.slim
-            </td>
-            <td class='line'>46</td>
-            <td class='message'>
-              <a href='http://rails-bestpractices.com/posts/2010/07/24/the-law-of-demeter/' target='_blank'>law of demeter</a>
-            </td>
-          </tr>
-          <tr class="LawOfDemeterReview">
-            <td class='filename'>
-                app/views/pages/_offer.html.slim
-            </td>
-            <td class='line'>3</td>
-            <td class='message'>
-              <a href='http://rails-bestpractices.com/posts/2010/07/24/the-law-of-demeter/' target='_blank'>law of demeter</a>
-            </td>
-          </tr>
-          <tr class="LawOfDemeterReview">
-            <td class='filename'>
-                app/views/pages/_offer.html.slim
-            </td>
-            <td class='line'>5</td>
-            <td class='message'>
-              <a href='http://rails-bestpractices.com/posts/2010/07/24/the-law-of-demeter/' target='_blank'>law of demeter</a>
-            </td>
-          </tr>
-          <tr class="MoveCodeIntoControllerReview">
-            <td class='filename'>
-                app/views/shops/_offer_rooms.html.slim
+                app/controllers/offers_controller.rb
             </td>
             <td class='line'>4</td>
             <td class='message'>
-              <a href='http://rails-bestpractices.com/posts/2010/07/24/move-code-into-controller/' target='_blank'>move code into controller</a>
-            </td>
-          </tr>
-          <tr class="MoveCodeIntoControllerReview">
-            <td class='filename'>
-                app/views/shops/_offer_rooms.html.slim
-            </td>
-            <td class='line'>4</td>
-            <td class='message'>
-              <a href='http://rails-bestpractices.com/posts/2010/07/24/move-code-into-controller/' target='_blank'>move code into controller</a>
+              <a href='http://rails-bestpractices.com/posts/2010/07/21/move-model-logic-into-the-model/' target='_blank'>move model logic into model (offer use_count > 4)</a>
             </td>
           </tr>
           <tr class="MoveModelLogicIntoModelReview">
             <td class='filename'>
                 app/controllers/products_controller.rb
             </td>
-            <td class='line'>50</td>
+            <td class='line'>52</td>
             <td class='message'>
-              <a href='http://rails-bestpractices.com/posts/2010/07/21/move-model-logic-into-the-model/' target='_blank'>move model logic into model (shop use_count > 4)</a>
+              <a href='http://rails-bestpractices.com/posts/2010/07/21/move-model-logic-into-the-model/' target='_blank'>move model logic into model (@shop use_count > 4)</a>
             </td>
           </tr>
           <tr class="NotUseTimeAgoInWordsReview">
@@ -384,7 +190,7 @@
             <td class='filename'>
                 app/views/shops/_offer_rooms.html.slim
             </td>
-            <td class='line'>13</td>
+            <td class='line'>19</td>
             <td class='message'>
               <a href='http://rails-bestpractices.com/posts/2012/02/10/not-use-time_ago_in_words/' target='_blank'>not use time_ago_in_words</a>
             </td>
@@ -434,13 +240,13 @@
               <a href='' target='_blank'>remove unused methods (ApplicationController#any_redirect_to_premium_path)</a>
             </td>
           </tr>
-          <tr class="RemoveUnusedMethodsInModelsReview">
+          <tr class="RemoveUnusedMethodsInControllersReview">
             <td class='filename'>
-                app/models/shop.rb
+                app/controllers/application_controller.rb
             </td>
-            <td class='line'>66</td>
+            <td class='line'>16</td>
             <td class='message'>
-              <a href='' target='_blank'>remove unused methods (Shop#name_and_id)</a>
+              <a href='' target='_blank'>remove unused methods (ApplicationController#check_and_set_premium_url)</a>
             </td>
           </tr>
           <tr class="RemoveUnusedMethodsInModelsReview">
@@ -449,7 +255,7 @@
             </td>
             <td class='line'>70</td>
             <td class='message'>
-              <a href='' target='_blank'>remove unused methods (Shop#should_generate_new_friendly_id?)</a>
+              <a href='' target='_blank'>remove unused methods (Shop#name_and_id)</a>
             </td>
           </tr>
           <tr class="RemoveUnusedMethodsInModelsReview">
@@ -458,7 +264,7 @@
             </td>
             <td class='line'>74</td>
             <td class='message'>
-              <a href='' target='_blank'>remove unused methods (Shop#search_kick)</a>
+              <a href='' target='_blank'>remove unused methods (Shop#should_generate_new_friendly_id?)</a>
             </td>
           </tr>
           <tr class="ReplaceInstanceVariableWithLocalVariableReview">
@@ -645,7 +451,7 @@
             <td class='filename'>
                 app/controllers/shops_controller.rb
             </td>
-            <td class='line'>88</td>
+            <td class='line'>84</td>
             <td class='message'>
               <a href='http://rails-bestpractices.com/posts/2010/12/12/simplify-render-in-controllers/' target='_blank'>simplify render in controllers</a>
             </td>
@@ -654,18 +460,9 @@
             <td class='filename'>
                 app/controllers/products_controller.rb
             </td>
-            <td class='line'>88</td>
+            <td class='line'>75</td>
             <td class='message'>
               <a href='http://rails-bestpractices.com/posts/2010/12/12/simplify-render-in-controllers/' target='_blank'>simplify render in controllers</a>
-            </td>
-          </tr>
-          <tr class="SimplifyRenderInViewsReview">
-            <td class='filename'>
-                app/views/products/product_disccusion.html.slim
-            </td>
-            <td class='line'>69</td>
-            <td class='message'>
-              <a href='http://rails-bestpractices.com/posts/2010/12/04/simplify-render-in-views/' target='_blank'>simplify render in views</a>
             </td>
           </tr>
           <tr class="SimplifyRenderInViewsReview">
@@ -715,15 +512,6 @@
           </tr>
           <tr class="UseMultipartAlternativeAsContentTypeOfEmailReview">
             <td class='filename'>
-                app/mailers/offer_notifier.rb
-            </td>
-            <td class='line'>8</td>
-            <td class='message'>
-              <a href='http://rails-bestpractices.com/posts/2010/08/05/use-multipart-alternative-as-content_type-of-email/' target='_blank'>use multipart/alternative as content_type of email</a>
-            </td>
-          </tr>
-          <tr class="UseMultipartAlternativeAsContentTypeOfEmailReview">
-            <td class='filename'>
                 app/mailers/product_mailer.rb
             </td>
             <td class='line'>3</td>
@@ -735,7 +523,7 @@
             <td class='filename'>
                 app/models/product.rb
             </td>
-            <td class='line'>39</td>
+            <td class='line'>42</td>
             <td class='message'>
               <a href='http://rails-bestpractices.com/posts/2010/07/24/use-observer/' target='_blank'>use observer</a>
             </td>

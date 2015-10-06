@@ -15,6 +15,6 @@
 class Review < ActiveRecord::Base
   belongs_to :reviewable, polymorphic: true
   belongs_to :user
-
+  delegate :username, :image, :email, to: :user, allow_nil: true, prefix: true
   validates :content, :rate_point, presence: true
 end

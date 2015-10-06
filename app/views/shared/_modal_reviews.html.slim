@@ -39,11 +39,11 @@
             .row
               .col-md-3
                 - if current_user.try(:image)
-                  = image_tag review.user.image, size: "100x120", class: "thumbnail"
+                  = image_tag review.user_image, size: "100x120", class: "thumbnail"
                 - else
                   = image_tag "noimg.png"
               .col-md-9
-                = review.user.username
+                = review.user_username
                 br
                 = review.content
                 br

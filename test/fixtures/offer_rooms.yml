@@ -8,6 +8,7 @@
 #  product_id :integer
 #  shop_id    :integer
 #  offerer    :string
+#  user_id    :integer
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

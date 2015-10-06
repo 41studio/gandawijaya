@@ -16,9 +16,9 @@ before_action :find_shop, only: [:like]
   end
 
   def edit
-    @shop = current_user.shops.find params[:id]
+    @shop = current_user.shops.find @shop
     if any_redirect_to_premium_path(resource)
-      redirect_to edit_shop_premium_url(resource.premium_account.url), status: 301
+      redirect_to edit_shop_premium_url(resource.premium_account_url), status: 301
     else
       @auto_select = false
       edit!
@@ -27,15 +27,15 @@ before_action :find_shop, only: [:like]
 
   def show
     if any_redirect_to_premium_path(resource)
-      redirect_to shop_premium_url(resource.premium_account.url), status: 301
+      redirect_to shop_premium_url(resource.premium_account_url), status: 301
     else
       @categories = @shop.scategories
-      @work_hours = @shop.opening_hours.order_by_day
+      @work_hours = @shop.opening_hours.not_contain_nil_hour.order_by_day
       @reviews    = resource.reviews
       @review     = Review.new
       @products   = Product.all
       @products   = resource.products
-      @this_is_current_user_shop = current_user.shops.find_by(id: resource.id) if current_user
+      @this_is_current_user_shop = current_user.shops.include? resource if current_user
       show!
     end
   end
@@ -43,7 +43,7 @@ before_action :find_shop, only: [:like]
   def update
     if resource.premium_account.present? && resource.premium_account.status
       update! do |success, failure|
-        success.html { redirect_to shop_premium_url(resource.premium_account.url) }
+        success.html { redirect_to shop_premium_url(resource.premium_account_url) }
       end
     else
       update!
@@ -52,8 +52,9 @@ before_action :find_shop, only: [:like]
 
   def controlpanel
     if any_redirect_to_premium_path(@shop)
-      redirect_to controlpanel_shop_premium_url(@shop.premium_account.url), status: 301
+      redirect_to controlpanel_shop_premium_url(@shop.premium_account_url), status: 301
     end
+      @shop = current_user.shops.find @shop
       @products = @shop.products
 
     if params[:product].present?

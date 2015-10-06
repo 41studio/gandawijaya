@@ -17,12 +17,12 @@ class ApplicationController < ActionController::Base
       if params[:premium_path]
         premium_account = PremiumAccount.with_url(params[:premium_path]).first
         if premium_account.present?
-          @shop = current_user.shops.find premium_account.shop_id
+          @shop = Shop.find(premium_account.shop_id)
         else
           redirect_to shops_path, notice: "maaf url tidak ada" and return
         end
       else
-        @shop = current_user.shops.find params[:id]||params[:shop_id]
+        @shop = Shop.find params[:id]||params[:shop_id]
       end
     end
  end

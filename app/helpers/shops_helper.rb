@@ -15,7 +15,7 @@ module ShopsHelper
     if shop.approved?
       shop.image.url  || "noimg.png"
     elsif shop.on_progress?
-      "reject.jpg"
+      "ip.png"
     else
       "ue.jpg"
     end
@@ -25,7 +25,7 @@ module ShopsHelper
     if product.approved?
       product.galleries.first.try(:image).try(:url) || "noimg.png"
     elsif product.on_progress?
-      "reject.jpg"
+      "ip.png"
     else
       "ue.jpg"
     end

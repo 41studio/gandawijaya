@@ -13,17 +13,17 @@ module ApplicationHelper
 	def generate_path_for(object, action, options={})
 		if object.premium_account.present? && object.premium_account.status
 			if action.eql? "show"
-			 shop_premium_path(object.premium_account.url)
+			 shop_premium_path(object.premium_account_url)
 			elsif action.eql? "edit"
-			 edit_shop_premium_path(object.premium_account.url)
+			 edit_shop_premium_path(object.premium_account_url)
 			elsif action.eql? "controlpanel"
 				if options[:product].present?
-					controlpanel_shop_premium_path(id: object.premium_account.url, product: options[:product])
+					controlpanel_shop_premium_path(id: object.premium_account_url, product: options[:product])
 				else
-				 controlpanel_shop_premium_path(object.premium_account.url)
+				 controlpanel_shop_premium_path(object.premium_account_url)
 			 	end
 		 	elsif action.eql? "show_offer"
-		 		show_offers_premium_path(premium_path: object.premium_account.url, product_id: options[:product_id], user_id: options[:user_id])
+		 		show_offers_premium_path(premium_path: object.premium_account_url, product_id: options[:product_id], user_id: options[:user_id])
 			end
 		else
 			if action.eql? "show"
@@ -45,15 +45,15 @@ module ApplicationHelper
 	def generate_product_path(object, action)
 		if object.shop.premium_account.present? && object.shop.premium_account.status
 			if action.eql? "show"
-				 product_premium_path(premium_path: object.shop.premium_account.url, id: object)
+				 product_premium_path(premium_path: object.shop.premium_account_url, id: object)
 			elsif action.eql? "edit"
-				 edit_product_premium_path(premium_path: object.shop.premium_account.url, id: object)
+				 edit_product_premium_path(premium_path: object.shop.premium_account_url, id: object)
 			elsif action.eql? "new"
-				 new_product_premium_path(premium_path: object.shop.premium_account.url)
+				 new_product_premium_path(premium_path: object.shop.premium_account_url)
 			elsif action.eql? "form"
 				[object.shop, object]
 			elsif action.eql? "destroy"
-				product_premium_path(premium_path: object.shop.premium_account.url, id: object)
+				product_premium_path(premium_path: object.shop.premium_account_url, id: object)
 		 end
 		else
 			if action.eql? "show"
@@ -72,7 +72,7 @@ module ApplicationHelper
 
 		def generate_product_2_path(object, action)
 		if object.premium_account.present?  && object.premium_account.status
-			new_product_premium_path(premium_path: object.premium_account.url)
+			new_product_premium_path(premium_path: object.premium_account_url)
 		else
 			new_shop_product_path(shop_id: object)
 		end

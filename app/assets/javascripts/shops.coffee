@@ -22,9 +22,9 @@ ready = ->
   $('.btn-submit-offer').prop("disabled", true)
 
   $('#offer_content').keyup ->
-    if $(this).val() && $('#name-offerer').val()
+    if $(this).val()
       if $('#email-offerer').length > 0
-        if $('#email-offerer').val() && $('#email-offerer').val().match(/[a-zA-Z]+/)
+        if $('#email-offerer').val() && $('#email-offerer').val().match(/[a-zA-Z]+/) && $('#name-offerer').val()
           $('.btn-submit-offer').prop("disabled", false)
         else
           $('.btn-submit-offer').prop("disabled", true)
@@ -112,8 +112,8 @@ ready = ->
 
   $(".new_shop").submit (e) ->
     if $('.category-title').length <= 0
-          alert "Please choose at least 1 category"
-          e.preventDefault()
+      alert "Please choose at least 1 category"
+      e.preventDefault()
     else
 
 $(document).ready ready

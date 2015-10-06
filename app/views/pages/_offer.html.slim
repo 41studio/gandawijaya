@@ -1,8 +1,8 @@
 .row
   .col-md-1
-    = image_tag offer.user.image || "noimg.png" , size: "50x50"
+    = image_tag offer.user_image.url || "noimg.png" , size: "50x50"
   .col-md-11
-    h5 = offer.user.username
+    h5 = offer.user_username
     = offer.content
     .text-muted
     = time_ago_in_words offer.created_at

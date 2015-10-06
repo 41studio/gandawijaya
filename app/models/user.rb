@@ -45,12 +45,13 @@ class User < ActiveRecord::Base
 
   enum gender: [:Male, :Female]
 
-  has_many :reviews,          dependent: :destroy
-  has_many :shops,            dependent: :destroy
-  has_many :products
-  has_many :premium_accounts, dependent: :destroy
-  has_many :comments
-  has_many :offer_rooms          , dependent: :destroy
+  with_options dependent: :destroy do
+    has_many :reviews
+    has_many :shops
+    has_many :products
+    has_many :premium_accounts
+    has_many :offer_rooms
+  end
 
   validates :handphone, numericality: { allow_blank: true }
   validates :username,  format: { with: /\A[a-zA-Z0-9 ]+\Z/, allow_blank: true },

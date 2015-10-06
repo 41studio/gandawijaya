@@ -19,7 +19,7 @@
         - if @shop.status == "approved"
             = image_tag @shop.cover_image.cover.url  || "noimg.png"
         - else
-          = image_tag "ur.jpg"
+          = image_tag shop_image(@shop)
       .row.profile
         .col-md-3.col
           = image_tag shop_image(@shop) || "noimg.png", size: "240x200", class: "img-thumbnail"
@@ -53,7 +53,7 @@
             br
           p
             b Total Product:
-            = @shop.products.count
+            = @products.size
           = link_to "Like (#{@shop.get_upvotes.size})", like_shop_path(@shop), class: "btn btn-default btn-sm text-right", id: "shop-upvotes-size", method: :put, remote: true
         .col-md-5
           p

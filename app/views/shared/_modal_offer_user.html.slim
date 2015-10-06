@@ -1,5 +1,5 @@
 = link_to collect_offers_path(product: room.product, user_id: current_user.id), class: "list-group-item #{ unread_by_offerer?(room.offers) } ", data: {toggle: "modal", target:"#ajax-modal"}, remote: true, id: "offer-a-#{room.id}" do
-    b.list-group-item-heading = room.product.name
+    b.list-group-item-heading = room.product_name
     .row
       .col-md-3
         = image_tag room.product.galleries.first.try(:image).try(:url) || "noimg.png" , size: "50x50"
@@ -10,5 +10,5 @@
           = time_ago_in_words room.offers.last.created_at
       .col-md-3
         center
-          = image_tag room.offers.last.user.image || "noimg.png" , size: "50x50"
-          = room.offers.last.user.id == current_user.id ? "Me" : "#{room.product.user.username}"
+          = image_tag room.offers.last.user_image || "noimg.png" , size: "50x50"
+          = room.offers.last.user_id == current_user.id ? "Me" : "#{room.product.user.username}"
