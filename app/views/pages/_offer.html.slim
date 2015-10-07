@@ -4,5 +4,11 @@
   .col-md-11
     h5 = offer.user_username
     = offer.content
-    .text-muted
-    = time_ago_in_words offer.created_at
+    .text-muted.text-right
+      abbr class="timeago" title="#{offer.created_at.getutc.iso8601}"
+        = offer.created_at.to_s
+
+coffee:
+  $(document).ready ->
+    $("abbr.timeago").timeago()
+

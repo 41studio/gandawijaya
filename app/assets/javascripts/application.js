@@ -5,6 +5,7 @@
 //= require pages
 //= require products
 //= require shops
+//= require jquery.timeago
 //= require offer
 //= require cocoon
 //= require turbolinks

@@ -60,7 +60,7 @@
       to see more useful Rails Best Practices.
     </p>
     <p>
-        Found 43 warnings.
+        Found 41 warnings.
     </p>
     <table>
           <tr>
@@ -73,8 +73,8 @@
                 />&nbsp;<label for="RemoveUnusedMethodsInControllersReview">Remove Unused Methods In Controllers</label>
               </td>
               <td>
-                <input type="checkbox" class="error-type" id="UseModelAssociationReview" value="UseModelAssociationReview"
-                />&nbsp;<label for="UseModelAssociationReview">Use Model Association</label>
+                <input type="checkbox" class="error-type" id="SimplifyRenderInViewsReview" value="SimplifyRenderInViewsReview"
+                />&nbsp;<label for="SimplifyRenderInViewsReview">Simplify Render In Views</label>
               </td>
           </tr>
           <tr>
@@ -87,8 +87,8 @@
                 />&nbsp;<label for="RemoveUnusedMethodsInModelsReview">Remove Unused Methods In Models</label>
               </td>
               <td>
-                <input type="checkbox" class="error-type" id="UseMultipartAlternativeAsContentTypeOfEmailReview" value="UseMultipartAlternativeAsContentTypeOfEmailReview"
-                />&nbsp;<label for="UseMultipartAlternativeAsContentTypeOfEmailReview">Use Multipart Alternative As Content Type Of Email</label>
+                <input type="checkbox" class="error-type" id="UseModelAssociationReview" value="UseModelAssociationReview"
+                />&nbsp;<label for="UseModelAssociationReview">Use Model Association</label>
               </td>
           </tr>
           <tr>
@@ -101,18 +101,8 @@
                 />&nbsp;<label for="ReplaceInstanceVariableWithLocalVariableReview">Replace Instance Variable With Local Variable</label>
               </td>
               <td>
-                <input type="checkbox" class="error-type" id="UseObserverReview" value="UseObserverReview"
-                />&nbsp;<label for="UseObserverReview">Use Observer</label>
-              </td>
-          </tr>
-          <tr>
-              <td>
-                <input type="checkbox" class="error-type" id="NotUseTimeAgoInWordsReview" value="NotUseTimeAgoInWordsReview"
-                />&nbsp;<label for="NotUseTimeAgoInWordsReview">Not Use Time Ago In Words</label>
-              </td>
-              <td>
-                <input type="checkbox" class="error-type" id="SimplifyRenderInControllersReview" value="SimplifyRenderInControllersReview"
-                />&nbsp;<label for="SimplifyRenderInControllersReview">Simplify Render In Controllers</label>
+                <input type="checkbox" class="error-type" id="UseMultipartAlternativeAsContentTypeOfEmailReview" value="UseMultipartAlternativeAsContentTypeOfEmailReview"
+                />&nbsp;<label for="UseMultipartAlternativeAsContentTypeOfEmailReview">Use Multipart Alternative As Content Type Of Email</label>
               </td>
           </tr>
           <tr>
@@ -121,8 +111,12 @@
                 />&nbsp;<label for="RemoveEmptyHelpersReview">Remove Empty Helpers</label>
               </td>
               <td>
-                <input type="checkbox" class="error-type" id="SimplifyRenderInViewsReview" value="SimplifyRenderInViewsReview"
-                />&nbsp;<label for="SimplifyRenderInViewsReview">Simplify Render In Views</label>
+                <input type="checkbox" class="error-type" id="SimplifyRenderInControllersReview" value="SimplifyRenderInControllersReview"
+                />&nbsp;<label for="SimplifyRenderInControllersReview">Simplify Render In Controllers</label>
+              </td>
+              <td>
+                <input type="checkbox" class="error-type" id="UseObserverReview" value="UseObserverReview"
+                />&nbsp;<label for="UseObserverReview">Use Observer</label>
               </td>
           </tr>
         <tr>
@@ -175,24 +169,6 @@
             <td class='line'>52</td>
             <td class='message'>
               <a href='http://rails-bestpractices.com/posts/2010/07/21/move-model-logic-into-the-model/' target='_blank'>move model logic into model (@shop use_count > 4)</a>
-            </td>
-          </tr>
-          <tr class="NotUseTimeAgoInWordsReview">
-            <td class='filename'>
-                app/views/shops/_offer_rooms.html.slim
-            </td>
-            <td class='line'>5</td>
-            <td class='message'>
-              <a href='http://rails-bestpractices.com/posts/2012/02/10/not-use-time_ago_in_words/' target='_blank'>not use time_ago_in_words</a>
-            </td>
-          </tr>
-          <tr class="NotUseTimeAgoInWordsReview">
-            <td class='filename'>
-                app/views/shops/_offer_rooms.html.slim
-            </td>
-            <td class='line'>19</td>
-            <td class='message'>
-              <a href='http://rails-bestpractices.com/posts/2012/02/10/not-use-time_ago_in_words/' target='_blank'>not use time_ago_in_words</a>
             </td>
           </tr>
           <tr class="RemoveEmptyHelpersReview">
