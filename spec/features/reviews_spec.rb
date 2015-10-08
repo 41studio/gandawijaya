@@ -1,20 +1,42 @@
 require 'rails_helper'
+require 'support/offers_helper'
+RSpec.configure do |config|
+  config.include OffersHelper
+end
 
 feature "Reviews" do
 
-  # background do
-  #   @user       = create(:user)
-  #   @shop       = create(:shop)
-  #   @random_rate = rand(1..4).to_s
-  # end
+  background do
+    @owner        = create(:user)
+    @user         = create(:user)
 
-  # scenario 'create review' do
-  #   login_as(@user, :scope => :user, :run_callbacks => false)
-  #   visit shop_path(@shop)
-  #   click_link 'Rate & Review'
-  #   fill_in 'review_content', with: Faker::Lorem.paragraph
-  #   find(:css, "input[type=radio][name=rating][value=1]").choose
-  #   click_link 'Create Review'
-  # end
+    @shop         = create(:shop, user: @owner)
+    @product      = create(:product, shop: @shop)
+
+    @random_rate  = "star-"+rand(1..5).to_s
+    @paragraph    = Faker::Lorem.paragraph
+  end
+
+  scenario 'a shop', js: true do
+    login_as(@user, scope: :user, run_callbacks: false)
+    visit shop_path(@shop)
+
+    review_count = @shop.reviews.size
+    create_offer(@random_rate, @paragraph)
+
+    expect(page).to have_content @paragraph
+    expect(review_count+1).to eq @shop.reviews.count
+  end
+
+  scenario 'a product', js: true do
+    login_as(@user, scope: :user, run_callbacks: false)
+    visit shop_product_path(shop_id: @shop, id: @product)
+
+    review_count = @product.reviews.size
+    create_offer(@random_rate, @paragraph)
+
+    expect(page).to have_content @paragraph
+    expect(review_count+1).to eq @product.reviews.count
+  end
 
 end

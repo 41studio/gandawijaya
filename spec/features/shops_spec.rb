@@ -18,11 +18,12 @@ feature "Shops" do
     visit '/shops/new'
 
     shop_count = Shop.count
-    fill_in 'shop_name', with: @shop.name
-    fill_in 'shop_address', with: @shop.address
-    fill_in 'shop_telephone', with: @shop.telephone
+    fill_in 'shop_name'         , with: @shop.name
+    fill_in 'shop_address'      , with: @shop.address
+    fill_in 'shop_telephone'    , with: @shop.telephone
     fill_in 'shop_mobile_phones', with: @shop.mobile_phones
-    fill_in 'search-category', with: @category.name
+    fill_in 'search-category'   , with: @category.name
+
     find('.ui-menu-item').click
     click_button 'Create Shop'
 
@@ -35,24 +36,31 @@ feature "Shops" do
     visit shop_path(@shop)
     click_link 'Edit'
 
-    fill_in 'shop_name', with: @another_shop.name
-    fill_in 'shop_address', with: @another_shop.address
-    fill_in 'shop_telephone', with: @another_shop.telephone
-    fill_in 'shop_mobile_phones', with: @shop.mobile_phones
-    fill_in 'search-category', with: @category.name
+    fill_in 'shop_name'             , with: @another_shop.name
+    fill_in 'shop_address'          , with: @another_shop.address
+    fill_in 'shop_telephone'        , with: @another_shop.telephone
+    fill_in 'shop_mobile_phones'    , with: @shop.mobile_phones
+    fill_in 'search-category'       , with: @category.name
+
     find('.ui-menu-item').click
+
+    fill_in 'shop_business_name'    , with: @another_shop.business_name
+    fill_in 'shop_business_email'   , with: @another_shop.business_email
+    attach_file('shop_image'        , '/home/cybergarage/projects/gandawijaya/spec/fixtures/1366x768.jpg')
+    attach_file('shop_cover_image'  , '/home/cybergarage/projects/gandawijaya/spec/fixtures/logo_circle.png')
+
     click_button 'Update Shop'
 
     expect(page).to have_content('Shop was successfully updated.')
   end
 
-  scenario 'like shop' do
-    like_count = @shop.get_upvotes.size
-    login_as(@another_user, :scope => :user, :run_callbacks => false)
-    visit shop_path(@shop)
+  # scenario 'like shop' do
+  #   like_count = @shop.get_upvotes.size
+  #   login_as(@another_user, :scope => :user, :run_callbacks => false)
+  #   visit shop_path(@shop)
 
-    click_on 'Like'
-    expect(like_count+1).to eq @shop.get_upvotes.size
-  end
+  #   click_on 'Like'
+  #   expect(like_count+1).to eq @shop.get_upvotes.size
+  # end
 
 end

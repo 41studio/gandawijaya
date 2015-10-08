@@ -21,7 +21,7 @@ before_action :offer_params, only: [:create]
 
     if offer.save!
       respond_to do |format|
-        format.html{ redirect_to :back, notice: "offer succesfully created" }
+        format.html{ redirect_to :back, notice: "Offer succesfully created" }
         format.js
       end
     end

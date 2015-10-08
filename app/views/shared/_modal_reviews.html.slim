@@ -10,15 +10,15 @@
           = f.input :content, required: true, input_html: { class: "form-control" }
           .starRate
             span.star-rating.star-ratings
-              input name="rating" type="radio" value="1"
+              input name="rating" type="radio" value="1" id="star-1"
                 i
-              input name="rating" type="radio" value="2"
+              input name="rating" type="radio" value="2" id="star-2"
                 i
-              input name="rating" type="radio" value="3"
+              input name="rating" type="radio" value="3" id="star-3"
                 i
-              input name="rating" type="radio" value="4"
+              input name="rating" type="radio" value="4" id="star-4"
                 i
-              input name="rating" type="radio" value="5"
+              input name="rating" type="radio" value="5" id="star-5"
                 i
           = f.hidden_field :rate_point
           = f.hidden_field :reviewable_id, value: reviewable_id
