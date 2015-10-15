@@ -15,7 +15,8 @@
 class Offer < ActiveRecord::Base
   belongs_to :offer_room
   belongs_to :user
-  delegate :username, :id, :email, :image, to: :user, allow_nil: true, prefix: true
+
+  delegate :username, :id, :email, :image, :handphone, to: :user, allow_nil: true, prefix: true
 
   after_create :send_notif
 

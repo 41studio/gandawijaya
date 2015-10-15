@@ -1,26 +1,7 @@
-tr class="#{ unread_by_owner?(room.offers) }" id="offer-row-#{room.id}"
-  - if room.user_id?
-    td = link_to room.product.name,collect_offers_path(product: room.product, user_id: room.user_id), data: {toggle: "modal", target:"#ajax-modal"}, remote: true
-    td = link_to "#{room.user_username}(#{room.user_email})", collect_offers_path(product: room.product, user_id: room.user_id), data: {toggle: "modal", target:"#ajax-modal"}, remote: true
-    td = link_to collect_offers_path(product: room.product, user_id: room.user_id), data: {toggle: "modal", target:"#ajax-modal"}, remote: true do
-      abbr class="timeago" title="#{room.created_at.getutc.iso8601}"
-        = room.created_at.to_s
-  - else
-    td = room.product.name
-    td
-      - contact = room.offerer.split('|')
-      = contact.second || User::ANNONYM
-      = "(#{contact.first})"
-      -if contact.length==3
-        br
-        b
-          ' telp:
-        = contact.third
-      br
-      = room.offers.last.content
-    td
-      abbr class="timeago" title="#{room.created_at.getutc.iso8601}"
-        = room.created_at.to_s
+tr onclick="javascript:void(0)" class="#{ unread_by_owner?(room.offers) }" id="offer-row-#{room.id}"
+  td = link_to room.product.name, room.user_id? ? collect_offers_path(product_id: room.product_id, user_id: room.user_id) : "javascript:void(0)", data: ({toggle: "modal", target:"#ajax-modal"} if room.user_id?), remote: true
+  td = link_to room.contact_detail, room.user_id? ? collect_offers_path(product_id: room.product_id, user_id: room.user_id) : "javascript:void(0)", data: ({toggle: "modal", target:"#ajax-modal"} if room.user_id?), remote: true
+  td: abbr.timeago title=(room.created_at.getutc.iso8601) = link_to room.created_at.to_s, room.user_id? ? collect_offers_path(product_id: room.product.id, user_id: room.user_id) : "javascript:void(0)", data: ({toggle: "modal", target:"#ajax-modal"} if room.user_id?), remote: true
 
 coffee:
   $(document).ready ->

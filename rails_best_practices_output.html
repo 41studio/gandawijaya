@@ -60,7 +60,7 @@
       to see more useful Rails Best Practices.
     </p>
     <p>
-        Found 41 warnings.
+        Found 38 warnings.
     </p>
     <table>
           <tr>
@@ -73,8 +73,8 @@
                 />&nbsp;<label for="RemoveUnusedMethodsInControllersReview">Remove Unused Methods In Controllers</label>
               </td>
               <td>
-                <input type="checkbox" class="error-type" id="SimplifyRenderInViewsReview" value="SimplifyRenderInViewsReview"
-                />&nbsp;<label for="SimplifyRenderInViewsReview">Simplify Render In Views</label>
+                <input type="checkbox" class="error-type" id="UseModelAssociationReview" value="UseModelAssociationReview"
+                />&nbsp;<label for="UseModelAssociationReview">Use Model Association</label>
               </td>
           </tr>
           <tr>
@@ -87,8 +87,8 @@
                 />&nbsp;<label for="RemoveUnusedMethodsInModelsReview">Remove Unused Methods In Models</label>
               </td>
               <td>
-                <input type="checkbox" class="error-type" id="UseModelAssociationReview" value="UseModelAssociationReview"
-                />&nbsp;<label for="UseModelAssociationReview">Use Model Association</label>
+                <input type="checkbox" class="error-type" id="UseMultipartAlternativeAsContentTypeOfEmailReview" value="UseMultipartAlternativeAsContentTypeOfEmailReview"
+                />&nbsp;<label for="UseMultipartAlternativeAsContentTypeOfEmailReview">Use Multipart Alternative As Content Type Of Email</label>
               </td>
           </tr>
           <tr>
@@ -100,10 +100,6 @@
                 <input type="checkbox" class="error-type" id="ReplaceInstanceVariableWithLocalVariableReview" value="ReplaceInstanceVariableWithLocalVariableReview"
                 />&nbsp;<label for="ReplaceInstanceVariableWithLocalVariableReview">Replace Instance Variable With Local Variable</label>
               </td>
-              <td>
-                <input type="checkbox" class="error-type" id="UseMultipartAlternativeAsContentTypeOfEmailReview" value="UseMultipartAlternativeAsContentTypeOfEmailReview"
-                />&nbsp;<label for="UseMultipartAlternativeAsContentTypeOfEmailReview">Use Multipart Alternative As Content Type Of Email</label>
-              </td>
           </tr>
           <tr>
               <td>
@@ -111,12 +107,8 @@
                 />&nbsp;<label for="RemoveEmptyHelpersReview">Remove Empty Helpers</label>
               </td>
               <td>
-                <input type="checkbox" class="error-type" id="SimplifyRenderInControllersReview" value="SimplifyRenderInControllersReview"
-                />&nbsp;<label for="SimplifyRenderInControllersReview">Simplify Render In Controllers</label>
-              </td>
-              <td>
-                <input type="checkbox" class="error-type" id="UseObserverReview" value="UseObserverReview"
-                />&nbsp;<label for="UseObserverReview">Use Observer</label>
+                <input type="checkbox" class="error-type" id="SimplifyRenderInViewsReview" value="SimplifyRenderInViewsReview"
+                />&nbsp;<label for="SimplifyRenderInViewsReview">Simplify Render In Views</label>
               </td>
           </tr>
         <tr>
@@ -151,6 +143,15 @@
             <td class='line'>5</td>
             <td class='message'>
               <a href='http://rails-bestpractices.com/posts/2010/07/24/isolating-seed-data/' target='_blank'>isolate seed data</a>
+            </td>
+          </tr>
+          <tr class="MoveModelLogicIntoModelReview">
+            <td class='filename'>
+                app/controllers/shops_controller.rb
+            </td>
+            <td class='line'>53</td>
+            <td class='message'>
+              <a href='http://rails-bestpractices.com/posts/2010/07/21/move-model-logic-into-the-model/' target='_blank'>move model logic into model (@shop use_count > 4)</a>
             </td>
           </tr>
           <tr class="MoveModelLogicIntoModelReview">
@@ -423,24 +424,6 @@
               <a href='http://rails-bestpractices.com/posts/2010/07/24/replace-instance-variable-with-local-variable/' target='_blank'>replace instance variable with local variable</a>
             </td>
           </tr>
-          <tr class="SimplifyRenderInControllersReview">
-            <td class='filename'>
-                app/controllers/shops_controller.rb
-            </td>
-            <td class='line'>84</td>
-            <td class='message'>
-              <a href='http://rails-bestpractices.com/posts/2010/12/12/simplify-render-in-controllers/' target='_blank'>simplify render in controllers</a>
-            </td>
-          </tr>
-          <tr class="SimplifyRenderInControllersReview">
-            <td class='filename'>
-                app/controllers/products_controller.rb
-            </td>
-            <td class='line'>75</td>
-            <td class='message'>
-              <a href='http://rails-bestpractices.com/posts/2010/12/12/simplify-render-in-controllers/' target='_blank'>simplify render in controllers</a>
-            </td>
-          </tr>
           <tr class="SimplifyRenderInViewsReview">
             <td class='filename'>
                 app/views/products/edit.html.slim
@@ -470,15 +453,6 @@
           </tr>
           <tr class="UseMultipartAlternativeAsContentTypeOfEmailReview">
             <td class='filename'>
-                app/mailers/comment_mailer.rb
-            </td>
-            <td class='line'>3</td>
-            <td class='message'>
-              <a href='http://rails-bestpractices.com/posts/2010/08/05/use-multipart-alternative-as-content_type-of-email/' target='_blank'>use multipart/alternative as content_type of email</a>
-            </td>
-          </tr>
-          <tr class="UseMultipartAlternativeAsContentTypeOfEmailReview">
-            <td class='filename'>
                 app/mailers/shop_mailer.rb
             </td>
             <td class='line'>3</td>
@@ -493,15 +467,6 @@
             <td class='line'>3</td>
             <td class='message'>
               <a href='http://rails-bestpractices.com/posts/2010/08/05/use-multipart-alternative-as-content_type-of-email/' target='_blank'>use multipart/alternative as content_type of email</a>
-            </td>
-          </tr>
-          <tr class="UseObserverReview">
-            <td class='filename'>
-                app/models/product.rb
-            </td>
-            <td class='line'>42</td>
-            <td class='message'>
-              <a href='http://rails-bestpractices.com/posts/2010/07/24/use-observer/' target='_blank'>use observer</a>
             </td>
           </tr>
       </tbody>

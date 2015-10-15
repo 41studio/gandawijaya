@@ -1,95 +1,72 @@
 .show
   .show-detail-image
-    - if @shop.status == "rejected"
-        = image_tag "rj.jpg", size: "240x200", class: "img-thumbnail"
-        h1
-          = @shop.name
-        p.text-justify
-          blockquote
-            = @shop.description
+    .thumbnail.cover
+      = cover @shop
 
-        div class="bs-example"
-          div id="myAlert" class="alert alert-danger"
-           a href="#" class="close" &times;
-           strong
-            | Note!
-            | Sorry this store rejected by admin
-    - else
-      .thumbnail.cover
-        - if @shop.status == "approved"
-            = image_tag @shop.cover_image.cover.url  || "noimg.png"
-        - else
-          = image_tag shop_image(@shop)
-      .row.profile
-        .col-md-3.col
-          = image_tag shop_image(@shop) || "noimg.png", size: "240x200", class: "img-thumbnail"
-          p = @shop.description
-          - @categories.each do |category|
-            b = category.name
-          h4 Rating
-          - if @shop.reviews.any?
-            = star_view(Time.now.to_i, @shop.reviews.average(:rate_point).to_i)
-          - else
-            'Unrated
+    .row.profile
+      .col-md-3.col
+        = image_tag shop_image(@shop), size: "240x200", class: "img-thumbnail"
+        p = @shop.description
 
-        .col-md-4
-          h2
-            = @shop.name
-          p
-            b Telephone :
-            = @shop.telephone
-          p
-            b Mobile Phones :
-            = @shop.mobile_phones
-          p
-            b Address :
-            = @shop.address
-          p
-            b Domain Shop :
-            = link_to @shop.business_name, "http://#{@shop.business_name}"
-          p
-            b Shop Email :
-            = @shop.business_email
-            br
-          p
-            b Total Product:
-            = @products.size
-          = link_to "Like (#{@shop.get_upvotes.size})", like_shop_path(@shop), class: "btn btn-default btn-sm text-right", id: "shop-upvotes-size", method: :put, remote: true
-        .col-md-5
-          p
-            b Work Hours :
-          .row
-            - @work_hours.each do |work|
-              center.col-md-6
-                h5 = work.day_work
-                .btn = work.start_work
-                ' To
-                .btn = work.end_work
+        - @categories.each do |category|
+          b = category.name
 
-      -if unreviewed_by?(@shop.id, "Shop")
-        = link_to 'Rate & Review', "#" , class: "btn btn-success", data: {toggle: "modal", target: "#rate" }
-      - if @this_is_current_user_shop
-        = link_to "control panel", generate_path_for(@shop, "controlpanel"), class: "btn btn-success"
-        = link_to 'Edit', generate_path_for(@shop, "edit"), class: "btn btn-danger"
+        h4 Rating
+        = review @shop
 
-      hr
-      h4 Review
-      .row
-        - if @reviews.present?
-          == render @reviews.limit(4)
-        - else
-          .col-md-6
-            h5 There's no review yet
-      = link_to 'See All Reviews', "#" , class: "btn btn-success", data: {toggle: "modal", target: "#show_review" } if @reviews.count > 4
+      .col-md-4
+        h2 = @shop.name
+        p
+          b Telephone :
+          = @shop.telephone
+        p
+          b Mobile Phones :
+          = @shop.mobile_phones
+        p
+          b Address :
+          = @shop.address
+        p
+          b Domain Shop :
+          = link_to @shop.business_name, "http://#{@shop.business_name}"
+        p
+          b Shop Email :
+          = @shop.business_email
+          br
+        p
+          b Total Product:
+          = @products.size
 
-      hr
-      h4 Product
-      .row
-        - if @products.present?
-          == render @products
-        - else
-          h5 There's no product yet
-        - if @this_is_current_user_shop
-          p = link_to "Add product", generate_product_2_path(@shop, "new")
+        = link_to "Like (#{@shop.get_upvotes.size})", like_shop_path(@shop), class: "btn btn-default btn-sm text-right", id: "shop-upvotes-size", method: :put, remote: true
+
+      .col-md-5
+        p
+          b Work Hours :
+        .row
+          - @work_hours.each do |work|
+            center.col-md-6
+              h5 = work.day_work
+              .btn = work.start_work
+              ' To
+              .btn = work.end_work
+
+    - if !@owner && unreviewed_by?(@shop.id, @shop.class.to_s)
+      = link_to 'Rate & Review', "#" , class: "btn btn-success", data: {toggle: "modal", target: "#rate" }
+    - if @owner
+      = link_to "control panel", generate_path_for(@shop, "controlpanel"), class: "btn btn-success"
+      = link_to 'Edit', generate_path_for(@shop, "edit"), class: "btn btn-danger"
+
+    hr
+
+    h4 Review
+    .row
+      = @reviews.exists? ? render(@reviews.limit(4)) : "<div class='col-md-6'> Theres no review yet </div>".html_safe
+      = link_to 'See All Reviews', "#" , class: "btn btn-success", data: {toggle: "modal", target: "#show_review" } if @reviews_count > 4
+    hr
+
+    h4 Product
+    .row
+      = @products.exists? ? render(@products) : "<div class='col-md-2'> Theres no product yet </div>".html_safe
+      = link_to("Add product", generate_product_2_path(@shop, "new")) if @owner
+    hr
 
 = render partial: "shared/modal_reviews", locals: {reviewable_id: @shop.id, reviewable_type: "Shop"}

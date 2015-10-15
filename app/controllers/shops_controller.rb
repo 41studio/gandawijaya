@@ -4,6 +4,8 @@ before_action :check_and_set_premium_url, only: [:edit, :show, :controlpanel]
 before_action :set_products, only: [:show]
 before_action :find_shop, only: [:like]
 
+decorates_assigned :shop
+
   def create
     @shop = current_user.shops.new(shop_params)
     create!
@@ -17,33 +19,35 @@ before_action :find_shop, only: [:like]
 
   def edit
     @shop = current_user.shops.find @shop
+
     if any_redirect_to_premium_path(resource)
-      redirect_to edit_shop_premium_url(resource.premium_account_url), status: 301
+      redirect_to edit_shop_premium_url(resource.url), status: 301
     else
       @auto_select = false
       edit!
     end
   end
 
+  # TODO Implement memoizing, remove inherited resource
   def show
     if any_redirect_to_premium_path(resource)
-      redirect_to shop_premium_url(resource.premium_account_url), status: 301
+      redirect_to shop_premium_url(premium_path: resource.url, id: resource.id), status: 301
     else
-      @categories = @shop.scategories
-      @work_hours = @shop.opening_hours.not_contain_nil_hour.order_by_day
-      @reviews    = resource.reviews
-      @review     = Review.new
-      @products   = Product.all
-      @products   = resource.products
-      @this_is_current_user_shop = current_user.shops.include? resource if current_user
+      @categories       = @shop.scategories
+      @work_hours       = @shop.opening_hours.not_contain_nil_hour.order_by_day
+      @reviews          = resource.reviews
+      @reviews_count  ||= @reviews.count
+      @review           = Review.new
+      @owner            = current_user.owner? resource if user_signed_in?
+      @products         = resource.products.newest
       show!
     end
   end
 
   def update
-    if resource.premium_account.present? && resource.premium_account.status
+    if resource.account_status
       update! do |success, failure|
-        success.html { redirect_to shop_premium_url(resource.premium_account_url) }
+        success.html { redirect_to shop_premium_url(resource.url) }
       end
     else
       update!
@@ -52,28 +56,31 @@ before_action :find_shop, only: [:like]
 
   def controlpanel
     if any_redirect_to_premium_path(@shop)
-      redirect_to controlpanel_shop_premium_url(@shop.premium_account_url), status: 301
+      redirect_to controlpanel_shop_premium_url(@shop.url), status: 301
     end
-      @shop = current_user.shops.find @shop
-      @products = @shop.products
 
-    if params[:product].present?
-      product = Product.find params[:product]
-      @offer_rooms = product.offer_rooms
-    else
-      @offer_rooms = @shop.offer_rooms.order(:product_id)
-    end
+    @shop               = current_user.shops.find @shop.id
+    @products           = @shop.products
+    @products_bar_chart = @products.map{ |post| [post.name, post.impressionist_count] }
+    @params_product     = params[:product]
+
+    @offer_rooms =
+      if @params_product.present?
+        Product.find(@params_product).offer_rooms.decorate
+      else
+        @shop.offer_rooms.order(:product_id).decorate
+      end
   end
 
   def approve
-    @shop = Shop.find(params[:id])
-    @shop.approved!
+    shop = Shop.find(params[:id])
+    shop.approved!
     redirect_to :back
   end
 
   def on_progress
-    @shop = Shop.find(params[:id])
-    @shop.on_progress!
+    shop = Shop.find(params[:id])
+    shop.on_progress!
     redirect_to :back
   end
 
@@ -81,7 +88,7 @@ before_action :find_shop, only: [:like]
     @shop.like_by current_user
     respond_to do |format|
         format.html { redirect_to :back }
-        format.js { render template: "shops/like_dislike.js" }
+        format.js   { render "shops/like_dislike.js" }
     end
   end
 
@@ -101,7 +108,7 @@ before_action :find_shop, only: [:like]
 
     def shop_params
       params.require(:shop).permit(:name, :image,  :description,   :address,
-                                     :mobile_phones, :business_name, :business_email,
+                                   :mobile_phones, :business_name, :business_email,
                                    :categories,    :cover_image,   :telephone,
                                    opening_hours_attributes:  [:id, :day_work, :start_work,
                                                                :end_work, :_destroy],

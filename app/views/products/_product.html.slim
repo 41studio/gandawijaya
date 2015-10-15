@@ -4,6 +4,6 @@
   p = link_to product.name, link_product
   span.label.label-success = "Rp. #{product.price}"
   p = truncate product.description, length: 120
-  - if @this_is_current_user_shop
+  - if @owner
     p = link_to 'Edit', generate_product_path(product, "edit")
     p = link_to 'Delete', generate_product_path(product, "destroy"), data: {confirm: 'Are you sure?'}, method: :delete

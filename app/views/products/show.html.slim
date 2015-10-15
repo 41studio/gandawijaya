@@ -18,30 +18,28 @@
         = @product.price
       p
         b Rating
-        = star_view(Time.now.to_i, @product.reviews.average(:rate_point))
+        = star_view('product#{@product.id}', @product.reviews.average(:rate_point))
       = link_to "Like (#{@product.get_upvotes.size})", like_product_path(@product.id), data: {toggle: "tooltip", placement: "top"}, title: "Like", class: "btn btn-default btn-sm", id: "product-upvotes-size",method: :put, remote: true
 
     .col-md-2
-      - if @user_product
-        = link_to 'Edit', generate_product_path(@product, "edit"), class: "btn btn-success"
+      = link_to 'Edit', generate_product_path(@product, "edit"), class: "btn btn-success" if @user_product
       = link_to 'Back', generate_path_for(@shop, "show"), class: "btn btn-primary"
 
   .btn-group
-    -if unreviewed_by?(@product.id, "Product")
-      = link_to 'Rate & Review', "#" , class: "btn btn-success", data: {toggle: "modal", target: "#rate" }
     - if user_signed_in? && !@user_product
-        = link_to 'Send an offer' ,collect_offers_path(product: @product, user_id: current_user), data: {toggle: "modal", target:"#ajax-modal"}, class: "btn btn-success", remote: true
+      -if unreviewed_by?(@product.id, @product.class.to_s)
+        = link_to 'Rate & Review', "#" , class: "btn btn-success", data: {toggle: "modal", target: "#rate" }
+      = link_to 'Send an offer' ,collect_offers_path(product_id: @product.id, user_id: current_user.id), data: {toggle: "modal", target:"#ajax-modal"}, class: "btn btn-success", remote: true
     - elsif !user_signed_in?
       = link_to 'Send an offer' ,"#", data: {toggle: "modal", target:"#ajax-modal"}, class: "btn btn-success"
   hr
 
   h4 Review
   .row
-    - if @reviews.present?
-      == render @reviews.limit(4)
-    - else
-      .col-md-6
+    = @reviews.exists? ? render(@reviews.limit(4)) : content_tag(:div, "Theres no product yet", class: "col-md-6")
         h5 There's no review yet
+  = link_to 'See All Reviews', "#" , class: "btn btn-success", data: {toggle: "modal", target: "#show_review" } if @reviews.count > 4
+  hr
 
 = render partial: "shared/modal_reviews", locals: {reviewable_id: @product.id, reviewable_type: "Product"}
 = render partial: "shared/modal_offer_ajax", locals: {offers: @offers, product: @product}

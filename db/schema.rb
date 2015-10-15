@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151006030945) do
+ActiveRecord::Schema.define(version: 20151015071126) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,8 +103,11 @@ ActiveRecord::Schema.define(version: 20151006030945) do
     t.datetime "updated_at", null: false
     t.integer  "product_id"
     t.integer  "shop_id"
-    t.string   "offerer"
     t.integer  "user_id"
+    t.string   "name"
+    t.text     "content"
+    t.string   "email"
+    t.integer  "telephone"
   end
 
   add_index "offer_rooms", ["product_id"], name: "index_offer_rooms_on_product_id", using: :btree
@@ -134,18 +137,6 @@ ActiveRecord::Schema.define(version: 20151006030945) do
   end
 
   add_index "opening_hours", ["shop_id"], name: "index_opening_hours_on_shop_id", using: :btree
-
-  create_table "premium_accounts", force: :cascade do |t|
-    t.string   "url"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.integer  "user_id"
-    t.integer  "shop_id"
-    t.boolean  "status",     default: false
-  end
-
-  add_index "premium_accounts", ["shop_id"], name: "index_premium_accounts_on_shop_id", using: :btree
-  add_index "premium_accounts", ["user_id"], name: "index_premium_accounts_on_user_id", using: :btree
 
   create_table "products", force: :cascade do |t|
     t.string   "name"
@@ -220,6 +211,8 @@ ActiveRecord::Schema.define(version: 20151006030945) do
     t.string   "business_email"
     t.string   "categories"
     t.string   "cover_image"
+    t.boolean  "account_status"
+    t.string   "url"
   end
 
   add_index "shops", ["slug"], name: "index_shops_on_slug", unique: true, using: :btree
@@ -285,8 +278,6 @@ ActiveRecord::Schema.define(version: 20151006030945) do
   add_foreign_key "offers", "offer_rooms"
   add_foreign_key "offers", "users"
   add_foreign_key "opening_hours", "shops"
-  add_foreign_key "premium_accounts", "shops"
-  add_foreign_key "premium_accounts", "users"
   add_foreign_key "products", "shops"
   add_foreign_key "products", "users"
   add_foreign_key "reviews", "users"

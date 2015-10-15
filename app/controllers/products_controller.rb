@@ -7,13 +7,13 @@ before_action :find_product, only: [:like]
 
   def show
     if any_redirect_to_premium_path(@shop)
-      redirect_to product_premium_url(premium_path: @shop.premium_account_url, id: resource), status: 301
+      redirect_to product_premium_url(premium_path: @shop.url, id: resource), status: 301
     else
-      @review = Review.new
+      @review  = Review.new
       @reviews = resource.reviews
       impressionist(resource, "view product")
-      if current_user
-        @offers = resource.offer_rooms.where(user_id: current_user.id).first.try(:offers)
+      if user_signed_in?
+        @offers       = resource.offer_rooms.find_by(user_id: current_user.id).try(:offers)
         @user_product = current_user.products.find_by(id: resource.id).present?
       end
       show!
@@ -21,26 +21,27 @@ before_action :find_product, only: [:like]
   end
 
   def new
-    @shop = current_user.shops.find @shop
+    @shop    = current_user.shops.find @shop
     @product = @shop.products.new
+
     if any_redirect_to_premium_path(@shop)
-      redirect_to new_product_premium_url(premium_path: @shop.premium_account_url), status: 301
+      redirect_to new_product_premium_url(premium_path: @shop.url), status: 301
     end
   end
 
   def edit
     @shop = current_user.shops.find @shop
-    if any_redirect_to_premium_path(resource.shop)
-      redirect_to edit_product_premium_url(premium_path: resource.shop.premium_account_url, id: resource), status: 301
+    if any_redirect_to_premium_path(@shop)
+      redirect_to edit_product_premium_url(premium_path: @shop.url, id: @shop), status: 301
     else
       edit!
     end
   end
 
   def update
-    if resource.shop.premium_account.present? && resource.shop.premium_account.status
+    if resource.shop.account_status
       update! do |success, failure|
-        success.html { redirect_to product_premium_url(premium_path: resource.shop.premium_account_url, id: resource) }
+        success.html { redirect_to product_premium_url(premium_path: resource.shop.url, id: resource) }
       end
     else
       update! do |success, failure|
@@ -51,11 +52,11 @@ before_action :find_product, only: [:like]
 
   def create
     @product = current_user.products.new(product_params)
-    @shop = Shop.find params[:product][:shop_id]
+    @shop    = Shop.find params[:product][:shop_id]
 
-    if @shop.premium_account.present? && @shop.premium_account_status
+    if @shop.account_status
       create! do |success, failure|
-        success.html { redirect_to product_premium_url(premium_path: @shop.premium_account_url, id: @product) }
+        success.html { redirect_to product_premium_url(premium_path: @shop.url, id: @product) }
       end
     else
       create! do |success, failure|
@@ -63,16 +64,15 @@ before_action :find_product, only: [:like]
       end
     end
 
-    if @shop.approved? && @product.valid?
-      @product.approved!
-    end
+    @product.approved! if @shop.approved? && @product.valid?
+
   end
 
   def like
     @product.like_by current_user
     respond_to do |format|
         format.html { redirect_to :back }
-        format.js { render template: "products/like_dislike.js" }
+        format.js   { render "products/like_dislike.js" }
     end
   end
 
@@ -90,7 +90,8 @@ before_action :find_product, only: [:like]
     end
 
     def product_params
-      params.require(:product).permit(:name, :price, :description, :shop_id, galleries_attributes: [:id, :image, :_destroy])
+      params.require(:product).permit(:name, :price, :description, :shop_id,
+                                      galleries_attributes: [:id, :image, :_destroy])
     end
 end
 

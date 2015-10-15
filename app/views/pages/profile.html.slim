@@ -4,7 +4,7 @@
       .col-md-4
         br
         .thumbnail
-          = image_tag(current_user.image.url || "noimg.png", size: "170x190")
+          = image_tag(current_user.image.url, size: "170x190")
           hr
           center
             = link_to 'Change Avatar', "#" , class: "btn btn-success", data: {toggle: "modal", target: "#upload" }

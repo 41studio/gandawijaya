@@ -25,9 +25,12 @@ class Product < ActiveRecord::Base
   has_many   :galleries,   dependent: :destroy
   has_many   :reviews,     dependent: :destroy,  as: :reviewable
   has_many   :offer_rooms, dependent: :destroy
+  has_many   :offers, through: :offer_rooms
 
   belongs_to :shop
   belongs_to :user
+
+  scope :newest, -> { order(created_at: :desc) }
 
   delegate :id, :name, to: :shop, allow_nil: true, prefix: true
   delegate :id, :username, :image, to: :shop, allow_nil: true, prefix: true
@@ -40,7 +43,10 @@ class Product < ActiveRecord::Base
   after_create :sendmail_create_product
 
   def sendmail_create_product
-    ProductMailer.product_created(self.user).deliver
+    ProductMailer.product_created(self.user).deliver_now
   end
 
+  def should_generate_new_friendly_id?
+    name_changed? || super
+  end
 end

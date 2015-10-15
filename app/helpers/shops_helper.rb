@@ -11,9 +11,17 @@ module ShopsHelper
     end
   end
 
+  def cover(shop)
+    shop.approved? ? image_tag(shop.cover_image.cover.url) : image_tag(shop_image(shop))
+  end
+
+  def review(shop)
+    shop.reviews.any? ? star_view(Time.now.to_i, shop.reviews.average(:rate_point).to_i) : 'Unrated'
+  end
+
   def shop_image(shop)
     if shop.approved?
-      shop.image.url  || "noimg.png"
+      shop.image.url
     elsif shop.on_progress?
       "ip.png"
     else
@@ -38,5 +46,4 @@ module ShopsHelper
   def unread_by_offerer?(offers)
     'unread' unless offers.where.not(user_id: current_user.id).last.try(:read_by_offerer)
   end
-
 end

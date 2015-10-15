@@ -13,7 +13,7 @@ feature "Shops" do
     @category2    = create(:scategory)
   end
 
-  scenario 'create shop', js: true do
+  scenario 'create', js: true do
     login_as(@user, :scope => :user, :run_callbacks => false)
     visit '/shops/new'
 
@@ -31,7 +31,7 @@ feature "Shops" do
     expect(page).to have_content('Shop was successfully created.')
   end
 
-  scenario 'update shop', js: true do
+  scenario 'update', js: true do
     login_as(@user, :scope => :user, :run_callbacks => false)
     visit shop_path(@shop)
     click_link 'Edit'

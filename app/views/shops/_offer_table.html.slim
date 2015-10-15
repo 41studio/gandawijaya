@@ -1,13 +1,14 @@
 h3 Offers
 ul id="offerTabs" class="nav nav-tabs" role="tablist"
-  - if params[:product].present?
+  - if @params_product.present?
     li role="presentation"
       = link_to "All Offer", generate_path_for(@shop, "controlpanel"), remote: true
   - else
     li role="presentation" class="active"
       = link_to "All Offer", generate_path_for(@shop, "controlpanel"), remote: true
+
   - @products.each do |product|
-    - if params[:product].present? && product.slug.eql?(params[:product])
+    - if @params_product.present? && product.slug.eql?(@params_product)
       li role="presentation" class="active"
         = link_to product.name, generate_path_for(@shop, "controlpanel", product: product), remote: true
     - else

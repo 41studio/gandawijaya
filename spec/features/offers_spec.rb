@@ -25,7 +25,7 @@ feature "Offers" do
     fill_in 'Mobile number' , with: @user.handphone
     fill_in 'Content'       , with: @offer_content
 
-    click_on 'Create Offer'
+    find('.btn-submit-offer').click
 
     expect(page).to have_content 'Offer succesfully created'
   end
@@ -37,7 +37,7 @@ feature "Offers" do
     click_on 'Send an offer'
     fill_in 'Content'       , with: @offer_content
 
-    click_on 'Create Offer'
+    find('.btn-submit-offer').click
 
     expect(page).to have_content(@offer_content)
   end
@@ -55,7 +55,7 @@ feature "Offers" do
 
     #user reply
     fill_in 'Content'       , with: @offer_reply
-    click_on 'Create Offer'
+    find('.btn-submit-offer').click
 
     expect(page).to have_content(@offer_reply)
   end
@@ -69,7 +69,7 @@ feature "Offers" do
 
     click_link @offer.content
     fill_in 'Content'       , with: @offer_reply
-    click_on 'Create Offer'
+    click_on 'Create Offer', wait: 10
 
     expect(page).to have_content(@offer_reply)
 

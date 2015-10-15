@@ -35,7 +35,6 @@ class Shop < ActiveRecord::Base
     has_many :scategory_shops
     has_many :reviews, as: :reviewable
     has_many :products
-    has_one  :premium_account
     has_many :opening_hours
     has_many :offer_rooms
   end
@@ -43,9 +42,7 @@ class Shop < ActiveRecord::Base
   belongs_to :user
 
   delegate :username, :id, to: :user, allow_nil: true, prefix: true
-  delegate :url, :status, to: :premium_account, prefix: true
 
-  accepts_nested_attributes_for :premium_account, allow_destroy: true
   accepts_nested_attributes_for :opening_hours, allow_destroy: true
   accepts_nested_attributes_for :scategory_shops, allow_destroy: true
 
@@ -58,6 +55,9 @@ class Shop < ActiveRecord::Base
   validates :address, presence: true
   validates :telephone, presence: true, numericality: true
   validates :mobile_phones, presence: true, numericality: true
+
+  scope :newest, -> { order(created_at: :desc) }
+  scope :find_with_url, -> (url) { find_by!(url: url) }
 
   SHOP_DAY_WORK  = [ "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu" ]
   SHOP_WORK_HOUR = ["Closed", "1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00",

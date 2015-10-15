@@ -10,18 +10,13 @@ class ApplicationController < ActionController::Base
     end
 
     def any_redirect_to_premium_path(resource)
-      params[:premium_path].blank? && resource.try(:premium_account).try(:status)
+      params[:premium_path].blank? && resource.account_status
     end
 
     def check_and_set_premium_url
       if params[:premium_path]
-        premium_account = PremiumAccount.with_url(params[:premium_path]).first
-        if premium_account.present?
-          @shop = Shop.find(premium_account.shop_id)
-        else
-          redirect_to shops_path, notice: "maaf url tidak ada" and return
-        end
-      else
+        @shop = Shop.find_with_url(params[:premium_path])
+      elsif params[:id] || params[:shop_id]
         @shop = Shop.find params[:id]||params[:shop_id]
       end
     end

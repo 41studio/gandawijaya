@@ -9,10 +9,10 @@ FactoryGirl.define do
     email                 { Faker::Internet.free_email }
     password              { password }
     password_confirmation { password }
-    handphone             { Faker::Number.number(10) }
+    handphone             { Faker::Number.number(8) }
     address               { Faker::Lorem.sentence(3) }
 
-    after(:create){ |user| user.confirm! }
+    after(:create){ |user| user.confirm }
   end
 
   factory :another_user, class: User do
@@ -23,9 +23,9 @@ FactoryGirl.define do
     password              { password }
     password_confirmation { password }
     address               { Faker::Lorem.sentence(3) }
-    handphone             { Faker::Number.number(10) }
+    handphone             { Faker::Number.number(8) }
 
-    after(:create){ |user| user.confirm! }
+    after(:create){ |user| user.confirm }
   end
 
 end

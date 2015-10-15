@@ -1,29 +1,22 @@
 module ApplicationHelper
 	def unreviewed_by?(id, type)
-		if current_user
-			if type.eql? "Shop"
-				owner = current_user.shops.find_by(id: id).nil?
-			else
-				owner = current_user.products.find_by(id: id).nil?
-			end
-			 owner && current_user.reviews.where(reviewable_id: id, reviewable_type: type).blank?
-		end
+		current_user.reviews.where(reviewable_id: id, reviewable_type: type).blank? if current_user
 	end
 
 	def generate_path_for(object, action, options={})
-		if object.premium_account.present? && object.premium_account.status
+		if object.account_status
 			if action.eql? "show"
-			 shop_premium_path(object.premium_account_url)
+			 shop_premium_path(object.url)
 			elsif action.eql? "edit"
-			 edit_shop_premium_path(object.premium_account_url)
+			 edit_shop_premium_path(object.url)
 			elsif action.eql? "controlpanel"
 				if options[:product].present?
-					controlpanel_shop_premium_path(id: object.premium_account_url, product: options[:product])
+					controlpanel_shop_premium_path(id: object.url, product: options[:product])
 				else
-				 controlpanel_shop_premium_path(object.premium_account_url)
+				 controlpanel_shop_premium_path(object.url)
 			 	end
 		 	elsif action.eql? "show_offer"
-		 		show_offers_premium_path(premium_path: object.premium_account_url, product_id: options[:product_id], user_id: options[:user_id])
+		 		show_offers_premium_path(premium_path: object.url, product_id: options[:product_id], user_id: options[:user_id])
 			end
 		else
 			if action.eql? "show"
@@ -43,17 +36,17 @@ module ApplicationHelper
 	end
 
 	def generate_product_path(object, action)
-		if object.shop.premium_account.present? && object.shop.premium_account.status
+		if object.shop.account_status
 			if action.eql? "show"
-				 product_premium_path(premium_path: object.shop.premium_account_url, id: object)
+				 product_premium_path(premium_path: object.shop.url, id: object)
 			elsif action.eql? "edit"
-				 edit_product_premium_path(premium_path: object.shop.premium_account_url, id: object)
+				 edit_product_premium_path(premium_path: object.shop.url, id: object)
 			elsif action.eql? "new"
-				 new_product_premium_path(premium_path: object.shop.premium_account_url)
+				 new_product_premium_path(premium_path: object.shop.url)
 			elsif action.eql? "form"
 				[object.shop, object]
 			elsif action.eql? "destroy"
-				product_premium_path(premium_path: object.shop.premium_account_url, id: object)
+				product_premium_path(premium_path: object.shop.url, id: object)
 		 end
 		else
 			if action.eql? "show"
@@ -71,8 +64,8 @@ module ApplicationHelper
 	end
 
 		def generate_product_2_path(object, action)
-		if object.premium_account.present?  && object.premium_account.status
-			new_product_premium_path(premium_path: object.premium_account_url)
+		if object.account_status
+			new_product_premium_path(premium_path: object.url)
 		else
 			new_shop_product_path(shop_id: object)
 		end

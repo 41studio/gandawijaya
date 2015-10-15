@@ -4,7 +4,8 @@ ActiveAdmin.register Shop do
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
-   permit_params :name, :image, :description, :status, premium_account_attributes: [:id, :url, :user_id, :shop_id, :status, :_destroy]
+   permit_params  :name, :image, :description, :status, :address, :telephone, :mobile_phones, :business_email,
+                  :business_email, :categories, :url, :account_status
   #
   # or
   #
@@ -30,24 +31,10 @@ ActiveAdmin.register Shop do
       f.input :categories
 
       h4 "premium account settings", id: "premium-h4"
-      f.inputs "", for: [:premium_account, f.object.premium_account || shop.build_premium_account] do |form|
-          form.input :status, label: "premium shop"
-          form.input :url
-          form.input :shop_id, value: shop.user.id, as: :hidden
-          form.input :shop_id, value: shop.id, as: :hidden
-          # button "save", onclick: "$(this.form).submit();", id: "save-nested-admin"
-      end
+      f.input :account_status, label: "premium shop"
+      f.input :url
       f.actions
    end
-    # f.inputs 'premium_account' do
-    #   f.has_one :premium_account, heading: 'Themes', allow_destroy: true, new_record: true do |a|
-    #     a.input :title
-    #     a.input :status, as: :boolean, checked_value: true, unchecked_value: false, label: "premium shop :"
-    #     a.input :url
-    #     a.hidden_field :shop_id, value: shop.id
-    #     a.hidden_field :user_id, value: shop.user.id
-    #   end
-    # end
  end
 
   show do

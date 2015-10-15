@@ -45,8 +45,6 @@ Rails.application.routes.draw do
                                     registrations: "users/registrations",
                                     omniauth_callbacks: "users/omniauth_callbacks" }
 
-  post '/premium/request/:id', to: "premium_account#create"
-  patch '/premium/request/:id', to: "premium_account#update"
   get '/:premium_path/edit',to: "shops#edit", as: :edit_shop_premium
   get '/:premium_path',to: "shops#show", as: :shop_premium
   get '/:premium_path/controlpanel', to: "shops#controlpanel", as: :controlpanel_shop_premium

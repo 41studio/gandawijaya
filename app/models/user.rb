@@ -49,7 +49,6 @@ class User < ActiveRecord::Base
     has_many :reviews
     has_many :shops
     has_many :products
-    has_many :premium_accounts
     has_many :offer_rooms
   end
 
@@ -76,6 +75,10 @@ class User < ActiveRecord::Base
       user.remote_image_url = auth.info.image
       user.user_agent = user_agent
     end
+  end
+
+  def owner?(shop)
+    @owner ||= shop.user_id.eql? id
   end
 
 end

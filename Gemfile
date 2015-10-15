@@ -14,6 +14,7 @@ gem 'therubyracer'
 gem 'carrierwave'
 gem 'slim'
 gem 'slim-rails'
+gem 'thin'
 gem 'inherited_resources'
 gem 'less-rails-bootstrap'
 
@@ -33,7 +34,8 @@ gem 'impressionist'
 gem 'groupdate'
 gem 'fog', '~> 1.34.0'
 gem 'exception_notification'
-gem "letter_opener", :group => :development
+gem 'letter_opener', group: :development
+gem 'bullet', group: :development
 gem 'devise'
 gem 'mini_magick'
 gem 'acts_as_commentable'
@@ -45,6 +47,7 @@ gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 gem 'searchkick'
 gem "rails_best_practices"
+gem 'draper', '~> 1.3'
 
 group :production do
   gem 'rails_12factor'

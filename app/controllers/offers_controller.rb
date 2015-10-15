@@ -2,28 +2,21 @@ class OffersController < ApplicationController
 before_action :offer_params, only: [:create]
 
   def create
-    unless user_signed_in?
-      params[:offer][:offerer] = params[:email_offerer]+'|'+params[:name]+'|'+params[:phone]
-    else
-      params[:offer][:user_id] = current_user.id unless params[:offer][:user_id].present?
-    end
-    offer_room = OfferRoom.where(shop_id:     params[:offer][:shop_id],
-                                  product_id: params[:offer][:product_id],
-                                  user_id:    params[:offer][:user_id]
-                                  ).first_or_create{ |offer| offer.offerer = params[:offer][:offerer] }
-    offer = offer_room.offers.new(offer_params)
+    offer_room = OfferRoom.find_if_any_or_initialize_by(params[:offer])
 
     if user_signed_in?
+      offer         = offer_room.offers.new(offer_params)
       offer.user_id = current_user.id
-      @offers = offer.offer_room.offers
-      @offer_rooms = OfferRoom.where(user_id: params[:offer][:user_id]).newest
-    end
 
-    if offer.save!
-      respond_to do |format|
-        format.html{ redirect_to :back, notice: "Offer succesfully created" }
-        format.js
+      @offers       = offer_room.offers
+      @offer_rooms  = OfferRoom.where(user_id: params[:offer][:user_id]).newest
+
       end
+      if offer_room.save!
+        respond_to do |format|
+          format.html{ redirect_to :back, notice: "Offer succesfully created" }
+          format.js
+        end
     end
   end
 

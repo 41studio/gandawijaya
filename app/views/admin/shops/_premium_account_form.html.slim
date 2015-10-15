@@ -1,7 +1,4 @@
-= simple_form_for(shop.premium_account.present? ? shop.premium_account : shop.build_premium_account, url: '/premium/request/:id') do |form|
-  = form.input :status, as: :boolean, checked_value: true, unchecked_value: false, label: "premium shop :"
+= simple_form_for(shop, url: admin_shop_path(shop) ) do |form|
+  = form.input :account_status, as: :boolean, checked_value: true, unchecked_value: false, label: "premium shop :"
   = form.input :url
-  = form.hidden_field :shop_id, value: shop.id
-  = form.hidden_field :user_id, value: shop.user.id
-  / = form.button :submit, "save"
   = button_to "Save", onclick: "$(this.form).submit()"
