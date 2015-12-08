@@ -32,7 +32,7 @@ div id="graphTabsContent" class="tab-content"
     = bar_chart @products.map{ |post| [post.name, post.get_upvotes.size] }
   - @products.each do |product|
     div role="tabpanel" class="tab-pane fade in" id="#{product.id}_likes" aria-labelledBy="#{product.id}-tab"
-      = column_chart product_impression_graph(product.id, "Product")
+      = column_chart product.get_upvotes.group_by_day(:created_at, format: "%d %b %Y").count, width: "500px"
 
 .offer-tabs
   = render partial: "shops/offer_table", locals: { offer_rooms: @offer_rooms }
