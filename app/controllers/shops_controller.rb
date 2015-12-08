@@ -1,5 +1,5 @@
 class ShopsController < InheritedResources::Base
-before_action :authenticate_user!, except: [:show, :index, :approve, :on_progress]
+before_action :authenticate_user!, except: [:show, :index, :approve, :on_progress, :searching]
 before_action :check_and_set_premium_url, only: [:edit, :show, :controlpanel]
 before_action :set_products, only: [:show]
 before_action :find_shop, only: [:like]
@@ -87,6 +87,14 @@ before_action :find_shop, only: [:like]
 
   def autocompletecategory
     render json: Scategory.all.where("name ILIKE ?", "%#{params[:search]}%").as_json(only: [:name, :id])
+  end
+
+  def searching
+    @search = params[:search_by].eql?("shop") ? Shop.search_shop(params[:search_text], params[:search_by]) : Product.search_product(params[:search_text])
+    # @search = Shop.search_shop(params[:search_text], params[:search_by])
+    @search_par = {search_by: params[:search_by], search_text: params[:search_text]}
+
+    # render json: { result: @search, count: @search.length }
   end
 
   private

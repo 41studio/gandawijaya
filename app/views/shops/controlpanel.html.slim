@@ -17,6 +17,23 @@ div id="graphTabsContent" class="tab-content"
     div role="tabpanel" class="tab-pane fade in" id="#{product.id}" aria-labelledBy="#{product.id}-tab"
       = column_chart product_impression_graph(product.id, "Product")
 
+h3 Likes
+ul id="graphTabs" class="nav nav-tabs" role="tablist"
+  li role="presentation" class="active"
+    a href="#allproducts_list" role="tab" data-toggle="tab" aria-controls="allproducts"
+      ' All Product
+  - @products.each do |product|
+    li role="presentation"
+      a href="##{product.id}_likes" role="tab" data-toggle="tab" aria-controls="#{product.id}"
+        = product.name
+
+div id="graphTabsContent" class="tab-content"
+  div role="tabpanel" class="tab-pane fade in active" id="allproducts_list" aria-labelledBy="allproducts-tab"
+    = bar_chart @products.map{ |post| [post.name, post.get_upvotes.size] }
+  - @products.each do |product|
+    div role="tabpanel" class="tab-pane fade in" id="#{product.id}_likes" aria-labelledBy="#{product.id}-tab"
+      = column_chart product_impression_graph(product.id, "Product")
+
 .offer-tabs
   = render partial: "shops/offer_table", locals: { offer_rooms: @offer_rooms }
 

@@ -70,11 +70,15 @@ module ApplicationHelper
 		end
 	end
 
-		def generate_product_2_path(object, action)
+	def generate_product_2_path(object, action)
 		if object.premium_account.present?  && object.premium_account.status
 			new_product_premium_path(premium_path: object.premium_account_url)
 		else
 			new_shop_product_path(shop_id: object)
 		end
+	end
+
+	def search_option
+		options_for_select([['Shops', 'shop'], ['Products', 'product']])
 	end
 end

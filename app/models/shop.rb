@@ -20,11 +20,13 @@
 #  cover_image    :string
 #
 
-require 'elasticsearch/model'
-
 class Shop < ActiveRecord::Base
   extend FriendlyId
   acts_as_votable
+  # searchkick
+  # searchkick settings: {number_of_shards: 5}
+  # searchkick callbacks: :async
+  searchkick word_start: [:name], callbacks: :async
 
   friendly_id    :name_and_id, use: [:slugged, :finders]
   mount_uploader :image, GalleryUploader
@@ -50,6 +52,7 @@ class Shop < ActiveRecord::Base
   accepts_nested_attributes_for :scategory_shops, allow_destroy: true
 
   after_create :send_mail_new_shop
+  # after_save :reindex_data
 
   validates :name,  presence: true, format: { with: /\A[a-zA-Z0-9 ]+\Z/ },
                     length: {  within: 2..40,
@@ -74,5 +77,23 @@ class Shop < ActiveRecord::Base
   def should_generate_new_friendly_id?
     name_changed? || super
   end
+
+  def self.search_shop(text, search_by)
+    # search(text, include: [:premium_account], fields: [{"name^2" => :word_start}], order: {name: :desc})
+    # search(text, fields: [{"name^2" => :word_start}])
+    search text, fields: [{"name^10" => :word_start}], boost_where: {premium: true}
+  end
+
+  def search_data
+    {
+      name: name,
+      premium: premium_account.present?
+    }
+  end
+
+  private
+    def reindex_data
+      reindex
+    end
 
 end

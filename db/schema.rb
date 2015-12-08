@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151006030945) do
+ActiveRecord::Schema.define(version: 20151203073329) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -155,26 +155,13 @@ ActiveRecord::Schema.define(version: 20151006030945) do
     t.datetime "updated_at",              null: false
     t.integer  "shop_id"
     t.string   "slug"
-    t.integer  "user_id"
     t.integer  "status",      default: 0
+    t.integer  "user_id"
   end
 
   add_index "products", ["shop_id"], name: "index_products_on_shop_id", using: :btree
   add_index "products", ["slug"], name: "index_products_on_slug", unique: true, using: :btree
   add_index "products", ["user_id"], name: "index_products_on_user_id", using: :btree
-
-  create_table "rates", force: :cascade do |t|
-    t.integer  "rater_id"
-    t.integer  "rateable_id"
-    t.string   "rateable_type"
-    t.float    "stars",         null: false
-    t.string   "dimension"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "rates", ["rateable_id", "rateable_type"], name: "index_rates_on_rateable_id_and_rateable_type", using: :btree
-  add_index "rates", ["rater_id"], name: "index_rates_on_rater_id", using: :btree
 
   create_table "reviews", force: :cascade do |t|
     t.text     "content"
@@ -211,15 +198,15 @@ ActiveRecord::Schema.define(version: 20151006030945) do
     t.string   "image"
     t.text     "description"
     t.string   "slug"
-    t.integer  "user_id"
     t.string   "address"
-    t.integer  "status"
     t.string   "telephone"
     t.string   "mobile_phones"
     t.string   "business_name"
     t.string   "business_email"
     t.string   "categories"
     t.string   "cover_image"
+    t.integer  "user_id"
+    t.integer  "status"
   end
 
   add_index "shops", ["slug"], name: "index_shops_on_slug", unique: true, using: :btree
@@ -288,9 +275,7 @@ ActiveRecord::Schema.define(version: 20151006030945) do
   add_foreign_key "premium_accounts", "shops"
   add_foreign_key "premium_accounts", "users"
   add_foreign_key "products", "shops"
-  add_foreign_key "products", "users"
   add_foreign_key "reviews", "users"
   add_foreign_key "scategory_shops", "scategories"
   add_foreign_key "scategory_shops", "shops"
-  add_foreign_key "shops", "users"
 end

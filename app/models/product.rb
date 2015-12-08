@@ -14,10 +14,12 @@
 #  status      :integer          default(0)
 #
 
+# require 'elasticsearch/model'
 class Product < ActiveRecord::Base
   extend FriendlyId
   is_impressionable
   acts_as_votable
+  searchkick word_start: [:name], callbacks: :async
 
   friendly_id :name, use: [:slugged, :finders]
   enum status: [:under_review, :on_progress, :approved]
@@ -41,6 +43,19 @@ class Product < ActiveRecord::Base
 
   def sendmail_create_product
     ProductMailer.product_created(self.user).deliver
+  end
+
+  def self.search_product(text)
+    # search(text, fields: [{"name^2" => :word_start}])
+    search text, fields: [{"name^10" => :word_start}], boost_where: {premium: true}
+    # search text, fields: [{"name^10" => :word_start}]
+  end
+
+  def search_data
+    {
+      name: name,
+      premium: shop.premium_account.present?
+    }
   end
 
 end

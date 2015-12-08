@@ -35,6 +35,8 @@ Rails.application.routes.draw do
   post 'shop/approve', to: "shops#approve", as: "approve"
   post 'shop/on_progress', to: "shops#on_progress", as: "on_progress"
 
+  get '/searching' => 'shops#searching', as: :searching
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   resources :shops do

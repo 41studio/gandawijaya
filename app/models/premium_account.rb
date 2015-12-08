@@ -15,6 +15,11 @@ class PremiumAccount < ActiveRecord::Base
   belongs_to :shop
   belongs_to :user
   delegate   :id, :username, :image, to: :shop, allow_nil: true, prefix: true
+  after_commit :reindex_shop
 
   scope :with_url, -> (url) { where(url: url) }
+
+	def reindex_shop
+    Shop.reindex
+  end
 end

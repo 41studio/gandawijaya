@@ -41,8 +41,6 @@ gem 'acts_as_votable', '~> 0.10.0'
 gem 'better_errors'
 gem 'binding_of_caller'
 gem 'jquery-ui-rails'
-gem 'elasticsearch-model'
-gem 'elasticsearch-rails'
 gem 'searchkick'
 gem "rails_best_practices"
 
