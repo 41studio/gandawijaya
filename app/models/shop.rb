@@ -23,6 +23,7 @@
 class Shop < ActiveRecord::Base
   extend FriendlyId
   acts_as_votable
+  is_impressionable
   # searchkick
   # searchkick settings: {number_of_shards: 5}
   # searchkick callbacks: :async

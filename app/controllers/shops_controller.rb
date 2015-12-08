@@ -35,6 +35,7 @@ before_action :find_shop, only: [:like]
       @review     = Review.new
       @products   = Product.all
       @products   = resource.products
+      impressionist(resource, "view shop")
       @this_is_current_user_shop = current_user.shops.include? resource if current_user
       show!
     end

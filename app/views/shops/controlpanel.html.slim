@@ -1,6 +1,13 @@
 = link_to "back", generate_path_for(@shop, "show")
 
+h1 = @shop.name
+hr
 h3 Visits By Day
+
+p Shops
+= column_chart product_impression_graph(@shop.id, "Shop")
+
+p Products
 ul id="graphTabs" class="nav nav-tabs" role="tablist"
   li role="presentation" class="active"
     a href="#allproducts" role="tab" data-toggle="tab" aria-controls="allproducts"
@@ -17,7 +24,12 @@ div id="graphTabsContent" class="tab-content"
     div role="tabpanel" class="tab-pane fade in" id="#{product.id}" aria-labelledBy="#{product.id}-tab"
       = column_chart product_impression_graph(product.id, "Product")
 
-h3 Likes
+h3 Likes By Day
+
+p Shops
+= column_chart @shop .get_upvotes.group_by_day(:created_at, format: "%d %b %Y").count, width: "500px"
+
+p Products
 ul id="graphTabs" class="nav nav-tabs" role="tablist"
   li role="presentation" class="active"
     a href="#allproducts_list" role="tab" data-toggle="tab" aria-controls="allproducts"
