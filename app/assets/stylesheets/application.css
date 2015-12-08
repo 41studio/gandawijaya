@@ -62,3 +62,14 @@
   width: 100%;
 }
 
+.menu-shop {
+  margin-left: 20px;
+  /*display: inline-block;*/
+  vertical-align: middle;
+  /*float: none;*/
+  /*color: #fff;*/
+}
+
+.menu-list {
+  margin-left: 10px;
+}

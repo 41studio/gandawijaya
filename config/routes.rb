@@ -37,6 +37,8 @@ Rails.application.routes.draw do
 
   get '/searching' => 'shops#searching', as: :searching
 
+  get 'shop/' => 'shops#my_shop', as: :my_shop
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   resources :shops do

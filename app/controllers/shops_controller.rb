@@ -97,6 +97,10 @@ before_action :find_shop, only: [:like]
     # render json: { result: @search, count: @search.length }
   end
 
+  def my_shop
+    @shops = current_user.shops
+  end
+
   private
 
     def find_shop

@@ -1,0 +1,14 @@
+h4 My Shops
+.row
+	- if @shops.nil?
+		.col-md-3
+			h4 = "You have not create shop yet"
+			p sdfsdfsdf
+	- else
+		- @shops.each do |shop|
+			.col-md-3
+				- link  = generate_path_for(shop, "show")
+				= link_to (image_tag shop_image(shop), size: "120x100", class: "img-rounded"), link
+				h4 =  link_to shop.name, link
+				p = truncate shop.description, length: 100
+br
