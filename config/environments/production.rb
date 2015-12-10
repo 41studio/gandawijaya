@@ -21,7 +21,8 @@ Rails.application.configure do
   :email => {
     :email_prefix => "[Gandawijaya Error Report] ",
     :sender_address => %{"Gandawijaya Exception Notifier" <test-do-not-reply@41studio.com>},
-    :exception_recipients => %w{adit@41studio.com radiet@41studio.com kris@41studio.com}
+    # :exception_recipients => %w{adit@41studio.com radiet@41studio.com kris@41studio.com}
+    :exception_recipients => %w{alfian@41studio.com agung@41studio.com}
   }
 
   # Eager load code on boot. This eager loads most of Rails and
