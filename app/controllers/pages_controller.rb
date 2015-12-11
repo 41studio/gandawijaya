@@ -38,4 +38,9 @@ class PagesController < ApplicationController
     end
     redirect_to :back
   end
+
+  def recently_offer
+    @offer_rooms = current_user.offer_rooms
+    redirect_to profile_pages_url unless @offer_rooms.present?
+  end
 end

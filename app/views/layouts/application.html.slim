@@ -14,7 +14,7 @@ body
       p.notice = notice
     	p.alert = alert
 
-    = form_tag searching_path, method: 'get', class:'form-inline clearfix' do
+    = form_tag searching_path, method: 'post', class:'form-inline clearfix' do
 
       .form-group.search-by
         = select_tag( :search_by, search_option, class:'form-control')

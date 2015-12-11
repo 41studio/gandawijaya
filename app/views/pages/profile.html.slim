@@ -54,9 +54,16 @@
     br
   .col-md-4.col-md-offset-2
     .list-group
-      .list-group-item.list-group-item-info Recently Offer
-      .js-all-user-offer
-        = render partial: 'shared/modal_offer_user', collection: @offer_rooms, as: :room
+      -if @offer_rooms.present?
+        .list-group-item.list-group-item-info
+          = link_to "Recently Offer", recently_offer_path
+
+        .js-all-user-offer
+          = render partial: 'shared/modal_offer_user', collection: @offer_rooms, as: :room
+      -else
+        .list-group-item.list-group-item-info
+          p Recently Offer
+        p You don't have any offer yet
 
 = link_to "back to index", root_path
 

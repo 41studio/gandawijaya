@@ -91,7 +91,7 @@ before_action :find_shop, only: [:like]
   end
 
   def searching
-    @search = params[:search_by].eql?("shop") ? Shop.search_shop(params[:search_text], params[:search_by]) : Product.search_product(params[:search_text])
+    @search = params[:search_by].eql?("shop") ? Shop.search_shop(params[:search_text]) : Product.search_product(params[:search_text])
     # @search = Shop.search_shop(params[:search_text], params[:search_by])
     @search_par = {search_by: params[:search_by], search_text: params[:search_text]}
 

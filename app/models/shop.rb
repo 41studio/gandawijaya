@@ -79,7 +79,7 @@ class Shop < ActiveRecord::Base
     name_changed? || super
   end
 
-  def self.search_shop(text, search_by)
+  def self.search_shop(text)
     # search(text, include: [:premium_account], fields: [{"name^2" => :word_start}], order: {name: :desc})
     # search(text, fields: [{"name^2" => :word_start}])
     search text, fields: [{"name^10" => :word_start}], boost_where: {premium: true}
