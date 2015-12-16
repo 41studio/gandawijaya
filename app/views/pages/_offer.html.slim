@@ -2,7 +2,9 @@
   .col-md-1
     = image_tag offer.user_image.url || "noimg.png" , size: "50x50"
   .col-md-11
-    h5 = offer.user_username
+    h5
+      / b = "#{offer.user_first_name} #{offer.user_last_name}"
+      b = offer.offer_room.user_id == offer.user_id ? "#{offer.user_first_name} #{offer.user_last_name}" : "#{offer.offer_room.shop_name}"
     = offer.content
     .text-muted.text-right
       abbr class="timeago" title="#{offer.created_at.getutc.iso8601}"

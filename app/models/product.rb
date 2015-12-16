@@ -31,8 +31,8 @@ class Product < ActiveRecord::Base
   belongs_to :shop
   belongs_to :user
 
-  delegate :id, :name, to: :shop, allow_nil: true, prefix: true
-  delegate :id, :username, :image, to: :shop, allow_nil: true, prefix: true
+  # delegate :id, :name, to: :shop, allow_nil: true, prefix: true
+  delegate :id, :username, :image, :name, :first_name, :last_name, to: :shop, allow_nil: true, prefix: true
 
   accepts_nested_attributes_for :galleries, allow_destroy: true
 

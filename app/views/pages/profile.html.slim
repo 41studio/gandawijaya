@@ -54,15 +54,28 @@
     br
   .col-md-4.col-md-offset-2
     .list-group
-      -if @offer_rooms.present?
+      -if current_user.shops.present?
+        -if @offer_rooms.present?
+          .list-group-item.list-group-item-info
+            = link_to "Recently Offer For Products", recently_offer_path(type: "offer")
+
+          .js-all-user-offer
+            = render partial: 'shared/modal_offer_user', collection: @offer_rooms, as: :room, locals: {type_req: "offer"}
+        -else
+          .list-group-item.list-group-item-info
+            p Recently Offer For Products
+          p You don't have any offer yet
+
+    .list-group
+      -if @offerer_rooms.present?
         .list-group-item.list-group-item-info
-          = link_to "Recently Offer", recently_offer_path
+          = link_to "My Offer", recently_offer_path(type: "offerer")
 
         .js-all-user-offer
-          = render partial: 'shared/modal_offer_user', collection: @offer_rooms, as: :room
+          = render partial: 'shared/modal_offer_user', collection: @offerer_rooms, as: :room, locals: {type_req: "offerer"}
       -else
         .list-group-item.list-group-item-info
-          p Recently Offer
+          p My Offer
         p You don't have any offer yet
 
 = link_to "back to index", root_path

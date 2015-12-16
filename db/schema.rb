@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151203073329) do
+ActiveRecord::Schema.define(version: 20151214084038) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,8 +103,11 @@ ActiveRecord::Schema.define(version: 20151203073329) do
     t.datetime "updated_at", null: false
     t.integer  "product_id"
     t.integer  "shop_id"
-    t.string   "offerer"
     t.integer  "user_id"
+    t.string   "name"
+    t.text     "content"
+    t.string   "email"
+    t.string   "telephone"
   end
 
   add_index "offer_rooms", ["product_id"], name: "index_offer_rooms_on_product_id", using: :btree
@@ -119,6 +122,7 @@ ActiveRecord::Schema.define(version: 20151203073329) do
     t.integer  "offer_room_id"
     t.boolean  "read_by_offerer", default: false
     t.boolean  "read_by_owner",   default: false
+    t.string   "recipient"
   end
 
   add_index "offers", ["offer_room_id"], name: "index_offers_on_offer_room_id", using: :btree

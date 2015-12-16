@@ -40,13 +40,14 @@ class Shop < ActiveRecord::Base
     has_many :products
     has_one  :premium_account
     has_many :opening_hours
-    has_many :offer_rooms
+    has_many :offer_rooms, -> { order "created_at DESC" }
   end
   has_many   :scategories, through: :scategory_shops
   belongs_to :user
 
   delegate :username, :id, to: :user, allow_nil: true, prefix: true
   delegate :url, :status, to: :premium_account, prefix: true
+  # delegate :business_email, to: :offer_rooms, allow_nil: true, prefix: true
 
   accepts_nested_attributes_for :premium_account, allow_destroy: true
   accepts_nested_attributes_for :opening_hours, allow_destroy: true

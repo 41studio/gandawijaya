@@ -51,6 +51,8 @@ class User < ActiveRecord::Base
     has_many :products
     has_many :premium_accounts
     has_many :offer_rooms
+    # has_many :offer_rooms_owner
+    has_many :offer_rooms_owner, through: :shops, source: :offer_rooms
   end
 
   validates :handphone, numericality: { allow_blank: true }
