@@ -1,22 +1,22 @@
 p
   'Hi
-  = @owner.username
-p = "Anda menerima penawaran untuk product #{@product}"
+  = @recipient_name
+p = "#{@opening_text} #{@product}"
 p Contact info:
 p
   b Name:
   = @name
 p
   b Email:
-  = @email
+  = @email_recipient
 p
   b Telp:
   = @phone
 hr
 p
-  b Penawaran:
+  / b Penawaran:
   br
   = @content
 hr
 
-p Balas penawaran ini ke email penawar yang sudah di cantumkan diatas
+p = @closing_text

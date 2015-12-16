@@ -1,14 +1,14 @@
 p
   'Hi
-  = @owner.username
-p someone offer for your product
+  = @recipient_name
+p = @opening_text
 p Contact info:
 p
   b Name:
   = @name
 p
   b Email:
-  = @email
+  = @email_recipient
 p
   b Telp:
   = @phone
@@ -16,4 +16,4 @@ hr
 p
   = @content
 
-p please reply to email above
+/ p please reply to email above

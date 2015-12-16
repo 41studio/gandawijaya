@@ -20,7 +20,7 @@ class OfferRoom < ActiveRecord::Base
 
   delegate :name, to: :product, allow_nil: :true, prefix: true
   delegate :id, :name, :business_email, :user_id, to: :shop, allow_nil: true, prefix: true
-  delegate :username, :id, :email, :image, :handphone, to: :user, allow_nil: true, prefix: true
+  delegate :username, :id, :email, :image, :handphone, :first_name, :last_name, to: :user, allow_nil: true, prefix: true
 
   scope :newest, -> { order('created_at DESC') }
 
