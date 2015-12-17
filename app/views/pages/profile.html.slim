@@ -71,7 +71,7 @@
         .list-group-item.list-group-item-info
           = link_to "My Offer", recently_offer_path(type: "offerer")
 
-        .js-all-user-offer
+        .js-all-user-offerer
           = render partial: 'shared/modal_offer_user', collection: @offerer_rooms, as: :room, locals: {type_req: "offerer"}
       -else
         .list-group-item.list-group-item-info

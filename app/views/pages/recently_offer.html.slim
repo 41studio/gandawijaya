@@ -1,6 +1,6 @@
 .list-group
   .list-group-item.list-group-item-info
     h3 = @type.eql?("offerer") ? "My Offer" : "Recently Offer For Products"
-  .js-all-user-offer
+  div class="js-all-user-#{@type}"
     = render partial: 'shared/modal_offer_user', collection: @offer_rooms, as: :room, locals: {type_req: @type}
 = render partial: "shared/modal_offer_ajax", locals: { offers: @ffers, product: @product}
