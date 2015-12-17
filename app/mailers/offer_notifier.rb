@@ -24,7 +24,9 @@ class OfferNotifier < ApplicationMailer
       @recipient_name = room.product.shop_name
       @opening_text = "Someone offer for your product"
     else
-      @recipient_name = offer.user_id == room.user_id ? room.product.shop_name : offer.user_first_name
+      # @recipient_name = offer.user_id == room.user_id ? room.product.shop_name : offer.user_first_name
+      @recipient_name = offer.user_id == room.user_id ? room.product.shop_name : room.user_first_name
+      # recipient = current_user.id == offer_room.user_id ? offer_room.shop_business_email : offer_room.user_email
       @opening_text = "You received a message for product's offer"
     end
     # @recipient_name = room.product.user
