@@ -25,7 +25,7 @@ before_action :offer_params, only: [:create]
     # else
     #   params[:offer][:offerer] = params[:email_offerer]+'|'+params[:name]+'|'+params[:phone]
     # end
-    offer_room = OfferRoom.find_if_any_or_initialize_by(params[:offer])
+    offer_room = OfferRoom.find_if_any_or_initialize_by(params[:offer], current_user.id)
     puts "===================================params[:offer][:user_id]==================================="
     # puts params[:offer][:user_id]
     # offer = offer_room.offers.new(offer_params)
@@ -37,7 +37,7 @@ before_action :offer_params, only: [:create]
       offer.user_id = current_user.id
       offer.recipient = recipient
       @offers = offer_room.offers
-      @offer_rooms = OfferRoom.where(user_id: params[:offer][:user_id]).newest
+      @offer_rooms = OfferRoom.where(user_id: current_user.id).newest
     end
 
     if offer_room.save!

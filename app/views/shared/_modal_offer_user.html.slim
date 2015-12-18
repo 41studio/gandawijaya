@@ -1,4 +1,6 @@
-= link_to collect_offers_path(product: room.product, user_id: room.user_id, type: type_req, offer_room: room.id), class: "list-group-item #{ unread_by_offerer?(room.offers) } ", data: {toggle: "modal", target:"#ajax-modal"}, remote: true, id: "offer-a-#{room.id}" do
+/ =  link_to collect_offers_path(product: room.product, user_id: room.user_id, type: type_req, offer_room: room.id), class: "list-group-item #{ unread_by_offerer?(room.offers) } ", data: {toggle: "modal", target:"#ajax-modal"}, remote: true, id: "offer-a-#{room.id}" do
+
+= link_to collect_offers_path(room: room, type: type_req), class: "list-group-item #{ unread_by_offerer?(room.offers) } ", data: {toggle: "modal", target:"#ajax-modal"}, remote: true, id: "offer-a-#{room.id}" do
     b.list-group-item-heading = room.product_name
     / p = room.id
     .row

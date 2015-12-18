@@ -3,4 +3,4 @@ ready = ->
   #   $('.modal-body-content')[0].scrollTop = $('.modal-body-content')[0].scrollHeight;
 
 $(document).ready ready
-$(document).on "page:load", ready
+# $(document).on "page:load", ready

@@ -21,7 +21,9 @@ class PagesController < ApplicationController
   def collect_offers
     puts "====================================================params===================================================="
 
-    @product = Product.find params[:product]
+    room = OfferRoom.find(params[:room])
+    @product = Product.find(room.product_id)
+    # @product = Product.find params[:product]
     # @offers = @product.offer_rooms.where(user_id: params[:user_id]).first.try(:offers)
     @offers = params[:offer_room].present? ? OfferRoom.find(params[:offer_room]).try(:offers).order('created_at ASC') : @product.offer_rooms.where(user_id: params[:user_id]).first.try(:offers)
     # @offers = params[:type].eql?("offerer") ? @product.offer_rooms.where(user_id: params[:user_id]).first.try(:offers) : nil

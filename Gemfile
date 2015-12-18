@@ -43,6 +43,7 @@ gem 'binding_of_caller'
 gem 'jquery-ui-rails'
 gem 'searchkick'
 gem "rails_best_practices"
+gem 'jquery-turbolinks'
 
 group :production do
   gem 'rails_12factor'

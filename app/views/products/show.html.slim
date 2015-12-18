@@ -30,7 +30,8 @@
     -if unreviewed_by?(@product.id, "Product")
       = link_to 'Rate & Review', "#" , class: "btn btn-success", data: {toggle: "modal", target: "#rate" }
     - if user_signed_in? && !@user_product
-        = link_to 'Send an offer' ,collect_offers_path(product: @product, user_id: current_user, type_req: "offerer"), data: {toggle: "modal", target:"#ajax-modal"}, class: "btn btn-success", remote: true
+        / = link_to 'Send an offer' ,collect_offers_path(product: @product, user_id: current_user, type_req: "offerer"), data: {toggle: "modal", target:"#ajax-modal"}, class: "btn btn-success", remote: true
+        = link_to 'Send an offer' ,collect_offers_path(product: @product, type_req: "offerer"), data: {toggle: "modal", target:"#ajax-modal"}, class: "btn btn-success", remote: true
     - elsif !user_signed_in?
       = link_to 'Send an offer' ,"#", data: {toggle: "modal", target:"#ajax-modal"}, class: "btn btn-success"
   hr

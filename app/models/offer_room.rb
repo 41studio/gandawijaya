@@ -24,16 +24,16 @@ class OfferRoom < ActiveRecord::Base
 
   scope :newest, -> { order('created_at DESC') }
 
-  def self.find_if_any_or_initialize_by(param_offers)
+  def self.find_if_any_or_initialize_by(param_offers, user_id)
     where(shop_id:    param_offers[:shop_id],
           product_id: param_offers[:product_id],
-          user_id:    param_offers[:user_id]
+          user_id:    user_id
           ).first_or_initialize do |offer|
             offer.email     = param_offers[:email]
             offer.name      = param_offers[:name]
             offer.telephone = param_offers[:phone]
             offer.content   = param_offers[:content]
-            offer.user_id   = param_offers[:user_id]
+            offer.user_id   = user_id
 					end
   end
 end

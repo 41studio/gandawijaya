@@ -47,7 +47,7 @@ class Product < ActiveRecord::Base
 
   def self.search_product(text)
     # search(text, fields: [{"name^2" => :word_start}])
-    search text, fields: [{"name^10" => :word_start}], boost_where: {premium: true}
+    search text, fields: [{"name^10" => :word}], boost_where: {premium: true}
     # search text, fields: [{"name^10" => :word_start}]
   end
 

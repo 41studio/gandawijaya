@@ -9,4 +9,4 @@ ready = ->
       $(this).text "cancel"
 
 $(document).ready ready
-$(document).on "page:load", ready
+# $(document).on "page:load", ready
