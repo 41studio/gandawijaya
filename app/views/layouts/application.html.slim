@@ -1,25 +1,39 @@
-DOCTYPE
+/ DOCTYPE
+/ html
+/   head
+/     title Gandawijaya
+/     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+/     = javascript_include_tag 'application', 'data-turbolinks-track' => true
+/     = javascript_include_tag "//www.google.com/jsapi", "chartkick"
+/     = csrf_meta_tags
+/   body
+
+doctype html
 html
   head
+    meta name="viewport" content="width=device-width"
     title Gandawijaya
+    meta property="og:title" content="MGandawijaya"
+    link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = javascript_include_tag "//www.google.com/jsapi", "chartkick"
     = csrf_meta_tags
-body
 
-  = render "layouts/nav"
-  .container
-  	-if notice || alert
-      p.notice = notice
-    	p.alert = alert
+  body
 
-    = form_tag searching_path, method: 'post', class:'form-inline clearfix' do
+    = render "layouts/nav"
+    .container
+  	  -if notice || alert
+        p.notice = notice
+    	  p.alert = alert
 
-      .form-group.search-by
-        = select_tag( :search_by, search_option, class:'form-control')
-      .form-group.search-text
-        = search_field_tag :search_text, '', class:'form-control'
-      = submit_tag "Search"
+      = form_tag searching_path, method: 'post', class:'form-inline clearfix' do
 
-    = yield
+        .form-group.search-by
+          = select_tag( :search_by, search_option, class:'form-control')
+        .form-group.search-text
+          = search_field_tag :search_text, '', class:'form-control'
+        = submit_tag "Search"
+
+      = yield
