@@ -26,7 +26,10 @@ class PagesController < ApplicationController
     # @product = Product.find params[:product]
     # @offers = @product.offer_rooms.where(user_id: params[:user_id]).first.try(:offers)
     # @offers = params[:offer_room].present? ? OfferRoom.find(params[:offer_room]).try(:offers).order('created_at ASC') : @product.offer_rooms.where(user_id: params[:user_id]).first.try(:offers) latest
-    @offers = params[:type].eql?("offerer") ? @product.offer_rooms.where(user_id: current_user.id).first.try(:offers) : nil
+    # @offers = params[:type_req].eql?("offerer") ? @product.offer_rooms.where(user_id: current_user.id).first.try(:offers) : OfferRoom.find(room.id).try(:offers).order('created_at ASC')
+    @offers = params[:room].present? ? OfferRoom.find(room.id).try(:offers).order('created_at ASC') : @product.offer_rooms.where(user_id: current_user.id).first.try(:offers)
+    puts @product.inspect
+    puts @offers.inspect
     if @offers
       if params[:user_id].to_i.eql? current_user.id
         @offers.each{ |o| o.update_attribute :read_by_offerer, true }
