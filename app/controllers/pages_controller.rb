@@ -21,12 +21,12 @@ class PagesController < ApplicationController
   def collect_offers
     puts "====================================================params===================================================="
 
-    room = OfferRoom.find(params[:room])
-    @product = Product.find(room.product_id)
+    room = params[:room].present? ? OfferRoom.find(params[:room]) : nil
+    @product = room.nil? ? Product.find(params[:product]) : Product.find(room.product_id)
     # @product = Product.find params[:product]
     # @offers = @product.offer_rooms.where(user_id: params[:user_id]).first.try(:offers)
-    @offers = params[:offer_room].present? ? OfferRoom.find(params[:offer_room]).try(:offers).order('created_at ASC') : @product.offer_rooms.where(user_id: params[:user_id]).first.try(:offers)
-    # @offers = params[:type].eql?("offerer") ? @product.offer_rooms.where(user_id: params[:user_id]).first.try(:offers) : nil
+    # @offers = params[:offer_room].present? ? OfferRoom.find(params[:offer_room]).try(:offers).order('created_at ASC') : @product.offer_rooms.where(user_id: params[:user_id]).first.try(:offers) latest
+    @offers = params[:type].eql?("offerer") ? @product.offer_rooms.where(user_id: current_user.id).first.try(:offers) : nil
     if @offers
       if params[:user_id].to_i.eql? current_user.id
         @offers.each{ |o| o.update_attribute :read_by_offerer, true }

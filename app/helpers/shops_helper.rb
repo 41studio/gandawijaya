@@ -10,6 +10,7 @@ module ShopsHelper
   def form_offer
     if user_signed_in?
       simple_form_for Offer.new, remote: true, defaults: { input_html: { class: 'form-control' } } { |f| yield  f }
+      # simple_form_for Offer.new, defaults: { input_html: { class: 'form-control' } } { |f| yield  f }
     else
       simple_form_for Offer.new, defaults: { input_html: { class: 'form-control' } }  { |f| yield  f }
     end

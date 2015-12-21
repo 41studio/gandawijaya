@@ -25,8 +25,13 @@ before_action :offer_params, only: [:create]
     # else
     #   params[:offer][:offerer] = params[:email_offerer]+'|'+params[:name]+'|'+params[:phone]
     # end
-    offer_room = OfferRoom.find_if_any_or_initialize_by(params[:offer], current_user.id)
     puts "===================================params[:offer][:user_id]==================================="
+    product = Product.find(params[:offer][:product_id])
+    shop = Shop.find(product.shop_id)
+    puts product.inspect
+    puts shop.inspect
+
+    offer_room = OfferRoom.find_if_any_or_initialize_by(params[:offer], current_user.id, shop, product)
     # puts params[:offer][:user_id]
     # offer = offer_room.offers.new(offer_params)
     recipient = current_user.id == offer_room.user_id ? offer_room.shop_business_email : offer_room.user_email
@@ -41,10 +46,10 @@ before_action :offer_params, only: [:create]
     end
 
     if offer_room.save!
-      respond_to do |format|
-        format.html{ redirect_to :back, notice: "offer succesfully created" }
-        format.js
-      end
+      # respond_to do |format|
+      #   format.html{ redirect_to :back, notice: "offer succesfully created" }
+      #   format.js
+      # end
     end
   end
 
