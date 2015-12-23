@@ -2,8 +2,7 @@ class PagesController < ApplicationController
   before_action :authenticate_user!, only: [:profile]
 
   def dashboard
-    # @shops = Shop.newest.except_rejected_shops
-    @shops = Shop.newest
+    @shops = Shop.newest.except_rejected_shops
     @products = Product.order(created_at: :desc)
   end
 
