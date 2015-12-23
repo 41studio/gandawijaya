@@ -20,6 +20,7 @@
                 = text_field_tag 'offer[phone]', nil, placeholder: "Mobile number", class: "form-control", id: "phone-offerer"
           = f.input :content, autofocus: true
           = f.hidden_field :product_id, value: ""
+          = f.hidden_field :offer_room_id, value: ""
         .modal-footer
           = f.button :submit, class: "btn btn-success btn-submit-offer"
           button.btn type="button" data-dismiss="modal" close

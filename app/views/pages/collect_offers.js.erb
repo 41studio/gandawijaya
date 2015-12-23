@@ -13,7 +13,7 @@ $(loader).fadeToggle('fast', function() {
   $(loader).fadeOut('slow');
   $(content).html("<%= j render partial: 'pages/offer', collection: @offers, as: :offer %>");
   $(content)[0].scrollTop = $(content)[0].scrollHeight;
-  // $('#offer_shop_id').val("<%= @product.shop.id %>");
+  $('#offer_offer_room_id').val("<%= @room.try(:id) %>");
   $('#offer_product_id').val("<%= @product.id %>");
   // $('#offer_user_id').val("<%= params[:user_id]%>")
   $(modal).modal();

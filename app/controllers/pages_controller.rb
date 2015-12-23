@@ -2,7 +2,8 @@ class PagesController < ApplicationController
   before_action :authenticate_user!, only: [:profile]
 
   def dashboard
-    @shops = Shop.order(created_at: :desc)
+    # @shops = Shop.newest.except_rejected_shops
+    @shops = Shop.newest
     @products = Product.order(created_at: :desc)
   end
 
@@ -21,13 +22,13 @@ class PagesController < ApplicationController
   def collect_offers
     puts "====================================================params===================================================="
 
-    room = params[:room].present? ? OfferRoom.find(params[:room]) : nil
-    @product = room.nil? ? Product.find(params[:product]) : Product.find(room.product_id)
+    @room = params[:room].present? ? OfferRoom.find(params[:room]) : nil
+    @product = @room.nil? ? Product.find(params[:product]) : Product.find(@room.product_id)
     # @product = Product.find params[:product]
     # @offers = @product.offer_rooms.where(user_id: params[:user_id]).first.try(:offers)
     # @offers = params[:offer_room].present? ? OfferRoom.find(params[:offer_room]).try(:offers).order('created_at ASC') : @product.offer_rooms.where(user_id: params[:user_id]).first.try(:offers) latest
     # @offers = params[:type_req].eql?("offerer") ? @product.offer_rooms.where(user_id: current_user.id).first.try(:offers) : OfferRoom.find(room.id).try(:offers).order('created_at ASC')
-    @offers = params[:room].present? ? OfferRoom.find(room.id).try(:offers).order('created_at ASC') : @product.offer_rooms.where(user_id: current_user.id).first.try(:offers)
+    @offers = params[:room].present? ? OfferRoom.find(@room.id).try(:offers).order('created_at ASC') : @product.offer_rooms.where(user_id: current_user.id).first.try(:offers)
     puts @product.inspect
     puts @offers.inspect
     if @offers

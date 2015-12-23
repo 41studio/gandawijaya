@@ -36,13 +36,14 @@ class OfferNotifier < ApplicationMailer
     # byebug
     if room.user_id?
       email = offer.recipient
-      @name  = room.user_first_name
+      # @name_sender  = room.user_first_name
+      @name_sender = offer.user_id == room.user_id ? room.user_first_name : room.product.shop_name
       @phone =  room.user_handphone
-      @email_recipient = offer.user_id == room.user_id ? offer.offer_room.user_email : offer.offer_room.shop_business_email
+      @email_sender = offer.user_id == room.user_id ? offer.offer_room.user_email : offer.offer_room.shop_business_email
     else
       email = room.email
-      @name = room.name
-      @email_recipient = email
+      @name_sender = room.name
+      @email_sender = email
       @phone = room.telephone
     end
     mail to: email,

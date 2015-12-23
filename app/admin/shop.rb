@@ -56,7 +56,7 @@ ActiveAdmin.register Shop do
       row :image do
         image_tag shop.image.url
       end
-      row :status, :as => :select, :collection => ["under_review", "on_progress", "approved"]
+      row :status, :as => :select, :collection => ["under_review", "on_progress", "approved", "rejected"]
       row :address
       row :telephone
       row :mobile_phones

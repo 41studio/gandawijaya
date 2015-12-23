@@ -32,7 +32,7 @@ class Shop < ActiveRecord::Base
   friendly_id    :name_and_id, use: [:slugged, :finders]
   mount_uploader :image, GalleryUploader
   mount_uploader :cover_image, GalleryUploader
-  enum status: [:under_review, :on_progress, :approved]
+  enum status: [:under_review, :on_progress, :approved, :rejected]
 
   with_options dependent: :destroy do
     has_many :scategory_shops
@@ -68,6 +68,10 @@ class Shop < ActiveRecord::Base
   SHOP_WORK_HOUR = ["Closed", "1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00",
                     "9:00",   "10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00",
                     "18:00",  "19:00","20:00","21:00","22:00", "23:00"]
+
+  scope :except_rejected_shops, -> { where('status != 3') }
+  scope :newest, -> { order('created_at DESC') }
+
   def send_mail_new_shop
     ShopMailer.shop_created(self.user).deliver_now
   end
